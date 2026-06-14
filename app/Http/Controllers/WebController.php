@@ -362,7 +362,7 @@ class WebController extends Controller
         $project = Content::where('type', 'project')
             ->where('status', 1)
             ->findOrFail($id);
-
+    dd($project);
         $extra      = json_decode($project->extra ?? '{}', true);
         $imgPaths = collect(json_decode($project->img_paths ?? '[]', true))
             ->map(fn($path) => asset($path))
