@@ -131,7 +131,7 @@ $setting->title ?? 'Bhaiya Housing',
 "item" => [
 "@type" => "ApartmentComplex",
 "name" => $project->title ?? '',
-"url" => url('/projects/' . $project->id),
+"url" => url('/project/' . $project->id),
 "image" => $project->img_path ? asset($project->img_path) : $pageImage,
 "address" => [
 "@type" => "PostalAddress",
@@ -151,7 +151,7 @@ $setting->title ?? 'Bhaiya Housing',
 "item" => [
 "@type" => $item->type === 'events' ? "Event" : "Article",
 "name" => $item->title ?? '',
-"url" => url('/' . ($item->type === 'events' ? 'events/' : 'news/') . $item->id),
+"url" => url('/' . ($item->type === 'events' ? 'event/' : 'news/') . $item->id),
 "startDate" => $item->start_date ?? null,
 ],
 ])->values()->toArray() : [],
