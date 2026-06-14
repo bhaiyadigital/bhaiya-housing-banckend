@@ -1,8 +1,9 @@
  @extends('layouts.front')
- @section('title', 'Our Signature Projects')
+ @section('title', 'Our Signature Projects | Bhaiya Housing Ltd.')
  @section('meta')
  @php
- $pageTitle = 'Our Signature Projects – ' . ($setting->title ?? 'Bhaiya Housing Ltd.');
+ 
+ $pageTitle = 'Our Signature Projects – ' .'| Bhaiya Housing Ltd.';
  $pageDesc = 'Discover our signature residential and commercial real estate projects across Bangladesh. Browse upcoming, ongoing, and completed luxury properties by Bhaiya Housing Ltd.';
  $pageUrl = url()->current();
  $pageImage = isset($projectHero->img_path) ? asset($projectHero->img_path) : asset('assets/images/projectmain.jpg');
