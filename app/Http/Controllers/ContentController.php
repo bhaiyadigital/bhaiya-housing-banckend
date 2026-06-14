@@ -248,15 +248,18 @@ class ContentController extends Controller
         return view('backend.content.show', compact('content'));
     }
     public function uploadImage($image)
-    {
-        $imageName = time() . rand(9999, 99999) . '.' . $image->getClientOriginalExtension();
-        $image->move(public_path('images'), $imageName);
-        return 'images/' . $imageName;
-    }
-    public function uploadVideo($video)
-    {
-        $videoName = time() . rand(9999, 99999) . '.' . $video->getClientOriginalExtension();
-        $video->move(public_path('videos'), $videoName);
-        return 'videos/' . $videoName;
-    }
+{
+    $imageName = $image->getClientOriginalName();
+    $image->move(public_path('images'), $imageName);
+
+    return 'images/' . $imageName;
+}
+
+public function uploadVideo($video)
+{
+    $videoName = $video->getClientOriginalName();
+    $video->move(public_path('videos'), $videoName);
+
+    return 'videos/' . $videoName;
+}
 }
