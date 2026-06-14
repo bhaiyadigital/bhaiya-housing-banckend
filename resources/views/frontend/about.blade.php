@@ -1,15 +1,10 @@
 @extends('layouts.front')
 
-@section('title', 'About Us & Our Legacy')
+@section('title', ($setting->meta_title ?? 'Bhaiya Housing') . ' | Bhaiya Housing Ltd.')
 @section('meta')
 @php
-$pageTitle = 'About Us & Our Legacy – ' . ($setting->title ?? 'Bhaiya Housing Ltd.');
-
-// Create a strong SEO description based on the 'About' section, with a solid fallback
-$pageDesc = isset($about->body) && !empty($about->body)
-? Str::limit(strip_tags($about->body), 155)
-: 'Learn about Bhaiya Housing Ltd., our mission, vision, and rich history. Discover the visionary leaders driving premium real estate development across Bangladesh.';
-
+$pageTitle = ($setting->meta_title ?? 'Bhaiya Housing').' | Bhaiya Housing Ltd.';
+$pageDesc = ($setting->meta_description ?? 'Since 2012, Bhaiya Housing crafts exquisite residential and commercial spaces in Bangladesh. Partner with us as a landowner or find your dream luxury property.')  ;
 $pageUrl = url()->current();
 $pageImage = isset($about->img_path) ? asset($about->img_path) : asset('assets/images/about-hero.jpg');
 
@@ -26,13 +21,14 @@ $schema = [
 "page" => [
 "description" => $pageDesc,
 "keywords" => implode(', ', [
-'About Bhaiya Housing',
-'Bhaiya Group Bangladesh',
-'real estate developer history Dhaka',
-'top housing companies BD',
-'mission and vision real estate',
-'Bhaiya Housing directors',
-'property developers in Bangladesh'
+$setting->meta_keywords ?? 'Bhaiya Housing',
+'real estate Bangladesh',
+'property developer Dhaka',
+'buy luxury apartments Dhaka',
+'commercial spaces Bangladesh',
+'landowner joint venture',
+'real estate company in BD',
+'Bhaiya Group',
 ]),
 "robots" => "index, follow, max-image-preview:large",
 "canonical" => $pageUrl,
@@ -182,7 +178,7 @@ $schema = [
     <div class="container m-auto mx-auto absolute inset-0 flex flex-col justify-center p-4 md:p-0"
         style="padding-top: 88px;" >
 
-        <h2 data-aos="fade-up" data-aos-duration="1000"
+        <h1 data-aos="fade-up" data-aos-duration="1000"
             class="text-white leading-tight"
             style="font-size: clamp(22px, 4.5vw, 72px);"
                 :style="{ letterSpacing: window.innerWidth >= 768 ? '-4px' : '0px' }">
@@ -190,7 +186,7 @@ $schema = [
             
             Building <span class="font-migra-italic">quality</span> spaces with
             <span class="font-migra-italic">excellence & dedication</span>
-        </h2>
+        </h1>
 
         @if ($about->body || $about->body_2)
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mt-6 md:mt-12 mb-8 md:mb-16 p-4 md:p-0">
@@ -404,10 +400,10 @@ $schema = [
                 </div>
             </div>
 
-            <h1 id="timeline-year"
+            <div id="timeline-year"
                 class="absolute z-20 top-0 left-24 sm:left-32 md:left-48 lg:left-64 text-[4rem] sm:text-[6rem] md:text-[9rem] lg:text-[11rem] font-bold leading-none text-gray-300 opacity-90 select-none tracking-tighter transition-all duration-700 pointer-events-none">
                 {{ $timelineItems->first()?->title }}
-            </h1>
+            </div>
         </div>
 
         <!-- Description -->

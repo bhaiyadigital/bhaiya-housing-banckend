@@ -1,11 +1,11 @@
 @extends('layouts.front')
 
-@section('title', ($setting->title ?? 'Bhaiya Housing') . ' – We transform your dreams into addresses')
+@section('title', ($setting->meta_title ?? 'Bhaiya Housing') . ' | Bhaiya Housing Ltd.')
 
 @section('meta')
 @php
-$pageTitle = ($setting->title ?? 'Bhaiya Housing') . ' – Premium Real Estate & Property Developers in Bangladesh';
-$pageDesc = $setting->short ?? 'Since 2012, Bhaiya Housing crafts exquisite residential and commercial spaces in Bangladesh. Partner with us as a landowner or find your dream luxury property.';
+$pageTitle = ($setting->meta_title ?? 'Bhaiya Housing').' | Bhaiya Housing Ltd.';
+$pageDesc = ($setting->meta_description ?? 'Since 2012, Bhaiya Housing crafts exquisite residential and commercial spaces in Bangladesh. Partner with us as a landowner or find your dream luxury property.')  ;
 $pageUrl = url('/');
 $pageImage = asset('frontend/images/logo.svg');
 
@@ -16,7 +16,7 @@ $schema = [
 "page" => [
 "description" => $pageDesc,
 "keywords" => implode(', ', [
-$setting->title ?? 'Bhaiya Housing',
+$setting->meta_keywords ?? 'Bhaiya Housing',
 'real estate Bangladesh',
 'property developer Dhaka',
 'buy luxury apartments Dhaka',
