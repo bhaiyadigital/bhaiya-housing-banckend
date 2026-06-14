@@ -405,7 +405,7 @@ class WebController extends Controller
                 'date'  => $item->start_date
                     ? \Carbon\Carbon::parse($item->start_date)->format('d F Y')
                     : null,
-                'url' => '/' . $item->type . '/' . $item->id,
+                'url' => '/' . ($item->type === 'events' ? 'event/' : 'news/') . $item->id,
             ])->values();
         $this->facebook->sendEvent(
             'PageView',
