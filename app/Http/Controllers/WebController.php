@@ -359,32 +359,7 @@ class WebController extends Controller
 
     public function showProject($id)
     {
-        $project = Content::where('type', 'project')
-            ->where('status', 1)
-            ->findOrFail($id);
-    dd($project);
-        $extra      = json_decode($project->extra ?? '{}', true);
-        $imgPaths = collect(json_decode($project->img_paths ?? '[]', true))
-            ->map(fn($path) => asset($path))
-            ->values()
-            ->toArray();
-
-        $sliderImages = array_slice($imgPaths, 3);
-        $sliderTotal  = count($sliderImages);
-        $this->trackFacebook(
-            'ViewContent',
-            [
-                'client_ip_address' => request()->ip(),
-                'client_user_agent' => request()->userAgent(),
-            ],
-            [
-                'content_type' => 'project',
-                'content_id'   => $project->id,
-                'content_name'  => $project->title ?? null,
-            ]
-        );
-
-        return view('frontend.projects-show', compact('project', 'extra', 'imgPaths', 'sliderImages', 'sliderTotal'));
+         echo 1;
     }
 
     public function events()
