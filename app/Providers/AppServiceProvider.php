@@ -345,6 +345,7 @@ class AppServiceProvider extends ServiceProvider
                 'location' => ['label' => '', 'required' => false],
                 'body'     => ['label' => 'Head Office Address', 'required' => false],
                 'body_2'   => ['label' => 'Corporate Office Address', 'required' => false],
+                'body_3'   => ['label' => 'Project Text', 'required' => false],
                 'url'      => ['label' => 'Google Map Embed Link', 'required' => false],
                 'meta_title'       => ['label' => 'Meta Title', 'required' => false],
                 'meta_description' => ['label' => 'Meta Description', 'required' => false],
