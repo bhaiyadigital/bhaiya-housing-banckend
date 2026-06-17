@@ -70,7 +70,7 @@
   @vite(['resources/css/app.css', 'resources/js/app.js'])
 
 <!-- Local CSS (keep but ensure minified) -->
-<link rel="stylesheet" href="{{ asset('frontend/css/custom.css') }}?v=111111111111">
+<link rel="stylesheet" href="{{ asset('frontend/css/custom.min.css') }}?v=111111111111">
 
     <style>
         html.lenis {
@@ -172,11 +172,11 @@
     @include('partials.footer')
     @include('partials.scripts')
 
-    <!-- Swiper JS -->
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-
-    <!-- Lenis -->
-    <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js" defer></script>
+        <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js" defer></script>
+        <script src="https://cdn.jsdelivr.net/npm/lenis@1.0.0/dist/lenis.min.js" defer></script>
+        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script>
+        <script src="https://unpkg.com/aos@2.3.4/dist/aos.js" defer></script>
 
     <!-- Local JS -->
     <script src="{{ asset('frontend/js/main.js') }}"></script>
