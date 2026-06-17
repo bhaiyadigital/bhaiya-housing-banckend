@@ -1,5 +1,4 @@
-window.addEventListener("load", () => {
- 
+
 
 // ── Menu Open/Close ──
 const overlay  = document.getElementById('menuOverlay');
@@ -71,5 +70,4 @@ function unhoverLink(el) {
 // ESC key close
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') closeMenu();
-});
 });
