@@ -201,7 +201,7 @@ class ContentController extends Controller
         'start_date'       => $request->input('start_date'),
         'end_date'         => $request->input('end_date'),
         'location'         => $request->input('location'),
-        'extra'            => $extra,
+        'extra'            => $request->input('type') == 'settings' ? $request->input('extra') : $extra,
         'status'           => $request->input('status', 0),
     ]);
 
