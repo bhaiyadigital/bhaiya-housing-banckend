@@ -57,7 +57,7 @@
 <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"></noscript>
 
 <!-- Tailwind (IMPORTANT: CDN use ONLY for dev) -->
-<!-- <script>
+<script>
   tailwind = {
     config: {
       corePlugins: {
@@ -66,10 +66,10 @@
     }
   }
 </script>
-<script src="https://cdn.tailwindcss.com"></script> -->
+<script src="https://cdn.tailwindcss.com"></script>
 
 <!-- Local CSS (keep but ensure minified) -->
-<link rel="stylesheet" href="{{ asset('frontend/css/custom.css') }}?v=1.2">
+<link rel="stylesheet" href="{{ asset('frontend/css/custom.css') }}?v=111111111111">
 
     <style>
         html.lenis {
