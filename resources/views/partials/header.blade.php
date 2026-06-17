@@ -4,14 +4,22 @@
     <div class="container  flex items-center justify-between mx-auto m-auto">
     <!-- Logo -->
 <a href="/" class="z-50 flex-shrink-0">
-    <img src="{{ asset($setting->img_path ?? 'images/logo.svg') }}"
+    
+    <img 
+        src="{{ asset($setting->img_path ?? 'images/logo.svg') }}"
         alt="{{ $setting->title ?? 'Bhaiya' }}"
         class="w-[130px] md:w-[180px] object-contain"
-        onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
+        fetchpriority="high"
+        loading="eager"
+        decoding="async"
+        onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+    />
+
     <span class="hidden text-white font-semibold tracking-widest text-base md:text-xl"
         style="font-family:'Jost',sans-serif;">
         {{ strtoupper($setting->title ?? 'BHAIYA HOUSING') }}
     </span>
+
 </a>
     <!-- Hamburger -->
     <button id="menuToggle" onclick="openMenu()"
