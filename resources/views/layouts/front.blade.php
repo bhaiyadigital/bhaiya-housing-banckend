@@ -8,28 +8,33 @@
     <link rel="icon" type="image/webp" href="{{ asset('assets/images/fav.webp') }}">
     <!-- Facebook Pixel -->
     <script>
-        ! function(f, b, e, v, n, t, s) {
-            if (f.fbq) return;
-            n = f.fbq = function() {
-                n.callMethod ?
-                    n.callMethod.apply(n, arguments) : n.queue.push(arguments)
-            };
-            if (!f._fbq) f._fbq = n;
-            n.push = n;
-            n.loaded = !0;
-            n.version = '2.0';
-            n.queue = [];
-            t = b.createElement(e);
-            t.async = !0;
-            t.src = v;
-            s = b.getElementsByTagName(e)[0];
-            s.parentNode.insertBefore(t, s)
-        }(window, document, 'script',
-            'https://connect.facebook.net/en_US/fbevents.js');
-        fbq('init', '1810581886992684');
-        fbq('track', 'PageView');
-        @stack('pixel_events')
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                ! function(f, b, e, v, n, t, s) {
+                    if (f.fbq) return;
+                    n = f.fbq = function() {
+                        n.callMethod ?
+                            n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+                    };
+                    if (!f._fbq) f._fbq = n;
+                    n.push = n;
+                    n.loaded = !0;
+                    n.version = '2.0';
+                    n.queue = [];
+                    t = b.createElement(e);
+                    t.async = !0;
+                    t.src = v;
+                    s = b.getElementsByTagName(e)[0];
+                    s.parentNode.insertBefore(t, s)
+                }
+                (window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+                fbq('init', '1810581886992684');
+                fbq('track', 'PageView');
+                @stack('pixel_events')
+            }, 3000);
+        });
     </script>
+
     <noscript>
         <img height="1" width="1" style="display:none"
             src="https://www.facebook.com/tr?id=1810581886992684&ev=PageView&noscript=1" />
@@ -37,14 +42,13 @@
 
     @yield('meta')
 
-  <!-- Preconnect (Fonts speed boost) -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Preconnect (Fonts speed boost) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <!-- AOS -->
     <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
 
     <!-- FontAwesome -->
@@ -58,10 +62,10 @@
 
     <!-- Local CSS -->
     <link rel="stylesheet" href="{{ asset('frontend/css/custom.css') }}?v=111111111111">
- 
 
-<!-- Local CSS (keep but ensure minified) -->
-<link rel="stylesheet" href="{{ asset('frontend/css/custom.min.css') }}?v=111111111111">
+
+    <!-- Local CSS (keep but ensure minified) -->
+    <link rel="stylesheet" href="{{ asset('frontend/css/custom.min.css') }}?v=1.1">
 
     <style>
         html.lenis {
@@ -163,14 +167,25 @@
     @include('partials.footer')
     @include('partials.scripts')
 
-        <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js" defer></script>
-        <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js" defer></script>
-        <script src="https://cdn.jsdelivr.net/npm/lenis@1.0.0/dist/lenis.min.js" defer></script>
-        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script>
-        <script src="https://unpkg.com/aos@2.3.4/dist/aos.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/lenis@1.0.0/dist/lenis.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script>
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
 
-    <!-- Local JS -->
+    <script>
+        window.addEventListener('load', function() {
+            if (typeof AOS !== 'undefined') {
+                AOS.init({
+                    duration: 800,
+                    once: true
+                });
+            }
+        });
+    </script>
+
     <script src="{{ asset('frontend/js/main.js') }}"></script>
+    @stack('scripts')
 
     <script>
         let lastScroll = 0;
@@ -305,7 +320,6 @@
         // ==========================================
     </script>
 
-    @stack('scripts')
 
 </body>
 

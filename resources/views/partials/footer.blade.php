@@ -30,9 +30,9 @@
       .mobile-head-office-address:hover * {
         color: #ffffff !important;
       }
-      
+
       /* আইকনের শেইপ নিখুঁত রাখার জন্য fill: currentColor রিমুভ করা হয়েছে */
-      .mobile-social-link svg, 
+      .mobile-social-link svg,
       .mobile-social-link i {
         width: 24px !important;
         height: 24px !important;
@@ -79,23 +79,23 @@
   </style>
 
   <div class="container mx-auto px-6 lg:px-14 pt-16 pb-10">
-    
+
     <!-- ================================================================= -->
     <!-- ─── ১. মোবাইল ভিউ (lg:hidden) ─── -->
     <!-- ================================================================= -->
     <div class="lg:hidden">
-      
+
       <!-- Top Row: Navigation Left + Socials Right -->
       <div class="flex justify-between items-start gap-6 mb-10">
         <!-- Navigation Menu -->
         <nav class="flex flex-col gap-6">
-          <a href="/about" class="mobile-nav-link">About Us</a>
-          <a href="/projects" class="mobile-nav-link">Projects</a>
-          <a href="/event" class="mobile-nav-link">Events &amp; News</a>
-          <a href="/customer-contact" class="mobile-nav-link">Contacts</a>
-          <a href="/blog" class="mobile-nav-link">Blog</a>
+          <a href="/about" aria-label="Learn more about us" class="mobile-nav-link">About Us</a>
+          <a href="/projects" aria-label="learn about projects" class="mobile-nav-link">Projects</a>
+          <a href="/event" aria-label="Learn about events" class="mobile-nav-link">Events &amp; News</a>
+          <a href="/customer-contact" aria-label="customer contact" class="mobile-nav-link">Contacts</a>
+          <a href="/blog" aria-label="blog pages" class="mobile-nav-link">Blog</a>
           @foreach($pages as $page)
-          <a href="{{ route('page.show', $page->name) }}" class="mobile-nav-link">
+          <a href="{{ route('page.show', $page->name) }}" aria-label="other pages" class="mobile-nav-link">
             {{ $page->title }}
           </a>
           @endforeach
@@ -122,7 +122,7 @@
       <div class="space-y-8 text-left">
         @if($setting?->extra)
         <p class="text-white text-[20px] font-normal tracking-wide transition-colors duration-300 hover:text-[#C0A46F]">
-          <a href="tel:{{ preg_replace('/[^0-9+]/', '', $setting->extra) }}" class="no-underline text-white hover:text-[#C0A46F]">
+          <a href="tel:{{ preg_replace('/[^0-9+]/', '', $setting->extra) }}" aria-label="phone number" class="no-underline text-white hover:text-[#C0A46F]">
             {{ $setting->extra }}
           </a>
         </p>
@@ -130,7 +130,7 @@
 
         @if($setting?->short)
         <p class="text-white text-[20px] font-light transition-colors duration-300 hover:text-[#C0A46F]">
-          <a href="mailto:{{ $setting->short }}" class="no-underline text-white hover:text-[#C0A46F]">
+          <a href="mailto:{{ $setting->short }}" aria-label="email" class="no-underline text-white hover:text-[#C0A46F]">
             {{ $setting->short }}
           </a>
         </p>
@@ -186,7 +186,7 @@
         <!-- Email -->
         @if($setting?->short)
         <div class="mb-6">
-          <a href="mailto:{{ $setting->short }}"
+          <a href="mailto:{{ $setting->short }}" aria-label="email address"
             class="text-white text-sm font-light transition-colors duration-300 no-underline hover:text-[#C0A46F]">
             {{ $setting->short }}
           </a>
@@ -240,14 +240,14 @@
 
         <!-- Nav -->
         <nav class="flex flex-wrap gap-x-8 gap-y-4">
-          <a href="/" class="text-white text-xl font-light transition-colors duration-300 no-underline hover:text-[#C0A46F]">Home</a>
-          <a href="/about" class="text-white text-xl font-light transition-colors duration-300 no-underline hover:text-[#C0A46F]">About Us</a>
-          <a href="/projects" class="text-white text-xl font-light transition-colors duration-300 no-underline hover:text-[#C0A46F]">Projects</a>
-          <a href="/event" class="text-white text-xl font-light transition-colors duration-300 no-underline hover:text-[#C0A46F]">Events &amp; News</a>
-          <a href="/customer-contact" class="text-white text-xl font-light transition-colors duration-300 no-underline hover:text-[#C0A46F]">Contacts</a>
-          <a href="/blog" class="text-white text-xl font-light transition-colors duration-300 no-underline hover:text-[#C0A46F]">Blog</a>
+          <a href="/" aria-label="Home page" class="text-white text-xl font-light transition-colors duration-300 no-underline hover:text-[#C0A46F]">Home</a>
+          <a href="/about" aria-label="Learn more about us" class="text-white text-xl font-light transition-colors duration-300 no-underline hover:text-[#C0A46F]">About Us</a>
+          <a href="/projects" aria-label="project page" class="text-white text-xl font-light transition-colors duration-300 no-underline hover:text-[#C0A46F]">Projects</a>
+          <a href="/event" aria-label="Learn more about event" class="text-white text-xl font-light transition-colors duration-300 no-underline hover:text-[#C0A46F]">Events &amp; News</a>
+          <a href="/customer-contact" aria-label="contact us" class="text-white text-xl font-light transition-colors duration-300 no-underline hover:text-[#C0A46F]">Contacts</a>
+          <a href="/blog" aria-label="Learn more about blog" class="text-white text-xl font-light transition-colors duration-300 no-underline hover:text-[#C0A46F]">Blog</a>
           @foreach($pages as $page)
-          <a href="{{ route('page.show', $page->name) }}"
+          <a href="{{ route('page.show', $page->name) }}" aria-label="page name"
             class="text-white text-xl font-light transition-colors duration-300 no-underline hover:text-[#C0A46F]">
             {{ $page->title }}
           </a>
@@ -267,7 +267,7 @@
         &copy; {{ date('Y') }} {{ $setting?->title ?? 'Bhaiya Housing Ltd.' }}
       </p>
       <p class="flex items-center gap-2 text-white text-xs font-light">
-    Design & Develop By  <a href="https://www.bhaiya.digital/" target="_blank" rel="noopener noreferrer" class="text-white hover:text-[#C0A46F]">Bhaiya Digital</a>
+    Design & Develop By  <a href="https://www.bhaiya.digital/" aria-label="link of bhaiya digital" target="_blank" rel="noopener noreferrer" class="text-white hover:text-[#C0A46F]">Bhaiya Digital</a>
       </p>
     </div>
   </div>
