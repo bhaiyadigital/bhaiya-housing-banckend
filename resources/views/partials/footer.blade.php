@@ -168,7 +168,7 @@
 
         <!-- Logo -->
         <div class="mb-8">
-          <img src="{{ $setting?->img_path ? asset($setting->img_path) : asset('images/logo-white.png') }}"
+          <img src="{{ $setting?->img_path ? asset($setting->img_path) : '' }}"
             alt="{{ $setting?->title ?? 'Bhaiya Housing' }}" class="w-[180px]"
             onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
           <span class="hidden text-white text-2xl font-semibold tracking-widest">

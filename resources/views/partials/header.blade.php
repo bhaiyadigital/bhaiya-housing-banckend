@@ -13,8 +13,7 @@
         </a>
         <!-- Hamburger -->
         <button id="menuToggle" onclick="openMenu()" aria-label="Open menu"
-            class="z-50 flex flex-col items-center justify-center gap-1.5 group cursor-pointer p-3 min-w-[48px] min-h-[48px]"
-            aria-label="Open menu">
+            class="z-50 flex flex-col items-center justify-center gap-1.5 group cursor-pointer p-3 min-w-[48px] min-h-[48px]">
             <span
                 class="w-7 md:w-8 h-px bg-white transition-all duration-300 group-hover:w-9 md:group-hover:w-10"></span>
             <span
@@ -30,26 +29,23 @@
 
     <!-- BG texture -->
     <div class="absolute inset-0 pointer-events-none overflow-hidden">
-        <img src="{{ asset('images/menu-bg.png') }}" alt="menu bg" class="w-full h-full object-cover opacity-15"
-            onerror="this.style.display='none';" />
+        <img src="{{ asset('assets/images/menu-bg.webp') }}" alt="menu bg"
+            class="w-full h-full object-cover opacity-15" loading="lazy" onerror="this.style.display='none';" />
     </div>
 
     <!-- Right side bg image -->
     <div class="absolute inset-0 pointer-events-none overflow-hidden" style="z-index:0;">
         <div class="absolute right-0 top-0 w-1/2 h-full opacity-50"
-            style="background-image: url('/assets/images/bg-news.png'); background-repeat: repeat-y; background-size: 100% auto;">
+            style="background-image: url('{{ asset('assets/images/bg-news.webp') }}'); background-repeat: repeat-y; background-size: 100% auto;">
         </div>
     </div>
 
     <!-- Top bar -->
     <div class="relative z-10 flex items-center justify-between px-6 sm:px-8 md:px-14 py-5 md:py-7 flex-shrink-0">
         <a href="/">
-            <img src="{{ asset($setting->img_path ?? 'images/logo.svg') }}"
-     alt="{{ $setting->title ?? 'Bhaiya' }} Logo"
-     width="120"
-     height="40"
-     class="h-8 md:h-10 w-auto object-contain"
-     onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
+            <img src="{{ asset($setting->img_path ?? 'images/logo.svg') }}" alt="{{ $setting->title ?? 'Bhaiya' }} Logo"
+                width="120" height="40" class="h-8 md:h-10 w-auto object-contain" loading="lazy"
+                onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
             <span class="hidden text-white font-semibold text-lg tracking-widest"
                 style="font-family:'Jost',sans-serif;">
                 {{ strtoupper($setting->title ?? 'BHAIYA HOUSING') }}
@@ -72,7 +68,7 @@
         <!-- Left: Hover Image — hidden on mobile -->
         <div class="hidden md:block w-5/12 flex-shrink-0 pr-8 lg:pr-16">
             <div class="overflow-hidden" style="height:clamp(220px,38vw,500px);" id="menuImageWrap">
-                <img id="menuImage" src="{{ asset('assets/images/m3.jpg') }}" alt="nav image"
+                <img id="menuImage" src="{{ asset('images/m3.webp') }}" alt="nav image" loading="lazy"
                     class="w-full h-full object-cover transition-all duration-500" style="transform:scale(1.05);"
                     onerror="this.parentElement.style.background='#1a3020'; this.style.display='none';" />
             </div>
@@ -96,7 +92,7 @@
                 @foreach ($staticLinks as $link)
                     <a href="{{ $link['href'] }}"
                         class="header-menu-list group transition-opacity duration-300 hover:opacity-100 flex items-center gap-3 md:gap-4 md:ml-32"
-                        data-img="{{ isset($menuImages[$link['key']]) ? asset($menuImages[$link['key']]->img_path) : asset('assets/images/m1.jpg') }}"
+                        data-img="{{ isset($menuImages[$link['key']]) ? asset($menuImages[$link['key']]->img_path) : '' }}"
                         onmouseover="hoverLink(this)" onmouseout="unhoverLink(this)">
                         <span
                             class="block h-px bg-white w-0 group-hover:w-16 md:group-hover:w-24 transition-all duration-500 ease-out opacity-0 group-hover:opacity-100 flex-shrink-0"></span>
@@ -107,7 +103,7 @@
                 <!-- Contact Us -->
                 <a href="#"
                     class="header-menu-list group transition-opacity duration-300 hover:opacity-100 flex items-center gap-4 md:gap-6 md:ml-32"
-                    data-img="{{ isset($menuImages['contact']) ? asset($menuImages['contact']->img_path) : asset('assets/images/m1.jpg') }}"
+                    data-img="{{ isset($menuImages['contact']) ? asset($menuImages['contact']->img_path) : '' }}"
                     onmouseover="hoverLink(this)" onmouseout="unhoverLink(this)">
                     <span
                         class="block h-px bg-white w-0 group-hover:w-16 md:group-hover:w-24 transition-all duration-500 ease-out opacity-0 group-hover:opacity-100 flex-shrink-0"></span>
@@ -258,17 +254,23 @@
     (function() {
         let lastScroll = 0;
         const header = document.getElementById('site-header');
+        let ticking = false;
 
         window.addEventListener('scroll', function() {
-            const current = window.scrollY;
-            if (current > 80 && current > lastScroll) {
-                header.style.transform = 'translateY(-100%)';
-                header.style.background = 'transparent';
-            } else {
-                header.style.transform = 'translateY(0)';
-                header.style.background = current > 80 ? '#152018' : 'transparent';
+            if (!ticking) {
+                window.requestAnimationFrame(function() {
+                    const current = window.scrollY;
+                    if (current > 80 && current > lastScroll) {
+                        header.style.transform = 'translateY(-100%)';
+                    } else {
+                        header.style.transform = 'translateY(0)';
+                        header.style.background = current > 80 ? '#0f2018' : 'transparent';
+                    }
+                    lastScroll = current;
+                    ticking = false;
+                });
+                ticking = true;
             }
-            lastScroll = current;
         }, {
             passive: true
         });
