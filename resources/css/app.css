@@ -3,32 +3,38 @@
 @source "../../resources/views/**/*.blade.php";
 
 @utility container {
-  margin-inline: auto;
-  padding-inline: 2rem;
+    margin-inline: auto;
+    padding-inline: 2rem;
 }
-
 
 @font-face {
     font-family: "Hanken Grotesk";
     src: url("../../public/fonts/HankenGrotesk-Regular.woff2") format("woff2");
-    font-weight: 400; font-style: normal; font-display: swap;
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
 }
 
 @font-face {
     font-family: "Hanken Grotesk";
     src: url("../../public/fonts/HankenGrotesk-Medium.woff2") format("woff2");
-    font-weight: 500; font-style: normal; font-display: swap;
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
 }
 
 @font-face {
     font-family: Migra;
-    src: url("../../public/fonts/Migra-Extrabold.woff2") format("woff2");
+    src: url("../../public/fonts/MigraItalic-ExtralightItalic.woff2")
+        format("woff2");
     font-weight: 400;
     font-style: normal;
     font-display: block;
 }
 
-html { scroll-behavior: smooth; }
+html {
+    scroll-behavior: smooth;
+}
 body {
     background: #111520;
     color: #fff;
@@ -37,9 +43,16 @@ body {
 }
 
 /* Scrollbar */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: #111520; }
-::-webkit-scrollbar-thumb { background: #2a8c55; border-radius: 3px; }
+::-webkit-scrollbar {
+    width: 6px;
+}
+::-webkit-scrollbar-track {
+    background: #111520;
+}
+::-webkit-scrollbar-thumb {
+    background: #2a8c55;
+    border-radius: 3px;
+}
 
 /* Swiper custom */
 .testimonials-swiper .swiper-pagination-bullet {
@@ -583,9 +596,9 @@ body {
     color: rgb(255, 255, 255);
     -webkit-text-stroke: 1px rgba(255, 255, 255, 0.42);
     font-family: Migra;
-    font-size: 3.5vw;
+    font-size: 58px;
     font-style: italic;
-    font-weight: 200;
+    font-weight: 100;
     line-height: 120%;
     letter-spacing: -4px;
 }
@@ -597,4 +610,12 @@ body {
     font-weight: 400;
     line-height: normal;
     letter-spacing: -1px;
+}
+section {
+    content-visibility: auto;
+    contain-intrinsic-size: 1px 1000px;
+}
+
+#home, header {
+    content-visibility: visible;
 }

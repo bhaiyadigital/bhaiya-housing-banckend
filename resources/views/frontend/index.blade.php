@@ -342,7 +342,7 @@
             onclick="openVideoModal()">
 
             <div class="w-[140px] sm:w-[180px] md:w-[250px] flex-shrink-0 relative overflow-hidden bg-neutral-900">
-                <video loading="lazy"
+                <video loading="lazy" preload="none"
                     class="w-full h-full object-cover scale-105 group-hover:scale-100 transition-transform duration-700"
                     autoplay="" muted="" loop="" playsinline="">
                     <source src="videos/177373892096622.mp4" type="video/mp4">
@@ -382,8 +382,8 @@
                     <line x1="24" y1="4" x2="4" y2="24" />
                 </svg>
             </button>
-            <video id="modalVideo" class="w-full" controls playsinline style="max-height: 80vh">
-                <source src="{{ $hero?->video_path ?? asset('assets/video/1.mp4') }}" type="video/mp4" />
+            <video id="modalVideo" class="w-full" controls playsinline style="max-height: 80vh" preload="none">
+                <source src="{{ $hero?->video_path ?? '' }}" type="video/mp4" />
             </video>
         </div>
     </div>
@@ -397,8 +397,8 @@
             @endphp
 
             <!-- ══════════════════════════════════
-                                                                             MOBILE LAYOUT (flex-col, < md)
-                                                                        ══════════════════════════════════ -->
+                                                                                 MOBILE LAYOUT (flex-col, < md)
+                                                                            ══════════════════════════════════ -->
             <div class="flex flex-col gap-8 md:hidden">
 
                 <!-- Heading -->
@@ -409,25 +409,23 @@
 
                 <!-- Big center image -->
                 <div class="img-shadow rounded-sm overflow-hidden w-full fade-in delay-2">
-                    <img src="{{ $dreams->img_path ?? '' }}" alt="{{ $dreams->title ?? '' }}"
-                        class="w-full h-[400px] sm:h-[520px] object-cover" loading="lazy"
+                    <img src="{{ $dreams->img_path ?? '' }}" alt="{{ $dreams->title ?? '' }}" width="600" height="400" loading="lazy" decoding="async"
+                        class="w-full h-[400px] sm:h-[520px] object-cover"
                         onerror="this.style.background='#c5bdb5'; this.removeAttribute('src');" />
                 </div>
 
                 <!-- Side images row -->
                 <div class="grid grid-cols-2 gap-4 fade-in delay-2">
                     <!-- Image 1 -->
-                    <img src="{{ asset($extraImages[1] ?? 'images/placeholder.webp') }}"
+                    <img src="{{ asset($extraImages[1] ?? '') }}" width="300" height="180" loading="lazy" decoding="async"
                         alt="Bhaiya Housing outdoor architectural space"
-                        class="img-shadow rounded-sm object-cover w-full h-[180px] sm:h-[220px]" loading="lazy"
-                        decoding="async" width="182" height="201"
+                        class="img-shadow rounded-sm object-cover w-full h-[180px] sm:h-[220px]"
                         onerror="this.onerror=null; this.style.background='#d6cfc5'; this.removeAttribute('src');" />
 
                     <!-- Image 2 -->
-                    <img src="{{ asset($extraImages[2] ?? 'images/placeholder.webp') }}"
+                    <img src="{{ asset($extraImages[2] ?? '') }}" width="300" height="180" loading="lazy" decoding="async"
                         alt="Bhaiya Housing interior or exterior detail"
-                        class="img-shadow rounded-sm object-cover w-full h-[180px] sm:h-[220px]" loading="lazy"
-                        decoding="async" width="182" height="201"
+                        class="img-shadow rounded-sm object-cover w-full h-[180px] sm:h-[220px]"
                         onerror="this.onerror=null; this.style.background='#cdc5bb'; this.removeAttribute('src');" />
                 </div>
 
@@ -456,8 +454,8 @@
             </div>
 
             <!-- ══════════════════════════════════
-                                                                             TABLET LAYOUT (≥ md, < lg)
-                                                                        ══════════════════════════════════ -->
+                                                                                 TABLET LAYOUT (≥ md, < lg)
+                                                                            ══════════════════════════════════ -->
             <div class="hidden md:flex lg:hidden flex-col gap-10">
 
                 <!-- Heading -->
@@ -471,7 +469,7 @@
 
                     <!-- Big center image -->
                     <div class="img-shadow rounded-sm overflow-hidden fade-in delay-2 flex-1" style="height: 500px;">
-                        <img src="{{ $dreams->img_path ?? '' }}" alt="{{ $dreams->title ?? '' }}"
+                        <img src="{{ $dreams->img_path ?? '' }}" alt="{{ $dreams->title ?? '' }}" width="500" height="800"
                             class="w-full h-full object-cover" loading="lazy"
                             onerror="this.style.background='#c5bdb5'; this.removeAttribute('src');" />
                     </div>
@@ -479,7 +477,7 @@
                     <!-- Right column -->
                     <div class="flex flex-col gap-6 w-[42%] flex-shrink-0 fade-in delay-3">
                         <div class="float-up">
-                            <img src="{{ $extraImages[2] ?? '' }}" alt="right side image"
+                            <img src="{{ $extraImages[2] ?? '' }}" alt="right side image" width="400" height="300" loading="lazy" decoding="async"
                                 class="img-shadow rounded-sm object-cover w-full"
                                 style="height: 240px; object-position: center;"
                                 onerror="this.style.background='#cdc5bb'; this.removeAttribute('src');" />
@@ -496,7 +494,7 @@
 
                 <!-- Bottom row: two images -->
                 <div class="grid grid-cols-2 gap-6 fade-in delay-2">
-                    <img src="{{ $extraImages[0] ?? '' }}" alt="grid image"
+                    <img src="{{ $extraImages[0] ?? asset('images/building1.avif') }}" alt="grid image" height="300" width="400"
                         class="img-shadow rounded-sm object-cover w-full float-down"
                         style="height: 280px; object-position: center;"
                         onerror="this.style.background='#d6cfc5'; this.removeAttribute('src');" />
@@ -509,8 +507,8 @@
             </div>
 
             <!-- ══════════════════════════════════
-                                                                             DESKTOP LAYOUT (≥ lg), original
-                                                                        ══════════════════════════════════ -->
+                                                                                 DESKTOP LAYOUT (≥ lg), original
+                                                                            ══════════════════════════════════ -->
 
             <!-- Row 1 -->
             <div class="hidden lg:flex relative flex-wrap items-start mt-8">
@@ -535,8 +533,8 @@
                 <!-- Col 2: Big Center Image -->
                 <div class="w-full lg:w-5/12 relative fade-in delay-2" style="margin-left:2%;">
                     <div class="img-shadow rounded-sm overflow-hidden" style="height:800px;">
-                        <img src="{{ $dreams->img_path ?? '' }}"
-                            alt="{{ $dreams->title ?? '' }}" class="w-full h-full object-cover" loading="lazy"
+                        <img src="{{ $dreams->img_path ?? '' }}" alt="{{ $dreams->title ?? '' }}"
+                            class="w-full h-full object-cover" loading="lazy"
                             onerror="this.style.background='#c5bdb5'; this.style.height='100%'; this.removeAttribute('src');" />
                     </div>
                 </div>
@@ -547,11 +545,11 @@
 
                     <div class="float-up mb-8 self-end">
                         <div class="absolute pointer-events-none" style="left:-40px; top:-80px; z-index:3;">
-                            <img src="{{ asset('images/overview-stone.webp') }}" alt="overview stone"
+                            <img src="{{ asset('images/overview-stone.webp') }}" alt="overview stone" width="160" height="160"
                                 style="width:clamp(120px,7vw,160px); opacity:0.8;" onerror="this.style.display='none'" />
                         </div>
-                        <img src="{{ $extraImages[2] ?? '' }}" alt="Interior" class="img-shadow rounded-sm object-cover"
-                            style="width:400px; height:300px; object-position:center;"
+                        <img src="{{ $extraImages[2] ?? asset('images/right-side.jpg') }}" alt="right side iamge" class="img-shadow rounded-sm object-cover"
+                            style="object-position:center;" width="400" height="300"
                             onerror="this.style.background='#cdc5bb'; this.removeAttribute('src');" />
                     </div>
 
@@ -572,11 +570,11 @@
             <div class="hidden lg:flex relative flex-wrap items-center scroll-move" data-axis="Y" data-max-move="50">
 
                 <div class="absolute z-20 fade-in delay-3 float-down" style="left:22%; bottom:0px;">
-                    <img src="{{ $extraImages[1] ?? '' }}" alt="Property" class="img-shadow rounded-sm object-cover"
+                    <img src="{{ $extraImages[1] ?? '' }}" width="400" height="300" loading="lazy" decoding="async" alt="Property" class="img-shadow rounded-sm object-cover"
                         style="width:450px;  " onerror="this.style.background='#c0b8ae'; this.removeAttribute('src');" />
                     <div class="scroll-move absolute pointer-events-none" data-axis="Y"
                         style="right:-60px; bottom:0; z-index:-30;">
-                        <img src="{{ asset('images/middle-stone.webp') }}" alt="middle stone"
+                        <img src="{{ asset('images/middle-stone.webp') }}" alt="middle stone" width="160" height="160"
                             style="width:clamp(120px,7vw,160px); opacity:0.8;" onerror="this.style.display='none'" />
                     </div>
                 </div>
@@ -597,7 +595,8 @@
         <section class=" relative z-10 w-full overflow-hidden backdrop-blur-md p-16"
             style="height: 100vh; min-height: 600px; padding-bottom: 100px; padding-top: 100px">
             {{-- Background Video --}}
-            <video id="heroVideo" class="absolute inset-0 w-full h-full object-cover" autoplay muted loop playsinline>
+            <video id="heroVideo" class="absolute inset-0 w-full h-full object-cover" autoplay muted loop playsinline
+                preload="none">
                 <source id="heroVideoSource" src="{{ $first->video_path ?? asset('images/video-play.1bb9b620.webp') }}"
                     type="video/mp4" />
             </video>
@@ -640,32 +639,29 @@
             </div>
 
             {{-- Bottom Thumbnails Strip --}}
-            <div class="absolute md:ml-32 bottom-4 md:bottom-10 left-0 right-0 z-20 px-4 md:px-0 md:left-10">
-                <div class="flex gap-3 md:gap-5 overflow-x-auto scrollbar-hide  pb-1 md:p-4 md:overflow-visible">
-
+            <div class="absolute bottom-4 md:bottom-10 left-0 right-0 z-20 px-6 md:px-10">
+                <div class="flex gap-4 md:gap-6 overflow-x-auto scrollbar-hide pb-4 items-center">
                     @foreach ($featuredProjects as $i => $project)
-                        <div class="thumb-item {{ $i === 0 ? 'active' : '' }}  cursor-pointer overflow-visible relative flex-shrink-0"
+                        <div class="thumb-item {{ $i === 0 ? 'active' : '' }} cursor-pointer relative flex-shrink-0 transition-all duration-300"
                             style="
-                            width: clamp(120px, 28vw, 200px);
-                            height: clamp(90px, 20vw, 150px);
-                            border: 2px solid {{ $i === 0 ? 'rgba(255,255,255,0.8)' : 'rgba(255,255,255,0.3)' }};
-                        "
+                    width: clamp(140px, 22vw, 220px);
+                    height: clamp(90px, 15vw, 140px);
+                    border: 1px solid {{ $i === 0 ? 'rgba(255,255,255,0.9)' : 'rgba(255,255,255,0.2)' }};"
                             data-video="{{ $project->video_path ?? '' }}" data-title="{{ $project->title }}"
                             data-address="{{ $project->location }}" data-url="/project/{{ $project->id }}"
                             onclick="switchVideo(this)">
-                            <div class="thumb-item ..." style="width: 180px; height: 120px; ...">
-                                <img src="{{ asset($project->img_path) }}" width="180" height="120" loading="lazy"
-                                    class="object-cover w-full h-full"
-                                    onerror="this.onerror=null; this.src='{{ asset($project->img_path) }}';"
-                                    alt="Project Image">
+
+                            <div class="w-full h-full overflow-hidden">
+                                <img src="{{ asset($project->img_path) }}" width="220" height="140" loading="lazy"
+                                    class="object-cover w-full h-full opacity-80 hover:opacity-100 transition-opacity"
+                                    alt="{{ $project->title }}">
                             </div>
 
                             {{-- Progress Bar --}}
-                            <div class="progress-bar absolute left-0 h-[2px] bg-white z-10 {{ $i === 0 ? '' : 'hidden' }}"
-                                style="width: 0%; top: 100%; margin-top: 4px; transition: none"></div>
+                            <div class="progress-bar absolute left-0 bottom-[-8px] h-[2px] bg-white z-10 {{ $i === 0 ? '' : 'hidden' }}"
+                                style="width: 0%; transition: none"></div>
                         </div>
                     @endforeach
-
                 </div>
             </div>
 
@@ -959,8 +955,7 @@ font-size: clamp(150px, 14vw, 320px);                    font-weight:bolder;
         {{-- Mobile: stacked layout --}}
         <div class="block md:hidden mt-16 px-4">
             <div class="w-full overflow-hidden mb-0" style="height: clamp(220px, 60vw, 380px);">
-                <img src="{{ $storiesSection->img_path ?? '' }}" alt="Interior"
-                    class="w-full h-full object-cover"
+                <img src="{{ $storiesSection->img_path ?? '' }}" alt="Interior" class="w-full h-full object-cover"
                     onerror="this.parentElement.style.background='#c8c0b8'; this.style.display='none';" />
             </div>
             <p class="text-gray-700 font-light leading-relaxed text-sm py-6" style="font-weight: 300; line-height: 1.9;">
@@ -968,8 +963,7 @@ font-size: clamp(150px, 14vw, 320px);                    font-weight:bolder;
                     'Bhaiya Housing is devoted to designing inspiring residential and commercial spaces that transcend expectations. With a focus on modern aesthetics, impeccable craftsmanship, and an unwavering commitment to integrity, we create environments that harmoniously balance sophistication and purpose, delivering timeless value.' !!}
             </p>
             <div class="w-full overflow-hidden" style="height: clamp(240px, 65vw, 400px);">
-                <img src="{{ $sectionImages[0] ?? '' }}" alt="Interior"
-                    class="w-full h-full object-cover"
+                <img src="{{ $sectionImages[0] ?? '' }}" alt="Interior" class="w-full h-full object-cover"
                     onerror="this.parentElement.style.background='#bab4ac'; this.style.display='none';" />
             </div>
         </div>
@@ -979,7 +973,7 @@ font-size: clamp(150px, 14vw, 320px);                    font-weight:bolder;
 
             {{-- Decorative stones --}}
             <div class="scroll-move absolute pointer-events-none" data-axis="Y" style="left: 0; top: 0; z-index: 3;">
-                <img src="{{ asset('images/overview-stone.webp') }}" alt="overview stone"
+                <img src="{{ asset('images/overview-stone.webp') }}" alt="overview stone" width="160" height="160"
                     style="width: clamp(100px, 7vw, 160px); opacity: 0.8;" onerror="this.style.display='none'" />
             </div>
             <div class="absolute pointer-events-none" style="left: 0; top: -60px; z-index: -3;">
@@ -990,8 +984,7 @@ font-size: clamp(150px, 14vw, 320px);                    font-weight:bolder;
             {{-- Left image + text --}}
             <div class="w-1/2 h-full flex flex-col pl-6 lg:pl-14 scroll-move" data-axis="-Y">
                 <div class="flex-1 overflow-hidden" style="z-index: -10;">
-                    <img src="{{ $storiesSection->img_path ?? '' }}" alt="Interior"
-                        class="w-full h-full object-cover"
+                    <img src="{{ $storiesSection->img_path ?? '' }}" alt="Interior" class="w-full h-full object-cover"
                         onerror="this.parentElement.style.background='#c8c0b8'; this.style.display='none';" />
                 </div>
                 <p class="text-gray-700 font-light leading-relaxed text-sm py-6 pr-8"
@@ -1004,8 +997,7 @@ font-size: clamp(150px, 14vw, 320px);                    font-weight:bolder;
             {{-- Right image --}}
             <div class="w-1/2 overflow-hidden pl-6 lg:pl-12 flex-shrink-0 scroll-move" data-axis="Y"
                 style="height: 110%; margin-left: 2px;">
-                <img src="{{ $sectionImages[0] ?? '' }}" alt="Interior"
-                    class="w-full h-full object-cover"
+                <img src="{{ $sectionImages[0] ?? '' }}" alt="Interior" class="w-full h-full object-cover"
                     onerror="this.parentElement.style.background='#bab4ac'; this.style.display='none';" />
             </div>
 
@@ -1282,7 +1274,7 @@ font-size: clamp(150px, 14vw, 320px);                    font-weight:bolder;
                 </a>
 
                 {{-- Decorative stone — moved outside flex children, anchored to wrapper --}}
-                <img src="{{ asset('images/mission-stone.webp') }}" alt=""
+                <img src="{{ asset('images/mission-stone.webp') }}" alt="mission stone" width="120" height="120"
                     class="absolute pointer-events-none scroll-move hidden md:block" data-axis="Y"
                     style="width: clamp(80px, 8vw, 120px); bottom: -10px; right: -50px; z-index: 20;"
                     onerror="this.style.display='none';">
@@ -1424,12 +1416,9 @@ font-size: clamp(150px, 14vw, 320px);                    font-weight:bolder;
     @endif
 
 @endsection
-@push('styles')
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" media="print"
-        onload="this.media='all'">
-@endpush
+
 @push('scripts')
-      <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script>
     <script>
         let progressInterval = null;
 
