@@ -44,17 +44,11 @@
 
     @yield('meta')
 
-    <!-- Preconnect (Fonts speed boost) -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-        media="print" onload="this.media='all'">
-    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" media="print" onload="this.media='all'">
 
 
-    <!-- Swiper CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="preload" as="image" href="{{ $hero->img_path ?? '' }}" fetchpriority="high">
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
@@ -158,161 +152,7 @@
     @include('partials.scripts')
     @stack('scripts')
 
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/lenis@1.0.0/dist/lenis.min.js" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script>
     <script src="{{ asset('frontend/js/main.js') }}"></script>
-    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-
-    <script>
-        window.onload = function() {
-            if (typeof AOS !== 'undefined') {
-                AOS.init({
-                    duration: 800,
-                    once: true,
-                    offset: 50
-                });
-                console.log("AOS initialized successfully");
-            } else {
-                console.error("AOS library failed to load");
-            }
-        };
-    </script>
-
-
-    <script>
-        let lastScroll = 0;
-        const header = document.querySelector('header');
-
-        window.addEventListener('load', function() {
-
-            // ── GSAP ScrollTrigger register ──
-            gsap.registerPlugin(ScrollTrigger);
-
-            if (window.innerWidth > 768) {
-                const lenis = new Lenis({
-                    duration: 1.4,
-                    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-                    smooth: true,
-                });
-
-                gsap.ticker.add((time) => lenis.raf(time * 1000));
-                gsap.ticker.lagSmoothing(0);
-                lenis.on('scroll', ScrollTrigger.update);
-
-                lenis.on('scroll', ({
-                    scroll
-                }) => {
-                    header.classList.toggle('hide', scroll > lastScroll && scroll > 80);
-                    lastScroll = scroll;
-                });
-            } else {
-                window.addEventListener('scroll', () => {
-                    const s = window.scrollY;
-                    header.classList.toggle('hide', s > lastScroll && s > 80);
-                    lastScroll = s;
-                });
-            }
-
-            // GSAP Parallax & Fade Up...
-            gsap.utils.toArray('[data-speed]').forEach(el => {
-                const speed = parseFloat(el.dataset.speed) || 1;
-                gsap.to(el, {
-                    y: () => (1 - speed) * ScrollTrigger.maxScroll(window) * 0.3,
-                    ease: 'none',
-                    scrollTrigger: {
-                        trigger: el,
-                        start: 'top bottom',
-                        end: 'bottom top',
-                        scrub: true,
-                    }
-                });
-            });
-
-            gsap.utils.toArray('[data-gsap="fade-up"]').forEach(el => {
-                gsap.from(el, {
-                    y: 60,
-                    opacity: 0,
-                    duration: 1,
-                    ease: 'power3.out',
-                    scrollTrigger: {
-                        trigger: el,
-                        start: 'top 85%',
-                    }
-                });
-            });
-        });
-
-        // ==========================================
-        // ── Custom Trailing & Magnetic Cursor Logic ──
-        // ==========================================
-        const dot = document.getElementById('cursor-dot');
-
-        let mouseX = window.innerWidth / 2;
-        let mouseY = window.innerHeight / 2;
-        let dotX = window.innerWidth / 2;
-        let dotY = window.innerHeight / 2;
-
-        let magneticElement = null; // ম্যাগনেটিক ইফেক্টের জন্য ভ্যারিয়েবল
-
-        if (window.matchMedia("(pointer: fine)").matches) {
-
-            window.addEventListener('mousemove', (e) => {
-                mouseX = e.clientX;
-                mouseY = e.clientY;
-            });
-
-            function animateCursor() {
-                let targetX = mouseX;
-                let targetY = mouseY;
-
-                // যদি magneticElement থাকে, তবে টার্গেট হবে ওই ইলিমেন্টের একদম সেন্টার
-                if (magneticElement) {
-                    const rect = magneticElement.getBoundingClientRect();
-                    targetX = rect.left + (rect.width / 2);
-                    targetY = rect.top + (rect.height / 2);
-                }
-
-                // 0.15 হলো স্পিড
-                dotX += (targetX - dotX) * 0.15;
-                dotY += (targetY - dotY) * 0.15;
-
-                dot.style.transform = `translate(${dotX}px, ${dotY}px) translate(-50%, -50%)`;
-
-                requestAnimationFrame(animateCursor);
-            }
-            animateCursor();
-
-            // ── Event Delegation for Hover & Magnetic Logic ──
-            document.addEventListener('mouseover', (e) => {
-                const largeTarget = e.target.closest('.hover-lg');
-                const normalTarget = e.target.closest('a, button, input[type="submit"], input[type="button"]');
-
-                if (largeTarget) {
-                    magneticElement = largeTarget; // ম্যাগনেট চালু
-                    dot.classList.add('active-large');
-                    dot.classList.remove('active');
-                } else if (normalTarget) {
-                    dot.classList.add('active');
-                    dot.classList.remove('active-large');
-                }
-            });
-
-            document.addEventListener('mouseout', (e) => {
-                const largeTarget = e.target.closest('.hover-lg');
-                const normalTarget = e.target.closest('a, button, input[type="submit"], input[type="button"]');
-
-                if (largeTarget) {
-                    magneticElement = null; // ম্যাগনেট বন্ধ (মাউসের কাছে ফিরে যাবে)
-                    dot.classList.remove('active-large');
-                } else if (normalTarget) {
-                    dot.classList.remove('active');
-                }
-            });
-        }
-        // ==========================================
-    </script>
 
 
 </body>
