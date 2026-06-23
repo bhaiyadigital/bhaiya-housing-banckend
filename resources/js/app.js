@@ -84,3 +84,10 @@ window.closeVideoModal = () => {
     if (video) video.pause();
     document.getElementById('videoModal').style.display = 'none';
 };
+const finalizeScripts = () => {
+    if (window.AOS) {
+        window.AOS.refresh();
+    }
+};
+
+window.addEventListener('load', finalizeScripts);

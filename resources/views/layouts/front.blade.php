@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'Bhaiya Housing')</title>
     <link rel="icon" type="image/webp" href="{{ asset('assets/images/fav.webp') }}">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
     <!-- Facebook Pixel -->
     <script>
         function loadPixel() {
@@ -43,8 +46,7 @@
     </noscript>
 
     @yield('meta')
-
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
     <link rel="preconnect" href="https://fonts.googleapis.com">
 
 

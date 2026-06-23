@@ -88,7 +88,7 @@ class WebController extends Controller
           'phone'   => [
             'required',
             'string',
-            'regex:/^\+?[0-9\s\-()]{7,18}$/', 
+            'regex:/^\+?[0-9\s\-()]{7,18}$/',
         ],
             'interested_in' => 'required|string',
             'message'       => 'required|string|max:2000',
@@ -217,7 +217,7 @@ class WebController extends Controller
        'phone'   => [
             'required',
             'string',
-            'regex:/^\+?[0-9\s\-()]{7,18}$/', 
+            'regex:/^\+?[0-9\s\-()]{7,18}$/',
         ],
             'email'      => 'required|email|max:100',
             'subject'    => 'required|string|max:200',
@@ -307,7 +307,7 @@ class WebController extends Controller
             ->take(6)
             ->get();
         $partners = $this->fetchContent('partners', 1);
-        
+
         $this->facebook->sendEvent(
             'PageView',
             [
@@ -336,7 +336,7 @@ class WebController extends Controller
                 'title'    => $p->title,
                 'type'     => strtolower($p->short ?? ''),
                 'location' => $p->location ?? '',
-                'img'      => $p->img_path ?? asset('assets/images/placeholder.jpg'),
+                'img' => $p->img_path ? asset(ltrim($p->img_path, '/')) : asset('frontend/images/building.webp'),
                 'status'   => strtolower(json_decode($p->extra ?? '{}', true)['status'] ?? 'ongoing'),
                 'url'      => '/project/' . $p->id,
             ])->values();
@@ -436,7 +436,7 @@ class WebController extends Controller
     public function blog()
     {
         $blogs = Content::where('type', 'blogs')
-          
+
             ->where('status', 1)
             ->get();
 
@@ -453,7 +453,7 @@ class WebController extends Controller
     public function blogDetail($slug)
     {
          $blogs = Content::where('type', 'blogs')
-          
+
             ->where('status', 1)
             ->get();
         $blog = Content::where('type', 'blogs')
@@ -525,7 +525,7 @@ class WebController extends Controller
       'phone'   => [
             'required',
             'string',
-            'regex:/^\+?[0-9\s\-()]{7,18}$/', 
+            'regex:/^\+?[0-9\s\-()]{7,18}$/',
         ],
             'subject' => 'required|string|max:255',
             'message' => 'required|string|max:2000',
@@ -566,7 +566,7 @@ class WebController extends Controller
         );
 
         return redirect()->back()
-            ->withFragment('contact-section') 
+            ->withFragment('contact-section')
             ->with('success', 'Your message has been sent. We will contact you soon.');
     }
 
@@ -600,7 +600,7 @@ class WebController extends Controller
     'phone'   => [
             'required',
             'string',
-            'regex:/^\+?[0-9\s\-()]{7,18}$/', 
+            'regex:/^\+?[0-9\s\-()]{7,18}$/',
         ],
             'locality'      => 'required|string|max:255',
             'address'       => 'nullable|string|max:500',
@@ -620,7 +620,7 @@ class WebController extends Controller
             return redirect()->back()
                 ->withErrors($validator)
                 ->withInput()
-                ->withFragment('landowner-section'); 
+                ->withFragment('landowner-section');
         }
 
         $validated = $validator->validated();

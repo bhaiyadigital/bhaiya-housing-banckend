@@ -754,7 +754,7 @@ font-size: clamp(150px, 14vw, 320px);                    font-weight:bolder;
             <div class="relative z-10 w-full mx-auto px-4 sm:px-6 md:px-0"
                 style="max-width:900px; height:clamp(220px,45vw,520px);">
 
-                <img src="{{ asset($expertise->img_path ?? 'images/placeholder.webp') }}"
+                <img src="{{ asset($expertise->img_path ?? 'images/quality-top.jpg') }}"
                     alt="Architectural detail of Bhaiya Housing project" class="w-full h-full object-cover"
                     loading="lazy" decoding="async" width="416" height="220"
                     onerror="this.onerror=null; this.parentElement.style.background='#1e2e20'; this.style.display='none';">
