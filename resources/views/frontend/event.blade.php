@@ -141,7 +141,7 @@
  <!-- ===== HERO ===== -->
 <section class="hero-fixed fixed top-0 left-0 w-full overflow-hidden h-[600px] md:h-[700px] lg:h-[900px]">
     <!-- Background Image -->
-    <img src="{{ $eventHero->img_path ?? asset('assets/images/event.jpg') }}" alt="interior"
+    <img src="{{ $eventHero->img_path ?? '' }}" alt="interior"
         class="absolute inset-0 w-full h-full object-cover" />
 
     <!-- Dark Overlay -->
@@ -150,7 +150,7 @@
     <!-- Text -->
     <div class="absolute inset-0 flex items-center px-6 sm:px-10 md:px-20">
         <!-- pl-12 কে md:pl-12 pl-0 এবং pt-32 কে md:pt-32 pt-20 করা হয়েছে। ফন্ট সাইজে clamp ব্যবহার করা হয়েছে -->
-        <h2 class="text-white font-light md:pl-12 pt-20 md:pt-32 tracking-normal md:tracking-[-3px]" 
+        <h2 class="text-white font-light md:pl-12 pt-20 md:pt-32 tracking-normal md:tracking-[-3px]"
             style="font-size: clamp(32px, 3.85vw, 74px); line-height: 1.2;">
             Stay informed with<br>
             <span class="font-migra-italic">Bhaiya Housing Ltd.</span>
@@ -166,7 +166,7 @@
 
      <!-- BG texture -->
      <div class="absolute inset-0 pointer-events-none" style="z-index:0;">
-         <img src="/assets/images/bg-news.png" alt=""
+         <img src="{{ asset('assets/images/bg-news.webp') }}" alt="bg news"
              class="w-1/3 h-full object-cover opacity-50"
              onerror="this.style.display='none';" />
      </div>

@@ -6,7 +6,7 @@
         <a href="/" class="z-50 flex-shrink-0">
 
             <img src="{{ asset($setting->img_path) }}" alt="Bhaiya Logo" width="180" height="60"
-                style="aspect-ratio: 3 / 1;" fetchpriority="high">
+                style="aspect-ratio: 180 / 60; display: block;" fetchpriority="high" loading="eager" decoding="sync">
 
             <span class="hidden text-white font-semibold tracking-widest text-base md:text-xl"
                 style="font-family:'Jost',sans-serif;">

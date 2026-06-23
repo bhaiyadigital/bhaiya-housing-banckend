@@ -130,12 +130,12 @@
 
  {{-- ===== HERO ===== --}}
 <section class="hero-fixed fixed top-0 left-0 w-full overflow-hidden h-[85vh]">
-    <img src="{{ $contactHero?->img_path ?? asset('assets/images/contact-customer.jpg') }}"
+    <img src="{{ $contactHero?->img_path ?? '' }}"
         alt="Contact" class="absolute inset-0 w-full h-full object-cover" />
     <div class="absolute inset-0 bg-black/50"></div>
 
     <div class="absolute inset-0 flex items-center px-6 sm:px-10 md:px-20">
-        <h2 class="text-white font-light md:pl-12 pt-20 md:pt-32 tracking-normal md:tracking-[-3px]" 
+        <h2 class="text-white font-light md:pl-12 pt-20 md:pt-32 tracking-normal md:tracking-[-3px]"
             style="font-size: clamp(32px, 3.85vw, 74px); line-height: 1.2; font-weight: 500;">
             We're here to assist you <br> with <span class="font-migra-italic">any inquiries</span>
         </h2>
@@ -189,36 +189,32 @@
 <section class="relative w-full overflow-hidden py-20" style="background:#F6F6F6;">
 
      <div class="absolute inset-0 pointer-events-none" style="z-index:0;">
-         <img src="/assets/images/bg-news.png" alt=""
+         <img src="{{ asset('assets/images/bg-news.webp') }}" alt="bg news"
              class="w-1/3 h-full object-cover opacity-50"
              onerror="this.style.display='none';" />
      </div>
-     
+
      <div class="relative z-10 container mx-auto px-6 lg:px-14">
          <div class="flex flex-col md:flex-row gap-16 items-start">
 
-             <!-- ── Left: Images (মোবাইলে হাইট এবং স্পেসিং রেসপন্সিভ করা হয়েছে) ── -->
              <div class="w-full md:w-5/12 relative h-[280px] sm:h-[320px] md:h-[360px] flex-shrink-0">
 
-                 <!-- Image 1: back-left (উইডথ, হাইট ও পজিশন রেসপন্সিভ ক্লাস দেওয়া হয়েছে) -->
                  <div class="absolute overflow-hidden shadow-xl w-[170px] sm:w-[200px] md:w-[260px] h-[210px] sm:h-[250px] md:h-[310px] left-0 top-[20px] md:top-[30px] z-10">
-                     <img src="{{ $contactImages[1]->img_path ?? asset('assets/images/contact-bottom.jpg') }}"
+                     <img src="{{ $contactImages[1]->img_path ?? '' }}"
                          alt="{{ $contactImages[1]->title ?? 'Interior' }}"
                          class="w-full h-full object-cover"
                          onerror="this.parentElement.style.background='#b8b0a8'; this.style.display='none';" />
                  </div>
-                 
-                 <!-- Decorative Stone (মোবাইলে পজিশন ও সাইজ অ্যাডজাস্ট করা হয়েছে) -->
+
                  <div class="absolute overflow-hidden shadow-xl scroll-move z-20 w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 left-[35%] sm:left-[40%] md:left-[180px] top-[50px] md:top-[80px]" data-axis="Y">
-                     <img src="{{  asset('assets/images/contact-stone-bg.png') }}"
+                     <img src="{{  asset('images/contact-stone-bg.webp') }}"
                          alt="leaf"
                          class="w-full h-full object-cover"
                          onerror="this.parentElement.style.background='#b8b0a8'; this.style.display='none';" />
                  </div>
 
-                 <!-- Image 2: front-right (ml-16 ও left:250px সরিয়ে মোবাইলের জন্য right-0 এবং ডেক্সটপে md:left-[250px] করা হয়েছে) -->
                  <div class="absolute overflow-hidden shadow-2xl w-[170px] sm:w-[200px] md:w-[260px] h-[210px] sm:h-[250px] md:h-[310px] right-0 md:right-auto md:left-[220px] lg:left-[250px] top-[60px] md:top-[80px] z-20">
-                     <img src="{{ $contactImages[0]->img_path ?? asset('assets/images/contact-top.jpg') }}"
+                     <img src="{{ $contactImages[0]->img_path ?? '' }}"
                          alt="{{ $contactImages[0]->title ?? 'Dining' }}"
                          class="w-full h-full object-cover"
                          onerror="this.parentElement.style.background='#9a9290'; this.style.display='none';" />
@@ -315,7 +311,7 @@
                      </button>
 
                  </form>
-                          
+
                  <div class="absolute right-32 -bottom-64 mt-64 inset-y-0 font-migra-italic opacity-80 scroll-move" data-axis="X" style="z-index:0;">
                      <span style="font-size:clamp(80px,15vw,220px); font-weight:700; color:rgba(0,0,0,0.045); line-height:0.9; white-space:nowrap;">Touch</span>
                  </div>

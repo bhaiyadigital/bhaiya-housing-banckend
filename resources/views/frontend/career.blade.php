@@ -186,7 +186,7 @@ $jobSchemas[] = [
 
         <!-- Background Decoration Image (Full width) -->
         <div class="absolute inset-0 pointer-events-none z-0">
-            <img src="{{ asset('images/career-bg.png') }}" alt="" class="w-full h-full object-cover opacity-70">
+            <img src="{{ asset('images/career-bg.webp') }}" alt="career bg" class="w-full h-full object-cover opacity-70">
         </div>
 
         <div class="overview mb-10">
@@ -224,12 +224,12 @@ $jobSchemas[] = [
                         @endif
 
                         <!-- Gold Splash Image (contact-stone-bg.png) - ছবির নিচে এবং বামে থাকবে -->
-                        <img src="{{ asset('images/contact-stone-bg.png') }}" alt=""
+                        <img src="{{ asset('images/contact-stone-bg.webp') }}" alt=""
                             class="absolute pointer-events-none scroll-move" data-axis="Y"
                             style="width: 140px; bottom: -40px; left: -60px; z-index: 5;">
 
                         <!-- Black Stone Image (mission-stone.png) - একদম কোণায় উপরে থাকবে -->
-                        <img src="{{ asset('images/mission-stone.png') }}" alt=""
+                        <img src="{{ asset('images/mission-stone.webp') }}" alt=""
                             class="absolute pointer-events-none scroll-move" data-axis="Y"
                             style="width: 80px; bottom: -10px; left: -20px; z-index: 20;"
                             onerror="this.style.display='none';">
@@ -259,13 +259,13 @@ $jobSchemas[] = [
         <!-- Available Job Positions -->
         <div class="job-position">
             <div class="absolute inset-0 pointer-events-none z-0">
-                <img src="{{ asset('images/career-bg.png') }}" alt=""
+                <img src="{{ asset('images/career-bg.webp') }}" alt="career bg"
                     class="w-full h-full object-cover opacity-10"
                     onerror="this.style.display='none';">
             </div>
 
             <div class="absolute bottom-0 right-0 pointer-events-none z-0">
-                <img src="{{ asset('images/stone2.png') }}" alt=""
+                <img src="{{ asset('assets/images/reviewstonebg.webp') }}" alt="review stone"
                     style="width:120px; opacity:0.85;"
                     onerror="this.style.display='none';">
             </div>
@@ -299,7 +299,7 @@ $jobSchemas[] = [
                     <div class=" absolute pointer-events-none scroll-move" data-axis="Y"
 
                         style="right:-140px; bottom:-60px; z-index:3;">
-                        <img src="/assets/images/overview-stone.png" alt=""
+                        <img src="{{asset('images/overview-stone.webp')}}" alt="overview stone"
                             style="height:220px;width: 220px; " />
                     </div>
                     <!-- Bottom border -->
@@ -310,13 +310,13 @@ $jobSchemas[] = [
         </div>
 
     </section>
-   
+
     <!-- Apply For A Role Section -->
 <!-- Apply For A Role Section (id="apply-job-section" যোগ করা হয়েছে) -->
 <section id="apply-job-section" class="relative w-full overflow-hidden py-20" style="background:#1B281F;">
 
     <div class="absolute inset-0 pointer-events-none z-0">
-        <img src="{{ asset('images/form-bg.png') }}" alt=""
+        <img src="{{ asset('images/form-bg.webp') }}" alt="form bg"
             class="w-full h-full object-cover opacity-20"
             onerror="this.style.display='none';">
     </div>
@@ -441,9 +441,9 @@ $jobSchemas[] = [
 
         </form>
     </div>
-    
+
     <div class="absolute pointer-events-none scroll-move z-[1000]" data-axis="Y" style="left:-140px; bottom:-60px;">
-        <img src="/assets/images/overview-stone.png" alt="" style="height:220px; width: 220px;" />
+        <img src="{{ asset('images/overview-stone.webp') }}" alt="overview stone" style="height:220px; width: 220px;" />
     </div>
 </section>
 

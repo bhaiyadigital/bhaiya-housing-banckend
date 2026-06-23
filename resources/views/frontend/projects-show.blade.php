@@ -149,7 +149,7 @@
  @section('content')
  <section class="hero-fixed fixed top-0 left-0 w-full overflow-hidden
                 h-[600px] md:h-[700px] lg:h-[900px]">
-     <img src="{{ $imgPaths[0] ?? asset('assets/images/d1.avif') }}"
+     <img src="{{ $imgPaths[0] ?? '' }}"
          alt="{{ $project->title }}"
          class="absolute inset-0 w-full h-full object-cover" />
      <div class="absolute inset-0 bg-black/50"></div>
@@ -246,7 +246,7 @@
 
              <!-- Right: Image -->
              <div class="hidden md:block md:w-1/3 h-[350px] md:h-[600px] relative scroll-move" data-axis="Y" style="margin-top: -20%;z-index:100">
-                 <img src="{{ $imgPaths[1] ?? asset('assets/images/d1.avif') }}"
+                 <img src="{{ $imgPaths[1] ?? '' }}"
                      alt="{{ $project->title }}"
                      class="w-full object-cover shadow-2xl"
                      style="height: clamp(500px, 70vh, 800px);"
@@ -265,14 +265,14 @@
 
              <!-- Left Image -->
              <div class="relative w-full md:w-1/2">
-                 <img src="{{ $imgPaths[2] ?? asset('assets/images/g1.avif') }}"
+                 <img src="{{ $imgPaths[2] ?? '' }}"
                      alt="Gallery 1"
                      class="w-full object-cover shadow-lg"
                      style="height: clamp(220px, 40vw, 500px);"
                      onerror="this.parentElement.style.background='#c0b8b0'; this.style.display='none';" />
 
                  <!-- Left stone -->
-                 <img src="/assets/images/project/DetailsLeft-stone.png" alt=""
+                 <img src="{{ asset('images/middle-stone.webp') }}" alt="left stone"
                      class="absolute pointer-events-none float-down scroll-move"
                      data-axis="Y"
                      style="width: clamp(60px, 8vw, 150px);
@@ -285,14 +285,14 @@
 
              <!-- Right Image -->
              <div class="relative w-full md:w-1/2">
-                 <img src="{{ $imgPaths[3] ?? asset('assets/images/g2.avif') }}"
+                 <img src="{{ $imgPaths[3] ?? '' }}"
                      alt="Gallery 2"
                      class="w-full object-cover shadow-lg"
                      style="height: clamp(220px, 40vw, 500px);"
                      onerror="this.parentElement.style.background='#b0b8b8'; this.style.display='none';" />
 
                  <!-- Right stone -->
-                 <img src="/assets/images/projectDetailsRight-stone.png" alt=""
+                 <img src="{{ asset('images/mission-stone.webp')}}" alt="mission stone"
                      class="absolute pointer-events-none float-up scroll-move"
                      data-axis="Y"
                      style="width: clamp(60px, 8vw, 150px);
@@ -311,7 +311,7 @@
 
      <!-- BG Image -->
      <div class="absolute inset-0" style="z-index:0;">
-         <img src="/assets/images/bg1.jpg" alt="" class="w-full h-full object-cover"
+         <img src="{{ asset('images/bg1.webp') }}" alt="bg1" class="w-full h-full object-cover"
              onerror="this.style.display='none';" />
          <div class="absolute inset-0" style="background:rgba(13,26,17,0.88);"></div>
      </div>
@@ -490,7 +490,7 @@
 
      <!-- Background Decoration Image -->
      <div class="absolute inset-0 pointer-events-none z-0">
-         <img src="{{ asset('images/career-bg.png') }}" alt="" class="w-full h-full object-cover">
+         <img src="{{ asset('images/career-bg.webp') }}" alt="carrer bg" class="w-full h-full object-cover">
      </div>
 
      <div class="relative z-10 max-w-7xl mx-auto px-6">

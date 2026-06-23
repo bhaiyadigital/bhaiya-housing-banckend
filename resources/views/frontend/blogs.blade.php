@@ -105,7 +105,7 @@ $schema = [
 <section class="hero-fixed fixed top-0 left-0 w-full overflow-hidden h-[600px] md:h-[700px] lg:h-[900px]"
     style="z-index:1; transform-origin:top center; will-change:transform;">
 
-    <img src="{{ $projectHero->img_path ?? asset('assets/images/projectmain.jpg') }}"
+    <img src="{{ $projectHero->img_path ?? '') }}"
         alt="interior"
         class="absolute inset-0 w-full h-full object-cover" />
 
@@ -146,7 +146,7 @@ $schema = [
                 </p>
                 <div class="flex items-center justify-between">
                     <span class="text-xs text-gray-500">By SALTBAY</span>
-                    <span class="px-4 py-2 text-sm font-medium text-white bg-black rounded-md 
+                    <span class="px-4 py-2 text-sm font-medium text-white bg-black rounded-md
                      group-hover:bg-gray-800 transition duration-300">
                         Read More →
                     </span>

@@ -409,19 +409,22 @@
 
                 <!-- Big center image -->
                 <div class="img-shadow rounded-sm overflow-hidden w-full fade-in delay-2">
-                    <img src="{{ $dreams->img_path ?? '' }}" alt="{{ $dreams->title ?? '' }}" width="600"
-                        height="400" loading="lazy" decoding="async"
-                        class="w-full h-[400px] sm:h-[520px] object-cover"
-                        onerror="this.style.background='#c5bdb5'; this.removeAttribute('src');" />
+                    <img src="{{ $dreams->img_path ?? '' }}"
+     alt="{{ $dreams->title ?? '' }}"
+     width="380" height="437"
+     loading="lazy"
+     decoding="async"
+     class="w-full h-[400px] sm:h-[520px] object-cover">
                 </div>
 
                 <!-- Side images row -->
                 <div class="grid grid-cols-2 gap-4 fade-in delay-2">
                     <!-- Image 1 -->
-                    <img src="{{ asset($extraImages[1] ?? '') }}" width="300" height="180" loading="lazy"
-                        decoding="async" alt="Bhaiya Housing outdoor architectural space"
-                        class="img-shadow rounded-sm object-cover w-full h-[180px] sm:h-[220px]"
-                        onerror="this.onerror=null; this.style.background='#d6cfc5'; this.removeAttribute('src');" />
+                    <img src="{{ asset($extraImages[1] ?? '') }}"
+     width="182" height="201"
+     loading="lazy"
+     decoding="async"
+     class="img-shadow rounded-sm object-cover w-full h-[180px] sm:h-[220px]">
 
                     <!-- Image 2 -->
                     <img src="{{ asset($extraImages[2] ?? '') }}" width="300" height="180" loading="lazy"
@@ -432,10 +435,11 @@
 
                 <!-- Bottom image optimized -->
                 <div class="fade-in delay-3 scroll-move" data-axis="Y" data-max-move="180">
-                    <img src="{{ asset($extraImages[0] ?? '') }}" alt="Bhaiya Housing development or career highlights"
-                        class="img-shadow rounded-sm object-cover w-full h-[260px] sm:h-[320px]" loading="lazy"
-                        decoding="async" width="380" height="320"
-                        onerror="this.onerror=null; this.style.background='#c0b8ae'; this.removeAttribute('src');" />
+                    <img src="{{ asset($extraImages[0] ?? '') }}"
+     width="380" height="320"
+     loading="lazy"
+     decoding="async"
+     class="img-shadow rounded-sm object-cover w-full h-[260px] sm:h-[320px]">
                 </div>
 
                 <!-- Description + CTA -->

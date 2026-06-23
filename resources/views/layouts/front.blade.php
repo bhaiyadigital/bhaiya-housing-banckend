@@ -52,6 +52,10 @@
 
     <link rel="preload" as="image" href="{{ $hero->img_path ?? '' }}" fetchpriority="high">
 
+@if(isset($setting->img_path))
+    <link rel="preload" as="image" href="{{ asset($setting->img_path) }}" fetchpriority="high">
+@endif
+
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
         html.lenis {

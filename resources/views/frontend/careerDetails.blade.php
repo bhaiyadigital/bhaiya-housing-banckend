@@ -354,7 +354,7 @@ $schema['jobPosting']['experienceRequirements'] = strip_tags($job->body_3);
         style="left: clamp(30%, 50%, 44%);
                bottom: -10px;
                z-index: 20;">
-        <img src="/assets/images/overview-stone.png" alt=""
+        <img src="{{ asset('images/overview-stone.webp') }}" alt="overview stone"
             style="width: clamp(120px, 12vw, 220px); height: clamp(120px, 12vw, 220px);"
             onerror="this.style.display='none'" />
     </div>

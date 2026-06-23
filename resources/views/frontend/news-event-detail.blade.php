@@ -142,7 +142,7 @@
 <section class="hero-fixed fixed top-0 left-0 w-full overflow-hidden
                 h-[500px] sm:h-[600px] md:h-[700px] lg:h-[900px]">
     <!-- Background Image -->
-    <img src="{{ asset('assets/images/event.jpg') }}" alt="interior"
+    <img src="{{ asset('images/event.webp') }}" alt="event"
         class="absolute inset-0 w-full h-full object-cover" />
 
     <!-- Dark Overlay -->

@@ -151,15 +151,15 @@
  {{-- ===== HERO ===== --}}
 <section class="fixed hero-fixed top-0 left-0 w-full z-0 overflow-hidden h-[600px] md:h-[700px] lg:h-[900px]">
     <!-- ইমেজে object-cover যোগ করা হয়েছে যাতে মোবাইলে ছবি ডিফর্মড না হয় -->
-    <img src="{{ $concernHero?->img_path ?? asset('assets/images/concern.jpg') }}"
+    <img src="{{ $concernHero?->img_path ?? '' }}"
         alt="interior" class="absolute inset-0 w-full h-full object-cover" />
     <div class="absolute inset-0 bg-black/50"></div>
 
     <div class="absolute inset-0 flex items-center px-6 sm:px-10 md:px-20">
         <!-- pl-12 কে md:pl-12 pl-0 এবং pt-32 কে md:pt-32 pt-20 করা হয়েছে। ফন্ট সাইজে clamp ব্যবহার করা হয়েছে -->
-        <h2 class="text-white font-light md:pl-12 pt-20 md:pt-32 tracking-normal md:tracking-[-3px]" 
+        <h2 class="text-white font-light md:pl-12 pt-20 md:pt-32 tracking-normal md:tracking-[-3px]"
             style="font-size: clamp(32px, 3.85vw, 74px); line-height: 1.2;">
-             Expanding Excellence<br><span class="font-migra-italic">Our Other Ventures</span>  
+             Expanding Excellence<br><span class="font-migra-italic">Our Other Ventures</span>
         </h2>
     </div>
 
@@ -195,7 +195,7 @@
                  @foreach($row as $colIndex => $logo)
                  <div class="logo-cell flex-1 flex items-center justify-center p-8 lg:p-10 group cursor-pointer transition-all duration-300 hover:bg-white"
                      style="{{ $colIndex < count($row) - 1 ? 'border-right:1px solid #d8d0c8;' : '' }} min-height:200px;">
-                     <img src="{{ asset($logo->img_path) }}"
+                     <img src="{{ asset($logo->img_path) ?? ''}}"
                          alt="{{ $logo->title ?? 'Brand' }}"
                          class="w-auto object-contain grayscale opacity-70 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300"
                          onerror="this.style.display='none';" />
@@ -224,7 +224,7 @@
          @foreach($row as $logo)
          <div class="flex items-center justify-center p-6 border-b border-r border-[#d8d0c8] group cursor-pointer transition-all duration-300 hover:bg-white"
              style="min-height:110px;">
-             <img src="{{ asset($logo->img_path) }}"
+             <img src="{{ asset($logo->img_path) ?? ''}}"
                  alt="{{ $logo->title ?? 'Brand' }}"
                  class="max-h-12 w-auto object-contain grayscale opacity-70 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300"
                  onerror="this.style.display='none';" />

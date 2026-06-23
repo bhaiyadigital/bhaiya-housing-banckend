@@ -12,8 +12,12 @@ window.isMobile = window.innerWidth < 1024;
 gsap.registerPlugin(ScrollTrigger);
 
 const initApp = () => {
-    // ২. AOS ও Parallax (মোবাইলে অফ)
-    AOS.init({ duration: 800, once: true, disable: window.isMobile });
+    // ২. AOS ও Parallax (মোবাইলে অফ রাখা হয়েছে স্পিড ১০০ করার জন্য)
+    AOS.init({
+        duration: 800,
+        once: true,
+        disable: window.isMobile
+    });
 
     if (!window.isMobile) {
         // ডেক্সটপ Parallax
@@ -24,7 +28,7 @@ const initApp = () => {
             });
         });
 
-        // ৩. Quality Image Hover Zoom (যেটা কাজ করছিল না)
+        // Quality Image Hover Zoom
         document.querySelectorAll('.quality-col').forEach(col => {
             const wrap = col.querySelector('.quality-img-wrap');
             const img = col.querySelector('.quality-img');
@@ -41,7 +45,7 @@ const initApp = () => {
         });
     }
 
-    // ৪. Quality Border Line (Home Page)
+    // ৩. Quality Border Line (Home Page)
     if (document.querySelector('.quality-border-line')) {
         gsap.to('.quality-border-line', {
             width: '100%',
@@ -51,43 +55,42 @@ const initApp = () => {
     }
 };
 
-// ৫. হেডার লজিক
+// ৪. হেডার লজিক
 const initHeader = () => {
     const header = document.getElementById("site-header");
+    if (!header) return;
     let lastScroll = 0;
     window.addEventListener("scroll", () => {
         const s = window.scrollY;
-        if (s > 100 && s > lastScroll) header?.classList.add("hide");
-        else header?.classList.remove("hide");
+        if (s > 100 && s > lastScroll) header.classList.add("hide");
+        else header.classList.remove("hide");
         lastScroll = s;
     }, { passive: true });
 };
 
-window.addEventListener('load', () => {
-    initApp();
-    initHeader();
-});
-
-// ৬. ভিডিও মোডাল ফাংশন (গ্লোবাল)
+// ৫. ভিডিও মোডাল ফাংশন
 window.openVideoModal = () => {
     const modal = document.getElementById('videoModal');
     const video = document.getElementById('modalVideo');
-    if (!video.src) {
-        video.src = video.getAttribute('data-src');
-        video.load();
+    if (modal && video) {
+        if (!video.src) {
+            video.src = video.getAttribute('data-src');
+            video.load();
+        }
+        modal.style.display = 'flex';
+        video.play();
     }
-    modal.style.display = 'flex';
-    video.play();
 };
+
 window.closeVideoModal = () => {
     const video = document.getElementById('modalVideo');
     if (video) video.pause();
     document.getElementById('videoModal').style.display = 'none';
 };
-const finalizeScripts = () => {
-    if (window.AOS) {
-        window.AOS.refresh();
-    }
-};
 
-window.addEventListener('load', finalizeScripts);
+// সব লজিক উইন্ডো লোড হওয়ার পর রান করুন
+window.addEventListener('load', () => {
+    initApp();
+    initHeader();
+    if (window.AOS) window.AOS.refresh();
+});

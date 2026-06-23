@@ -159,9 +159,10 @@
  @endsection
  @push('styles')
      <style>
-        .blog-content-area hr {
-        display: none !important;
-    }
+         .blog-content-area hr {
+             display: none !important;
+         }
+
          /* মেইন ব্লগ কন্টেন্ট এরিয়া */
          .blog-content-area {
              line-height: 1.8;
@@ -431,9 +432,11 @@
                  </button>
              </div>
              <!-- Blog Content Wrapper -->
-             <div class="bg-white rounded-xl shadow-sm p-6 md:p-10 md:py-10 md:mt-10 mb-8 blog-content-area">
-                 {!! $setting->body_3 !!}
-             </div>
+             @if (!empty($setting->body_3))
+                 <div class="bg-white rounded-xl shadow-sm p-6 md:p-10 md:py-10 md:mt-10 mb-8 blog-content-area">
+                     {!! $setting->body_3 !!}
+                 </div>
+             @endif
          </div>
      </section>
 
