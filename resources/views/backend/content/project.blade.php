@@ -136,6 +136,16 @@
                             <textarea class="editor form-control" name="body_2" rows="4"></textarea>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-md-12 mb-3">
+                            <label class="form-label fw-semibold">Description</label>
+                            <textarea class="editor form-control" name="body" rows="4"></textarea>
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            <label class="form-label fw-semibold">Description Box 2</label>
+                            <textarea class="editor form-control" name="body_4" rows="4"></textarea>
+                        </div>
+                    </div>
 
                     {{-- Thumbnail --}}
                     <div class="row">
@@ -568,7 +578,7 @@
                 .trim()
                 .replace(/[^\w\s-]/g, '')
                 .replace(/[\s_-]+/g, '-')
-                .replace(/^-+|-+$/g, ''); 
+                .replace(/^-+|-+$/g, '');
 
             slugInput.value = slug;
         }

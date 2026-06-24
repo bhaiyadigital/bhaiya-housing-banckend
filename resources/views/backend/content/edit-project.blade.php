@@ -142,6 +142,9 @@
                     <div class="col-md-12 mb-3">
                         <label class="form-label fw-semibold">Description Box 2</label>
                         <textarea class="editor form-control" name="body_2" rows="4">{!! $content->body_2 !!}</textarea>
+                    </div><div class="col-md-12 mb-3">
+                        <label class="form-label fw-semibold">Description Box 2</label>
+                        <textarea class="editor form-control" name="body_4" rows="4">{!! $content->body_2 !!}</textarea>
                     </div>
                 </div>
 
