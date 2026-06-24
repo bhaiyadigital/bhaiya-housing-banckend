@@ -279,11 +279,11 @@
          <div class="absolute inset-0 bg-black/50"></div>
 
          <div class="absolute inset-0 flex items-center px-6 sm:px-10 md:px-20">
-             <h2 class="text-white md:pl-12 pt-20 md:pt-32 font-light tracking-normal md:tracking-[-4px]"
+             <h1 class="text-white md:pl-12 pt-20 md:pt-32 font-light tracking-normal md:tracking-[-4px]"
                  style="font-size: clamp(32px, 3.85vw, 74px); line-height: 1.2;">
                  Where <span class="font-migra-italic">innovation</span>
                  meets <span class="font-migra-italic">quality & trust</span>
-             </h2>
+             </h1>
          </div>
 
      </section>
@@ -474,7 +474,7 @@
          // ── Project card HTML ──
          function projectCard(p) {
              return `
-        <a href="${p.url}" class="block group">
+        <a href="${p.url}" aria-label="project url" class="block group">
             <div class="group cursor-pointer pl-4 md:pl-10">
                 <!-- Image Wrapper -->
                 <div class="overflow-hidden mb-4 h-[350px] md:h-[600px] w-full">

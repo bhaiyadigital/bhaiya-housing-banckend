@@ -231,7 +231,7 @@ $schema['jobPosting']['experienceRequirements'] = strip_tags($job->body_3);
             <div class="prose prose-sm max-w-none job-body">
                 {!! $job->body !!}
 
-                <a href="{{ route('career') }}"
+                <a href="{{ route('career') }}" aria-label="career"
                     class="mt-10 inline-block px-8 py-2.5 border border-gray-700 text-sm font-light text-gray-700 tracking-wide transition-all duration-300 hover:bg-gray-900 hover:text-white">
                     Go Back
                 </a>

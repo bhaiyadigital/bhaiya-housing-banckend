@@ -147,7 +147,7 @@ $schema = [
 <!-- DETAIL CONTENT -->
 <section class="relative z-10 w-full py-16 md:py-24 bg-white overflow-hidden">
     <div class="container mx-auto px-4 sm:px-6 lg:px-14">
-        
+
         <div class="max-w-4xl mx-auto">
             <div class="prose prose-sm md:prose-base max-w-none page-body text-gray-800 leading-relaxed">
                 {!! $page->body !!}
@@ -155,7 +155,7 @@ $schema = [
 
             <!-- Back to Home Button -->
             <div class="mt-12">
-                <a href="{{ url('/') }}"
+                <a href="{{ url('/') }}" aria-label="back url"
                     class="inline-block px-8 py-2.5 border border-gray-700 text-sm font-light text-gray-700 tracking-wide transition-all duration-300 hover:bg-gray-900 hover:text-white">
                     Back to Home
                 </a>
@@ -164,7 +164,7 @@ $schema = [
 
     </div>
 
-   
+
 
 </section>
 

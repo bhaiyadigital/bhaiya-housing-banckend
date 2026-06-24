@@ -183,7 +183,7 @@
             <div class="w-full md:w-[30%] flex-shrink-0 md:sticky md:top-24">
 
                 <!-- Back -->
-                <a href="javascript:history.back()"
+                <a href="javascript:history.back()" aria-label="back"
                     class="flex items-center gap-2 text-sm text-gray-700 hover:text-gray-900 transition-colors duration-200 mb-6 md:mb-8"
                     style="font-weight: 300; letter-spacing: 0.05em;">
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -327,7 +327,7 @@
                     </p>
                     <div class="flex flex-col gap-0">
                         @foreach($related as $rel)
-                        <a href="/{{ $rel->type }}/{{ $rel->id }}"
+                        <a href="/{{ $rel->type }}/{{ $rel->id }}" aria-label="related news"
                             class="flex flex-col sm:flex-row gap-2 sm:gap-8 items-start py-4 md:py-5
                                    hover:bg-white/60 px-3 -mx-3 transition-colors duration-200"
                             style="border-bottom: 1px solid #c8c0b4; text-decoration: none;">

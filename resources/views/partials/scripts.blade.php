@@ -182,8 +182,8 @@
     if (!els.length) return;
 
     els.forEach(el => {
-        const speed = parseFloat(el.dataset.speed ?? 0.15); 
-        
+        const speed = parseFloat(el.dataset.speed ?? 0.15);
+
         // 1. Data-axis রিড করা এবং মাইনাস (-) আছে কিনা চেক করা
         const rawAxis = (el.dataset.axis ?? 'Y').toUpperCase().trim();
         const isNegative = rawAxis.startsWith('-'); // true হবে যদি -X বা -Y হয়
@@ -198,10 +198,10 @@
         let rafId   = null;
 
         function calculateOffset() {
-            el.style.translate = 'none'; 
-            
+            el.style.translate = 'none';
+
             const rect = el.getBoundingClientRect();
-            
+
             const windowCenterY = window.innerHeight / 2;
             const elementCenterY = rect.height / 2;
             const absolutePosY = rect.top + window.scrollY;
@@ -212,7 +212,7 @@
         // 2. Translate অ্যাপ্লাই করার জন্য আলাদা ফাংশন বানালাম
         function applyTranslate(value) {
             // dirMultiplier (-1 বা 1) দিয়ে ভ্যালুকে গুণ করে দিক ঠিক করা হচ্ছে
-            const finalValue = value * dirMultiplier; 
+            const finalValue = value * dirMultiplier;
 
             if (baseAxis === 'X') {
                 el.style.translate = `${finalValue}px 0px`;
@@ -273,7 +273,7 @@
         const heroH = hero.offsetHeight;
         const progress = Math.min(scrollY / heroH, 1);
 
-        // ✅ শুধু translateY — scale নেই
+        
         const translateY = progress * -30;
         hero.style.transform = `translateY(${translateY}%)`;
       }

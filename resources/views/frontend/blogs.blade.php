@@ -127,7 +127,7 @@ $schema = [
         <div class="container  mx-auto">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                @forelse($blogs as $blog)
-    <a href="{{route('blog.details',$blog->name)}}" data-page="blog" style="text-decoration: none;">
+    <a href="{{route('blog.details',$blog->name)}}" aria-label="blog single page route" data-page="blog" style="text-decoration: none;">
         <div class="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 group cursor-pointer">
             <div class="relative  overflow-hidden">
                 <img style="padding:10px;border-radius:15px" src="{{ asset($blog->img_path) }}"

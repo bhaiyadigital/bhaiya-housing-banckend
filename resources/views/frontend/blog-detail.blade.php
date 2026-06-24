@@ -134,13 +134,13 @@
             <!-- Image Overlap using Negative Margin -->
             <div class="flex   gap-2 text-sm bg-white/70  px-4 py-2 rounded-full  border-gray-100">
 
-                <a href="{{ url('/') }}" class="text-gray-600 hover:text-black">
+                <a href="{{ url('/') }}" aria-label="url" class="text-gray-600 hover:text-black">
                     Home
                 </a>
 
                 <span class="text-gray-300">›</span>
 
-                <a href="{{ route('blog.index') ?? '#' }}" class="text-gray-600 hover:text-black">
+                <a href="{{ route('blog.index') ?? '#' }}" aria-label="blog page" class="text-gray-600 hover:text-black">
                     Blog
                 </a>
 

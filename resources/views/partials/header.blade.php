@@ -3,7 +3,7 @@
     style="transition: transform 0.4s ease, background 0.4s ease; transform: translateZ(0); z-index: 50;">
     <div class="container  flex items-center justify-between mx-auto m-auto">
         <!-- Logo -->
-        <a href="/" class="z-50 flex-shrink-0">
+        <a href="/" class="z-50 flex-shrink-0" aria-label="home page logo">
 
             <img src="{{ asset($setting->img_path) }}" alt="Bhaiya Logo" width="180" height="60"
                 style="aspect-ratio: 180 / 60; display: block;" fetchpriority="high" loading="eager" decoding="sync">
@@ -45,7 +45,7 @@
 
     <!-- Top bar -->
     <div class="relative z-10 flex items-center justify-between px-6 sm:px-8 md:px-14 py-5 md:py-7 flex-shrink-0">
-        <a href="/">
+        <a href="/" aria-label="home page image">
             <img src="{{ asset($setting->img_path ?? '') }}" alt="{{ $setting->title ?? 'Bhaiya' }}" width="120"
                 height="40" class="h-8 md:h-10 w-auto object-contain" loading="lazy" />
             <span class="hidden text-white font-semibold text-lg tracking-widest"
@@ -92,7 +92,7 @@
                 @endphp
 
                 @foreach ($staticLinks as $link)
-                    <a href="{{ $link['href'] }}"
+                    <a href="{{ $link['href'] }}" aria-label="static link"
                         class="header-menu-list group transition-opacity duration-300 hover:opacity-100 flex items-center gap-3 md:gap-4 md:ml-32"
                         data-img="{{ isset($menuImages[$link['key']]) ? asset($menuImages[$link['key']]->img_path) : asset('assets/images/m1.jpg') }}"
                         onmouseover="hoverLink(this)" onmouseout="unhoverLink(this)">
@@ -103,7 +103,7 @@
                 @endforeach
 
                 <!-- Contact Us -->
-                <a href="#"
+                <a href="{{ route('contact') }}"
                     class="header-menu-list group transition-opacity duration-300 hover:opacity-100 flex items-center gap-4 md:gap-6 md:ml-32"
                     data-img="{{ isset($menuImages['contact']) ? asset($menuImages['contact']->img_path) : asset('assets/images/m1.jpg') }}"
                     onmouseover="hoverLink(this)" onmouseout="unhoverLink(this)">
@@ -114,14 +114,14 @@
 
                 <!-- Sub links -->
                 <div class="flex flex-col sm:flex-row items-start sm:items-center  gap-4 md:gap-6 pl-1 mt-1 md:ml-48">
-                    <a href="/landowner-contact"
+                    <a href="{{ route('landowner') }}" aria-label="landowner contact"
                         class="group text-white/50 hover:text-white transition-colors duration-200 flex items-center gap-2"
                         style="font-family:'Jost',sans-serif; font-size:12px; font-weight:300; letter-spacing:0.08em;">
                         <span
                             class="block h-px bg-white/40 w-0 group-hover:w-6 transition-all duration-300 ease-out flex-shrink-0"></span>
                         As A Landowner
                     </a>
-                    <a href="/customer-contact"
+                    <a href="{{ route('contact') }}" aria-label="customer contact"
                         class="group text-white/50 hover:text-white transition-colors duration-200 flex items-center gap-2"
                         style="font-family:'Jost',sans-serif; font-size:12px; font-weight:300; letter-spacing:0.08em;">
                         <span

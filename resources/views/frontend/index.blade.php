@@ -397,8 +397,8 @@
             @endphp
 
             <!-- ══════════════════════════════════
-                                                                                                 MOBILE LAYOUT (flex-col, < md)
-                                                                                            ══════════════════════════════════ -->
+                                                                                                     MOBILE LAYOUT (flex-col, < md)
+                                                                                                ══════════════════════════════════ -->
             <div class="flex flex-col gap-8 md:hidden">
 
                 <!-- Heading -->
@@ -409,22 +409,16 @@
 
                 <!-- Big center image -->
                 <div class="img-shadow rounded-sm overflow-hidden w-full fade-in delay-2">
-                    <img src="{{ $dreams->img_path ?? '' }}"
-     alt="{{ $dreams->title ?? '' }}"
-     width="380" height="437"
-     loading="lazy"
-     decoding="async"
-     class="w-full h-[400px] sm:h-[520px] object-cover">
+                    <img src="{{ $dreams->img_path ?? '' }}" alt="{{ $dreams->title ?? '' }}" width="380"
+                        height="437" loading="lazy" decoding="async"
+                        class="w-full h-[400px] sm:h-[520px] object-cover">
                 </div>
 
                 <!-- Side images row -->
                 <div class="grid grid-cols-2 gap-4 fade-in delay-2">
                     <!-- Image 1 -->
-                    <img src="{{ asset($extraImages[1] ?? '') }}"
-     width="182" height="201"
-     loading="lazy"
-     decoding="async"
-     class="img-shadow rounded-sm object-cover w-full h-[180px] sm:h-[220px]">
+                    <img src="{{ asset($extraImages[1] ?? '') }}" width="182" height="201" loading="lazy" alt="bhaiya housing appartment"
+                        decoding="async" class="img-shadow rounded-sm object-cover w-full h-[180px] sm:h-[220px]">
 
                     <!-- Image 2 -->
                     <img src="{{ asset($extraImages[2] ?? '') }}" width="300" height="180" loading="lazy"
@@ -435,11 +429,8 @@
 
                 <!-- Bottom image optimized -->
                 <div class="fade-in delay-3 scroll-move" data-axis="Y" data-max-move="180">
-                    <img src="{{ asset($extraImages[0] ?? '') }}"
-     width="380" height="320"
-     loading="lazy"
-     decoding="async"
-     class="img-shadow rounded-sm object-cover w-full h-[260px] sm:h-[320px]">
+                    <img src="{{ asset($extraImages[0] ?? '') }}" width="380" height="320" loading="lazy"
+                        decoding="async" class="img-shadow rounded-sm object-cover w-full h-[260px] sm:h-[320px]">
                 </div>
 
                 <!-- Description + CTA -->
@@ -459,8 +450,8 @@
             </div>
 
             <!-- ══════════════════════════════════
-                                                                                                 TABLET LAYOUT (≥ md, < lg)
-                                                                                            ══════════════════════════════════ -->
+                                                                                                     TABLET LAYOUT (≥ md, < lg)
+                                                                                                ══════════════════════════════════ -->
             <div class="hidden md:flex lg:hidden flex-col gap-10">
 
                 <!-- Heading -->
@@ -512,8 +503,8 @@
             </div>
 
             <!-- ══════════════════════════════════
-                                                                                                 DESKTOP LAYOUT (≥ lg), original
-                                                                                            ══════════════════════════════════ -->
+                                                                                                     DESKTOP LAYOUT (≥ lg), original
+                                                                                                ══════════════════════════════════ -->
 
             <!-- Row 1 -->
             <div class="hidden lg:flex relative flex-wrap items-start mt-8">
@@ -1026,7 +1017,7 @@ font-size: clamp(150px, 14vw, 320px);                    font-weight:bolder;
                opacity: 0; transition: opacity 0.3s ease;
                overflow: hidden; top: 0; left: 0;">
             <img id="newsHoverImgEl" src="" alt="hover image"
-                style="width: 100%; height: 100%; object-fit: cover;"/>
+                style="width: 100%; height: 100%; object-fit: cover;" />
         </div>
 
         <div class="container mx-auto flex flex-col md:flex-row gap-8 lg:gap-24 pt-12 md:pt-[100px]">
@@ -1049,7 +1040,7 @@ font-size: clamp(150px, 14vw, 320px);                    font-weight:bolder;
 
                         Events
                     </h2>
-                    <a href="/event" class="flex items-center justify-center rounded-full flex-shrink-0 text-center"
+                    <a href="{{route('events')}}" class="flex items-center justify-center rounded-full flex-shrink-0 text-center"
                         aria-label="event page view all"
                         style="width: clamp(70px, 18vw, 90px); height: clamp(70px, 18vw, 90px);
                            border: 1.5px solid #1a1a1a; font-size: 11px;
@@ -1092,7 +1083,7 @@ font-size: clamp(150px, 14vw, 320px);                    font-weight:bolder;
                     </div>
 
                     {{-- View All circle --}}
-                    <a href="/event" class="flex items-center justify-center rounded-full text-center flex-shrink-0"
+                    <a href="{{route('events')}}" class="flex items-center justify-center rounded-full text-center flex-shrink-0"
                         aria-label="view all circle for event"
                         style="width: clamp(90px, 9vw, 130px); height: clamp(90px, 9vw, 130px);
                            border: 1.5px solid #1a1a1a;
@@ -1558,4 +1549,3 @@ font-size: clamp(150px, 14vw, 320px);                    font-weight:bolder;
         });
     </script>
 @endpush
-

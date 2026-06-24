@@ -171,10 +171,10 @@ $jobSchemas[] = [
 
         <!-- Text -->
     <div class="absolute inset-0 flex items-center px-6 sm:px-10 md:px-20">
-    <h2 class="text-white font-semibold pl-4 sm:pl-8 md:pl-12 pt-16 sm:pt-24 md:pt-32"
+    <h1 class="text-white font-semibold pl-4 sm:pl-8 md:pl-12 pt-16 sm:pt-24 md:pt-32"
         style="font-size: clamp(32px, 3.85vw, 90px); line-height: 1.2;">
         {!! $career->title ?? '' !!}
-    </h2>
+    </h1>
 </div>
 
     </section>
@@ -290,7 +290,7 @@ $jobSchemas[] = [
                         <p class="text-lg font-light text-gray-500 leading-loose mb-6" style="line-height:1.4;">
                             {!! $job->short ??'' !!}
                         </p>
-                        <a href="{{ route('job.details', $job->name) }}"
+                        <a href="{{ route('job.details', $job->name) }}" aria-label="job details route"
                             class="mt-0 inline-block px-8 py-2.5 border border-gray-700 text-md font-light text-gray-700 tracking-wide transition-all duration-300 hover:bg-gray-900 hover:text-white hover:border-gray-900">
                             Apply Now
                         </a>
