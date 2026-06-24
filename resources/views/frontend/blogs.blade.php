@@ -1,102 +1,6 @@
 @extends('layouts.front')
-@section('title', "Our Blogs ")
-
 @section('meta')
-@php
-$schema = [
-"page" => [
-"description" => "Read the latest news, updates, and articles from Salt Bay, a luxury project by Bhaiya Group. Stay updated with our blogs and insights.",
-"keywords" => "Salt Bay, Bhaiya Group, Blogs, News, Updates, Hospitality, Luxury Hotel",
-"robots" => "index, follow, max-image-preview:large",
-"canonical" => url()->current(),
-],
-"openGraph" => [
-"type" => "website",
-"title" => "Our Blogs | Salt Bay",
-"description" => "Explore latest blogs and updates from Salt Bay luxury project by Bhaiya Group.",
-"url" => url()->current(),
-"site_name" => "Salt Bay",
-"image" => asset('assets/images/blog-og.jpg'),
-"locale" => "en_US",
-],
-"twitter" => [
-"card" => "summary_large_image",
-"title" => "Our Blogs | Salt Bay",
-"description" => "Read the latest blogs and updates from Salt Bay luxury project by Bhaiya Group.",
-"image" => asset('assets/images/blog-og.jpg'),
-],
-"breadcrumb" => [
-"@context" => "https://schema.org",
-"@type" => "BreadcrumbList",
-"itemListElement" => [
-["@type" => "ListItem", "position" => 1, "name" => "Home", "item" => url('/')],
-["@type" => "ListItem", "position" => 2, "name" => "Blogs", "item" => url()->current()],
-],
-],
-"organization" => [
-"@context" => "https://schema.org",
-"@graph" => [
-[
-"@type" => "Organization",
-"name" => "Salt Bay",
-"url" => url('/'),
-"logo" => asset('assets/images/logo.png'),
-"sameAs" => [
-"https://www.facebook.com/Saltbayhotel",
-"https://www.youtube.com/@SaltbayHotel"
-],
-"founder" => [
-"@type" => "Person",
-"name" => 'Maroof Sattar Ali',
-"jobTitle" => "Chairman",
-],
-"foundingDate" => "1972",
-"address" => [
-"@type" => "PostalAddress",
-"streetAddress" => "Nabil House, House-09, Road-17, Block-D, Banani",
-"addressLocality" => "Dhaka",
-"addressCountry" => "BD"
-]
-]
-]
-]
-];
-@endphp
-
-{{-- META TAGS --}}
-<meta name="description" content="{{ $schema['page']['description'] }}">
-<meta name="keywords" content="{{ $schema['page']['keywords'] }}">
-<meta name="robots" content="{{ $schema['page']['robots'] }}">
-<link rel="canonical" href="{{ $schema['page']['canonical'] }}">
-
-{{-- OPEN GRAPH --}}
-<meta property="og:type" content="{{ $schema['openGraph']['type'] }}">
-<meta property="og:title" content="{{ $schema['openGraph']['title'] }}">
-<meta property="og:description" content="{{ $schema['openGraph']['description'] }}">
-<meta property="og:url" content="{{ $schema['openGraph']['url'] }}">
-<meta property="og:site_name" content="{{ $schema['openGraph']['site_name'] }}">
-<meta property="og:image" content="{{ $schema['openGraph']['image'] }}">
-<meta property="og:locale" content="{{ $schema['openGraph']['locale'] }}">
-
-{{-- TWITTER --}}
-<meta name="twitter:card" content="{{ $schema['twitter']['card'] }}">
-<meta name="twitter:title" content="{{ $schema['twitter']['title'] }}">
-<meta name="twitter:description" content="{{ $schema['twitter']['description'] }}">
-<meta name="twitter:image" content="{{ $schema['twitter']['image'] }}">
-
-{{-- BREADCRUMB --}}
-<script type="application/ld+json">
-    {
-        !!json_encode($schema['breadcrumb'], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) !!
-    }
-</script>
-
-{{-- ORGANIZATION SCHEMA --}}
-<script type="application/ld+json">
-    {
-        !!json_encode($schema['organization'], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) !!
-    }
-</script>
+    @include('partials.meta', ['pageKey' => 'blog'])
 @endsection
 
 
@@ -105,18 +9,18 @@ $schema = [
 <section class="hero-fixed fixed top-0 left-0 w-full overflow-hidden h-[600px] md:h-[700px] lg:h-[900px]"
     style="z-index:1; transform-origin:top center; will-change:transform;">
 
-    <img src="{{ $projectHero->img_path ?? '') }}"
+    <img src="{{ asset('images/event.webp') }}"
         alt="interior"
         class="absolute inset-0 w-full h-full object-cover" />
 
     <div class="absolute inset-0 bg-black/50"></div>
 
     <div class="absolute inset-0 flex items-center px-6 sm:px-10 md:px-20" >
-        <h2 class="text-white md:pl-12 pt-20 md:pt-32 font-light tracking-normal md:tracking-[-4px]"
+        <h1 class="text-white md:pl-12 pt-20 md:pt-32 font-light tracking-normal md:tracking-[-4px]"
             style="font-size: clamp(32px, 3.85vw, 74px); line-height: 1.2;">
             Explore <span class="font-migra-italic">Our </span>
            Blog
-        </h2>
+        </h1>
     </div>
 
 </section>

@@ -17,10 +17,27 @@
 
                 {{-- Row 1: Basic Info --}}
                 <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <label class="form-label fw-semibold">Project Name <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" name="title" required value="{{ $content->title }}">
-                    </div>
+    <div class="col-md-6 mb-3">
+        <label class="form-label fw-semibold">Project Name <span class="text-danger">*</span></label>
+        <div class="input-group">
+            {{-- আইডি 'projectTitle' যোগ করা হয়েছে --}}
+            <input type="text" class="form-control" name="title" id="projectTitle" required value="{{ $content->title }}">
+            <button type="button" class="btn btn-outline-secondary" onclick="generateSlug()">
+                <i class="bi bi-link-45deg"></i> Generate Slug
+            </button>
+        </div>
+    </div>
+
+    {{-- স্লাগ ফিল্ড (name কলাম) --}}
+    <div class="col-md-6 mb-3">
+        <label class="form-label fw-semibold">URL Slug (Name) <span class="text-danger">*</span></label>
+        {{-- ডাটাবেজ থেকে $content->name এখানে আসবে --}}
+        <input type="text" class="form-control" name="name" id="projectSlug" required value="{{ $content->name }}" placeholder="url-friendly-name">
+        <small class="text-muted">URL: bhaiya.com/project/<strong>{{ $content->name }}</strong></small>
+    </div>
+</div>
+                <div class="row">
+
                     <div class="col-md-3 mb-3">
                         <label class="form-label fw-semibold">Project Type <span class="text-danger">*</span></label>
                         <select name="short" class="form-select" required>
@@ -115,7 +132,7 @@
                         <label class="form-label fw-semibold">Short Description</label>
                         <textarea class=" form-control" name="body_3" rows="4">{{ $content->body_3 }}</textarea>
                     </div>
-                   
+
                 </div>
                 <div class="row">
                     <div class="col-md-12 mb-3">
@@ -746,7 +763,7 @@ function addSizeRow() {
     row.innerHTML = `
         <input type="text" name="extra_size[]" class="form-control form-control-sm"
             placeholder="e.g. Type B - 1552 Sq. ft.">
-        <button type="button" class="btn btn-sm btn-outline-danger" 
+        <button type="button" class="btn btn-sm btn-outline-danger"
             onclick="removeSizeRow(this)" title="Remove">−</button>
     `;
     container.insertBefore(row, addBtnRow);
@@ -763,5 +780,40 @@ function removeSizeRow(btn) {
     }
     row.remove();
 }
+</script><script>
+    // স্লাগ জেনারেট করার ফাংশন
+    function generateSlug() {
+        const titleInput = document.getElementById('projectTitle');
+        const slugInput = document.getElementById('projectSlug');
+
+        if (!titleInput.value) {
+            alert('Please enter a project name first.');
+            return;
+        }
+
+        const slug = titleInput.value
+            .toLowerCase()
+            .trim()
+            .replace(/[^\w\s-]/g, '')     // স্পেশাল ক্যারেক্টার রিমুভ
+            .replace(/[\s_-]+/g, '-')    // স্পেসকে ড্যাশ করা
+            .replace(/^-+|-+$/g, '');    // শুরু ও শেষের ড্যাশ রিমুভ
+
+        slugInput.value = slug;
+    }
+
+    // টাইটেল পরিবর্তন করলে অটো স্লাগ সাজেস্ট করবে
+    document.getElementById('projectTitle').addEventListener('input', function() {
+        const slugInput = document.getElementById('projectSlug');
+        // এডিট ফর্মে অটো স্লাগ না হওয়া ভালো, তবে ইউজার চাইলে এই লজিক রাখতে পারেন
+        const slug = this.value
+            .toLowerCase()
+            .trim()
+            .replace(/[^\w\s-]/g, '')
+            .replace(/[\s_-]+/g, '-')
+            .replace(/^-+|-+$/g, '');
+
+        // যদি ইউজার নতুন কিছু টাইপ করে তবেই আপডেট হবে
+        // slugInput.value = slug;
+    });
 </script>
 @endpush

@@ -85,11 +85,11 @@ class WebController extends Controller
         $request->validate([
             'name'          => 'required|string|max:255',
             'email'         => 'nullable|email|max:255',
-          'phone'   => [
-            'required',
-            'string',
-            'regex:/^\+?[0-9\s\-()]{7,18}$/',
-        ],
+            'phone'   => [
+                'required',
+                'string',
+                'regex:/^\+?[0-9\s\-()]{7,18}$/',
+            ],
             'interested_in' => 'required|string',
             'message'       => 'required|string|max:2000',
         ], [
@@ -214,11 +214,11 @@ class WebController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name'       => 'required|string|max:100',
-       'phone'   => [
-            'required',
-            'string',
-            'regex:/^\+?[0-9\s\-()]{7,18}$/',
-        ],
+            'phone'   => [
+                'required',
+                'string',
+                'regex:/^\+?[0-9\s\-()]{7,18}$/',
+            ],
             'email'      => 'required|email|max:100',
             'subject'    => 'required|string|max:200',
             'resume'     => 'required|file|mimes:pdf|max:2048',
@@ -331,15 +331,20 @@ class WebController extends Controller
             ->where('status', 1)
             ->orderBy('created_at', 'desc')
             ->get()
-            ->map(fn($p) => [
-                'id'       => $p->id,
-                'title'    => $p->title,
-                'type'     => strtolower($p->short ?? ''),
-                'location' => $p->location ?? '',
-                'img' => $p->img_path ? asset(ltrim($p->img_path, '/')) : asset('frontend/images/building.webp'),
-                'status'   => strtolower(json_decode($p->extra ?? '{}', true)['status'] ?? 'ongoing'),
-                'url'      => '/project/' . $p->id,
-            ])->values();
+            ->map(function ($p) {
+                $slug = !empty($p->name) ? $p->name : $p->id;
+
+                return [
+                    'id'       => $p->id,
+                    'title'    => $p->title,
+                    'type'     => strtolower($p->short ?? ''),
+                    'location' => $p->location ?? '',
+                    'img'      => $p->img_path ? asset(ltrim($p->img_path, '/')) : asset('frontend/images/building.webp'),
+                    'status'   => strtolower(json_decode($p->extra ?? '{}', true)['status'] ?? 'ongoing'),
+
+                    'url'      => route('projects.show', ['name' => $slug]),
+                ];
+            })->values();
 
         $projectLocations = Content::where('type', 'project')
             ->where('status', 1)
@@ -357,11 +362,12 @@ class WebController extends Controller
         return view('frontend.projects', compact('projectHero', 'allProjects', 'projectLocations'));
     }
 
-    public function showProject($id)
+    public function showProject($name)
     {
         $project = Content::where('type', 'project')
+            ->where('name', $name)
             ->where('status', 1)
-            ->findOrFail($id);
+            ->firstOrFail();
 
         $extra      = json_decode($project->extra ?? '{}', true);
         $imgPaths = collect(json_decode($project->img_paths ?? '[]', true))
@@ -400,12 +406,13 @@ class WebController extends Controller
             ->get()
             ->map(fn($item) => [
                 'id'    => $item->id,
+                 'name'  => $item->name,
                 'type'  => $item->type,
                 'title' => $item->title,
                 'date'  => $item->start_date
                     ? \Carbon\Carbon::parse($item->start_date)->format('d F Y')
                     : null,
-                'url' => '/' . ($item->type === 'events' ? 'event/' : 'news/') . $item->id,
+                'url' => '/' . ($item->type === 'events' ? 'event/' : 'news/') . ($item->name ?? $item->id),
             ])->values();
         $this->facebook->sendEvent(
             'PageView',
@@ -452,7 +459,7 @@ class WebController extends Controller
     }
     public function blogDetail($slug)
     {
-         $blogs = Content::where('type', 'blogs')
+        $blogs = Content::where('type', 'blogs')
 
             ->where('status', 1)
             ->get();
@@ -471,28 +478,20 @@ class WebController extends Controller
 
         return view('frontend.blog-detail', compact('blog', 'blogs'));
     }
-    public function show($id)
+    public function show($slug)
     {
         $item = Content::whereIn('type', ['news', 'events'])
             ->where('status', 1)
-            ->findOrFail($id);
+            ->where(function ($q) use ($slug) {
+                $q->where('name', $slug);
+                if (is_numeric($slug)) {
+                    $q->orWhere('id', $slug);
+                }
+            })->firstOrFail();
 
         $imgPaths = json_decode($item->img_paths ?? '[]', true) ?? [];
+        $related = Content::where('type', $item->type)->where('status', 1)->where('id', '!=', $item->id)->take(3)->get();
 
-
-        $related = Content::where('type', $item->type)
-            ->where('status', 1)
-            ->where('id', '!=', $item->id)
-            ->orderBy('start_date', 'desc')
-            ->take(3)
-            ->get();
-        $this->facebook->sendEvent(
-            'PageView',
-            [
-                'client_ip_address' => request()->ip(),
-                'client_user_agent' => request()->userAgent(),
-            ]
-        );
         return view('frontend.news-event-detail', compact('item', 'imgPaths', 'related'));
     }
     public function customerContact()
@@ -522,11 +521,11 @@ class WebController extends Controller
         $validator = Validator::make($request->all(), [
             'name'    => 'required|string|max:255',
             'email'   => 'nullable|email|max:255',
-      'phone'   => [
-            'required',
-            'string',
-            'regex:/^\+?[0-9\s\-()]{7,18}$/',
-        ],
+            'phone'   => [
+                'required',
+                'string',
+                'regex:/^\+?[0-9\s\-()]{7,18}$/',
+            ],
             'subject' => 'required|string|max:255',
             'message' => 'required|string|max:2000',
         ], [
@@ -597,11 +596,11 @@ class WebController extends Controller
         $validator = Validator::make($request->all(), [
             'name'          => 'required|string|max:255',
             'email'         => 'nullable|email|max:255',
-    'phone'   => [
-            'required',
-            'string',
-            'regex:/^\+?[0-9\s\-()]{7,18}$/',
-        ],
+            'phone'   => [
+                'required',
+                'string',
+                'regex:/^\+?[0-9\s\-()]{7,18}$/',
+            ],
             'locality'      => 'required|string|max:255',
             'address'       => 'nullable|string|max:500',
             'land_category' => 'required|string|max:255',

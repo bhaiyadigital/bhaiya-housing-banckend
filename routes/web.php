@@ -47,7 +47,7 @@ Route::get('/career', [WebController::class, 'career'])->name('career');
 Route::get('/career/{slug}', [WebController::class, 'jobDetail'])->name('job.details');
 Route::post('/career/apply', [WebController::class, 'applyJob'])->name('job.apply');
 Route::get('/projects', [WebController::class, 'projects'])->name('projects');
-Route::get('/project/{id}', [WebController::class, 'showProject'])->name('projects.show');
+Route::get('/project/{name}', [WebController::class, 'showProject'])->name('projects.show');
 Route::get('/event', [WebController::class, 'events'])->name('events');
 Route::get('/page/{slug}', [WebController::class, 'page'])->name('page.show');
 
@@ -56,7 +56,7 @@ Route::post('/customer-contact/store', [WebController::class, 'customerContactSt
 Route::get('/landowner-contact',        [WebController::class, 'landowner'])->name('landowner');
 Route::post('/landowner-contact/store', [WebController::class, 'landownerStore'])->name('landowner.store');
 Route::get('/concerns', [WebController::class, 'concerns'])->name('concerns');
-Route::get('/news/{id}',   [WebController::class, 'show'])->name('news.show');
-Route::get('/event/{id}', [WebController::class, 'show'])->name('events.show');
+Route::get('/news/{slug}',   [WebController::class, 'show'])->name('news.show');
+Route::get('/event/{slug}', [WebController::class, 'show'])->name('events.show');
 Route::get('/blog', [WebController::class, 'blog'])->name('blog.index');
 Route::get('/blog/{slug}', [WebController::class, 'blogDetail'])->name('blog.details');

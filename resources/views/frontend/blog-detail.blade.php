@@ -1,6 +1,14 @@
 @extends('layouts.front')
-
-@section('content')
+@section('meta')
+    @include('partials.meta', [
+        'pageKey'     => 'blogs',
+        'title'       => $blog->meta_title ?? $blog->title,
+        'description' => $blog->meta_description ?? $blog->short,
+        'keywords'    => $blog->meta_keywords,
+        'image'       => asset($blog->img_path)
+    ])
+@endsection
+@push('styles')
     <style>
         table {
             width: 100%;
@@ -127,6 +135,9 @@
             margin-top: 30px;
         }
     </style>
+@endpush
+@section('content')
+
     <!-- ১. Hero Section (Olive Background) -->
 
     <section class="  bg-white" style="border: 1px solid gainsboro; margin-top:150px">
@@ -134,7 +145,7 @@
             <!-- Image Overlap using Negative Margin -->
             <div class="flex   gap-2 text-sm bg-white/70  px-4 py-2 rounded-full  border-gray-100">
 
-                <a href="{{ url('/') }}" aria-label="url" class="text-gray-600 hover:text-black">
+                <a href="{{ route('front.home') }}" aria-label="url" class="text-gray-600 hover:text-black">
                     Home
                 </a>
 

@@ -1,162 +1,7 @@
  @extends('layouts.front')
- @section('title', 'Our Signature Projects | Bhaiya Housing Ltd.')
- @section('meta')
-     @php
-
-         $pageTitle = 'Our Signature Projects – ' . '| Bhaiya Housing Ltd.';
-         $pageDesc =
-             'Discover our signature residential and commercial real estate projects across Bangladesh. Browse upcoming, ongoing, and completed luxury properties by Bhaiya Housing Ltd.';
-         $pageUrl = url()->current();
-         $pageImage = isset($projectHero->img_path)
-             ? asset($projectHero->img_path)
-             : asset('assets/images/projectmain.jpg');
-
-         // Safe fallback for socials
-         $socialLinks = isset($socials) ? $socials->map(fn($s) => $s->url)->filter()->values()->toArray() : [];
-
-         $schema = [
-             'page' => [
-                 'description' => $pageDesc,
-                 'keywords' => implode(', ', [
-                     'Bhaiya Housing projects',
-                     'real estate projects Bangladesh',
-                     'buy luxury apartment Dhaka',
-                     'ongoing real estate projects BD',
-                     'upcoming commercial spaces Dhaka',
-                     'completed housing projects Bangladesh',
-                     'property developer BD',
-                 ]),
-                 'robots' => 'index, follow, max-image-preview:large',
-                 'canonical' => $pageUrl,
-             ],
-             'openGraph' => [
-                 'type' => 'website',
-                 'title' => $pageTitle,
-                 'description' => $pageDesc,
-                 'url' => $pageUrl,
-                 'site_name' => $setting->title ?? 'Bhaiya Housing Ltd.',
-                 'image' => $pageImage,
-                 'locale' => 'en_US',
-             ],
-             'twitter' => [
-                 'card' => 'summary_large_image',
-                 'title' => $pageTitle,
-                 'description' => $pageDesc,
-                 'image' => $pageImage,
-             ],
-             'organization' => [
-                 '@context' => 'https://schema.org',
-                 '@type' => ['RealEstateBuilder', 'Organization'],
-                 '@id' => url('/') . '#organization',
-                 'name' => $setting->title ?? 'Bhaiya Housing Ltd.',
-                 'url' => url('/'),
-                 'logo' => [
-                     '@type' => 'ImageObject',
-                     'url' => asset('assets/images/logo.png'),
-                     'width' => 200,
-                     'height' => 60,
-                 ],
-                 'sameAs' => $socialLinks,
-             ],
-             'webPage' => [
-                 '@context' => 'https://schema.org',
-                 '@type' => 'CollectionPage',
-                 '@id' => $pageUrl . '#webpage',
-                 'name' => $pageTitle,
-                 'description' => $pageDesc,
-                 'url' => $pageUrl,
-                 'inLanguage' => 'en-US',
-                 'isPartOf' => ['@id' => url('/') . '#website'],
-                 'about' => ['@id' => url('/') . '#organization'],
-                 'breadcrumb' => [
-                     '@type' => 'BreadcrumbList',
-                     'itemListElement' => [
-                         ['@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => url('/')],
-                         ['@type' => 'ListItem', 'position' => 2, 'name' => 'Projects', 'item' => $pageUrl],
-                     ],
-                 ],
-             ],
-             'projectList' => [
-                 '@context' => 'https://schema.org',
-                 '@type' => 'ItemList',
-                 'name' => 'Signature Real Estate Projects by Bhaiya Housing',
-                 'url' => $pageUrl,
-                 'numberOfItems' => isset($allProjects) ? count($allProjects) : 0,
-                 'itemListElement' => isset($allProjects)
-                     ? collect($allProjects)
-                         ->map(
-                             fn($project, $i) => [
-                                 '@type' => 'ListItem',
-                                 'position' => $i + 1,
-                                 'item' => [
-                                     // Dynamic schema type based on residential vs commercial, fallback to ApartmentComplex
-                                     '@type' =>
-                                         isset($project['type']) &&
-                                         str_contains(strtolower($project['type']), 'commercial')
-                                             ? 'CommercialEvent'
-                                             : 'ApartmentComplex',
-                                     'name' => $project['title'] ?? ($project->title ?? ''),
-                                     'url' => $project['url'] ?? url('/project/' . ($project['id'] ?? '')),
-                                     'image' =>
-                                         $project['img'] ??
-                                         ($project->img_path ? asset($project->img_path) : $pageImage),
-                                     'address' => [
-                                         '@type' => 'PostalAddress',
-                                         'addressLocality' =>
-                                             $project['location'] ?? ($project->location ?? 'Bangladesh'),
-                                     ],
-                                 ],
-                             ],
-                         )
-                         ->values()
-                         ->toArray()
-                     : [],
-             ],
-         ];
-     @endphp
-
-     {{-- META --}}
-     <meta name="description" content="{{ $schema['page']['description'] }}">
-     <meta name="keywords" content="{{ $schema['page']['keywords'] }}">
-     <meta name="robots" content="{{ $schema['page']['robots'] }}">
-     <link rel="canonical" href="{{ $schema['page']['canonical'] }}">
-
-     {{-- OPEN GRAPH --}}
-     <meta property="og:type" content="{{ $schema['openGraph']['type'] }}">
-     <meta property="og:title" content="{{ $schema['openGraph']['title'] }}">
-     <meta property="og:description" content="{{ $schema['openGraph']['description'] }}">
-     <meta property="og:url" content="{{ $schema['openGraph']['url'] }}">
-     <meta property="og:site_name" content="{{ $schema['openGraph']['site_name'] }}">
-     <meta property="og:image" content="{{ $schema['openGraph']['image'] }}">
-     <meta property="og:locale" content="{{ $schema['openGraph']['locale'] }}">
-
-     {{-- TWITTER --}}
-     <meta name="twitter:card" content="{{ $schema['twitter']['card'] }}">
-     <meta name="twitter:title" content="{{ $schema['twitter']['title'] }}">
-     <meta name="twitter:description" content="{{ $schema['twitter']['description'] }}">
-     <meta name="twitter:image" content="{{ $schema['twitter']['image'] }}">
-
-     {{-- SCHEMAS --}}
-     <script type="application/ld+json">
-     {
-         !!json_encode($schema['organization'], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) !!
-     }
- </script>
-
-     <script type="application/ld+json">
-     {
-         !!json_encode($schema['webPage'], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) !!
-     }
- </script>
-
-     @if (isset($allProjects) && count($allProjects) > 0)
-         <script type="application/ld+json">
-     {
-         !!json_encode($schema['projectList'], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) !!
-     }
- </script>
-     @endif
- @endsection
+@section('meta')
+    @include('partials.meta', ['pageKey' => 'projects'])
+@endsection
  @push('styles')
      <style>
          .blog-content-area hr {
@@ -273,7 +118,7 @@
      <section class="hero-fixed fixed top-0 left-0 w-full overflow-hidden h-[600px] md:h-[700px] lg:h-[900px]"
          style="z-index:1; transform-origin:top center; will-change:transform;">
 
-         <img src="{{ $projectHero->img_path ?? asset('assets/images/projectmain.jpg') }}" alt="interior"
+         <img src="{{ $projectHero->img_path ?? '' }}" alt="hero image"
              class="absolute inset-0 w-full h-full object-cover" />
 
          <div class="absolute inset-0 bg-black/50"></div>
@@ -473,30 +318,25 @@
 
          // ── Project card HTML ──
          function projectCard(p) {
-             return `
-        <a href="${p.url}" aria-label="project url" class="block group">
-            <div class="group cursor-pointer pl-4 md:pl-10">
-                <!-- Image Wrapper -->
-                <div class="overflow-hidden mb-4 h-[350px] md:h-[600px] w-full">
-                    <img
-                        src="${p.img}"
-                        alt="${p.title}"
-                        class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-105"
-                        onerror="this.parentElement.style.background='#c8bfb0'; this.style.display='none';"
-                    />
-                </div>
+             const finalUrl = p.name ? `/project/${p.name}` : p.url;
 
-                <!-- Text -->
-                <div class="px-2 md:px-0">
-                    <h3 class="text-lg md:text-xl font-medium text-gray-900">
-                        ${p.title}
-                    </h3>
-                    <p class="text-sm text-gray-500 mt-1">
-                        ${p.location ?? ''}
-                    </p>
+             return `
+            <a href="${finalUrl}" aria-label="View ${p.title}" class="block group">
+                <div class="group cursor-pointer pl-4 md:pl-10">
+                    <div class="overflow-hidden mb-4 h-[350px] md:h-[600px] w-full">
+                        <img
+                            src="${p.img}"
+                            alt="${p.title}"
+                            class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-105"
+                            onerror="this.parentElement.style.background='#c8bfb0'; this.style.display='none';"
+                        />
+                    </div>
+                    <div class="px-2 md:px-0">
+                        <h3 class="text-lg md:text-xl font-medium text-gray-900">${p.title}</h3>
+                        <p class="text-sm text-gray-500 mt-1">${p.location ?? ''}</p>
+                    </div>
                 </div>
-            </div>
-        </a>`;
+            </a>`;
          }
 
          // ── Grid render ──

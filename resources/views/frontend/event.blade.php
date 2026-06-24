@@ -1,284 +1,157 @@
  @extends('layouts.front')
- @section('title', 'News & Events')
-
- @section('meta')
- @php
- $pageTitle = 'News & Events – ' . ($setting->title ?? 'Bhaiya Housing Ltd.');
- $pageDesc = 'Stay informed with the latest updates, press releases, and upcoming events from Bhaiya Housing Ltd. Discover our continuous journey in shaping modern real estate in Bangladesh.';
- $pageUrl = url()->current();
- $pageImage = isset($eventHero->img_path) ? asset($eventHero->img_path) : asset('assets/images/event.jpg');
-
- // Safe fallback for socials
- $socialLinks = isset($socials) ? $socials->map(fn($s) => $s->url)->filter()->values()->toArray() : [];
-
- $schema = [
- "page" => [
- "description" => $pageDesc,
- "keywords" => implode(', ', [
- 'Bhaiya Housing news',
- 'real estate events Bangladesh',
- 'property development updates Dhaka',
- 'Bhaiya Group press release',
- 'upcoming housing events BD',
- 'real estate latest news',
- ]),
- "robots" => "index, follow, max-image-preview:large",
- "canonical" => $pageUrl,
- ],
- "openGraph" => [
- "type" => "website",
- "title" => $pageTitle,
- "description" => $pageDesc,
- "url" => $pageUrl,
- "site_name" => $setting->title ?? 'Bhaiya Housing Ltd.',
- "image" => $pageImage,
- "locale" => "en_US",
- ],
- "twitter" => [
- "card" => "summary_large_image",
- "title" => $pageTitle,
- "description" => $pageDesc,
- "image" => $pageImage,
- ],
- "organization" => [
- "@context" => "https://schema.org",
- "@type" => ["RealEstateBuilder", "Organization"],
- "@id" => url('/') . '#organization',
- "name" => $setting->title ?? 'Bhaiya Housing Ltd.',
- "url" => url('/'),
- "logo" => [
- "@type" => "ImageObject",
- "url" => asset('assets/images/logo.png'),
- "width" => 200,
- "height" => 60,
- ],
- "sameAs" => $socialLinks,
- ],
- "webPage" => [
- "@context" => "https://schema.org",
- "@type" => "CollectionPage",
- "@id" => $pageUrl . '#webpage',
- "name" => $pageTitle,
- "description" => $pageDesc,
- "url" => $pageUrl,
- "inLanguage" => "en-US",
- "isPartOf" => ["@id" => url('/') . '#website'],
- "about" => ["@id" => url('/') . '#organization'],
- "breadcrumb" => [
- "@type" => "BreadcrumbList",
- "itemListElement" => [
- ["@type" => "ListItem", "position" => 1, "name" => "Home", "item" => url('/')],
- ["@type" => "ListItem", "position" => 2, "name" => "News & Events", "item" => $pageUrl],
- ],
- ],
- ],
- "newsEventList" => [
- "@context" => "https://schema.org",
- "@type" => "ItemList",
- "name" => "Bhaiya Housing News and Events",
- "url" => $pageUrl,
- "numberOfItems" => isset($newsEvents) ? count($newsEvents) : 0,
- "itemListElement" => isset($newsEvents) ? collect($newsEvents)->map(fn($item, $i) => [
- "@type" => "ListItem",
- "position" => $i + 1,
- "item" => [
- // Dynamically set schema type based on item type
- "@type" => (isset($item['type']) && $item['type'] === 'events') ? "Event" : "NewsArticle",
- "headline" => $item['title'] ?? ($item->title ?? ''),
- "url" => $item['url'] ?? url('/' . ($item['type'] ?? 'news') . '/' . ($item['id'] ?? '')),
- "datePublished" => $item['date'] ?? ($item->start_date ?? null),
- "publisher" => ["@id" => url('/') . '#organization']
- ],
- ])->values()->toArray() : [],
- ],
- ];
- @endphp
-
- {{-- META --}}
- <meta name="description" content="{{ $schema['page']['description'] }}">
- <meta name="keywords" content="{{ $schema['page']['keywords'] }}">
- <meta name="robots" content="{{ $schema['page']['robots'] }}">
- <link rel="canonical" href="{{ $schema['page']['canonical'] }}">
-
- {{-- OPEN GRAPH --}}
- <meta property="og:type" content="{{ $schema['openGraph']['type'] }}">
- <meta property="og:title" content="{{ $schema['openGraph']['title'] }}">
- <meta property="og:description" content="{{ $schema['openGraph']['description'] }}">
- <meta property="og:url" content="{{ $schema['openGraph']['url'] }}">
- <meta property="og:site_name" content="{{ $schema['openGraph']['site_name'] }}">
- <meta property="og:image" content="{{ $schema['openGraph']['image'] }}">
- <meta property="og:locale" content="{{ $schema['openGraph']['locale'] }}">
-
- {{-- TWITTER --}}
- <meta name="twitter:card" content="{{ $schema['twitter']['card'] }}">
- <meta name="twitter:title" content="{{ $schema['twitter']['title'] }}">
- <meta name="twitter:description" content="{{ $schema['twitter']['description'] }}">
- <meta name="twitter:image" content="{{ $schema['twitter']['image'] }}">
-
- {{-- SCHEMAS --}}
- <script type="application/ld+json">
-     {
-         !!json_encode($schema['organization'], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) !!
-     }
- </script>
-
- <script type="application/ld+json">
-     {
-         !!json_encode($schema['webPage'], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) !!
-     }
- </script>
-
- @if(isset($newsEvents) && count($newsEvents) > 0)
- <script type="application/ld+json">
-     {
-         !!json_encode($schema['newsEventList'], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) !!
-     }
- </script>
- @endif
- @endsection
+@section('meta')
+    @include('partials.meta', ['pageKey' => 'event'])
+@endsection
  @section('content')
 
- <!-- ===== HERO ===== -->
-<section class="hero-fixed fixed top-0 left-0 w-full overflow-hidden h-[600px] md:h-[700px] lg:h-[900px]">
-    <!-- Background Image -->
-    <img src="{{ $eventHero->img_path ?? '' }}" alt="interior"
-        class="absolute inset-0 w-full h-full object-cover" />
+     <!-- ===== HERO ===== -->
+     <section class="hero-fixed fixed top-0 left-0 w-full overflow-hidden h-[600px] md:h-[700px] lg:h-[900px]">
+         <!-- Background Image -->
+         <img src="{{ $eventHero->img_path ?? '' }}" alt="interior" class="absolute inset-0 w-full h-full object-cover" />
 
-    <!-- Dark Overlay -->
-    <div class="absolute inset-0 bg-black/50"></div>
+         <!-- Dark Overlay -->
+         <div class="absolute inset-0 bg-black/50"></div>
 
-    <!-- Text -->
-    <div class="absolute inset-0 flex items-center px-6 sm:px-10 md:px-20">
-        <!-- pl-12 কে md:pl-12 pl-0 এবং pt-32 কে md:pt-32 pt-20 করা হয়েছে। ফন্ট সাইজে clamp ব্যবহার করা হয়েছে -->
-        <h1 class="text-white font-light md:pl-12 pt-20 md:pt-32 tracking-normal md:tracking-[-3px]"
-            style="font-size: clamp(32px, 3.85vw, 74px); line-height: 1.2;">
-            Stay informed with<br>
-            <span class="font-migra-italic">Bhaiya Housing Ltd.</span>
-        </h1>
-    </div>
-
-</section>
- <div class="h-[600px] md:h-[700px] lg:h-[900px] w-full pointer-events-none"
-     style="position: relative; z-index: 2;"></div>
-
- <section class="w-full min-h-screen relative z-10 overflow-hidden py-10 md:py-16"
-     style="background:#FFFDFA;">
-
-     <!-- BG texture -->
-     <div class="absolute inset-0 pointer-events-none" style="z-index:0;">
-         <img src="{{ asset('assets/images/bg-news.webp') }}" alt="bg news"
-             class="w-1/3 h-full object-cover opacity-50"
-             onerror="this.style.display='none';" />
-     </div>
-
-     <div class="relative z-10 container mx-auto px-4 sm:px-6 lg:px-14 ">
-
-         <!-- Mobile: horizontal filter row -->
-         <div class="flex md:hidden gap-3 justify-center mb-8">
-             <button onclick="setFilter('all', this)"
-                 class="filter-btn active-filter w-20 h-20 sm:w-24 sm:h-24 rounded-full border border-gray-300 text-xs sm:text-sm font-light tracking-wide transition-all duration-300 flex items-center justify-center">
-                 All
-             </button>
-             <button onclick="setFilter('events', this)"
-                 class="filter-btn w-20 h-20 sm:w-24 sm:h-24 rounded-full border border-gray-300 text-xs sm:text-sm font-light tracking-wide transition-all duration-300 flex items-center justify-center">
-                 Events
-             </button>
-             <button onclick="setFilter('news', this)"
-                 class="filter-btn w-20 h-20 sm:w-24 sm:h-24 rounded-full border border-gray-300 text-xs sm:text-sm font-light tracking-wide transition-all duration-300 flex items-center justify-center">
-                 News
-             </button>
+         <!-- Text -->
+         <div class="absolute inset-0 flex items-center px-6 sm:px-10 md:px-20">
+             <!-- pl-12 কে md:pl-12 pl-0 এবং pt-32 কে md:pt-32 pt-20 করা হয়েছে। ফন্ট সাইজে clamp ব্যবহার করা হয়েছে -->
+             <h1 class="text-white font-light md:pl-12 pt-20 md:pt-32 tracking-normal md:tracking-[-3px]"
+                 style="font-size: clamp(32px, 3.85vw, 74px); line-height: 1.2;">
+                 Stay informed with<br>
+                 <span class="font-migra-italic">Bhaiya Housing Ltd.</span>
+             </h1>
          </div>
 
-         <!-- Desktop: side-by-side layout -->
-         <div class="flex gap-8 lg:gap-16 items-start">
+     </section>
+     <div class="h-[600px] md:h-[700px] lg:h-[900px] w-full pointer-events-none" style="position: relative; z-index: 2;">
+     </div>
 
-             <!-- ── Left: Filter Buttons (desktop only) ── -->
-             <div class="hidden md:flex flex-col items-center gap-3 pt-8 flex-shrink-0" style="min-width:120px;">
+     <section class="w-full min-h-screen relative z-10 overflow-hidden py-10 md:py-16" style="background:#FFFDFA;">
+
+         <!-- BG texture -->
+         <div class="absolute inset-0 pointer-events-none" style="z-index:0;">
+             <img src="{{ asset('assets/images/bg-news.webp') }}" alt="bg news"
+                 class="w-1/3 h-full object-cover opacity-50" onerror="this.style.display='none';" />
+         </div>
+
+         <div class="relative z-10 container mx-auto px-4 sm:px-6 lg:px-14 ">
+
+             <!-- Mobile: horizontal filter row -->
+             <div class="flex md:hidden gap-3 justify-center mb-8">
                  <button onclick="setFilter('all', this)"
-                     class="filter-btn active-filter w-24 h-24 lg:w-28 lg:h-28 rounded-full border border-gray-300 text-sm font-light tracking-wide transition-all duration-300 flex items-center justify-center"
-                     style="margin-bottom:-12px; position:relative; z-index:3;">
+                     class="filter-btn active-filter w-20 h-20 sm:w-24 sm:h-24 rounded-full border border-gray-300 text-xs sm:text-sm font-light tracking-wide transition-all duration-300 flex items-center justify-center">
                      All
                  </button>
                  <button onclick="setFilter('events', this)"
-                     class="filter-btn w-24 h-24 lg:w-28 lg:h-28 rounded-full border border-gray-300 text-sm font-light tracking-wide transition-all duration-300 flex items-center justify-center"
-                     style="margin-bottom:-12px; position:relative; z-index:2;">
+                     class="filter-btn w-20 h-20 sm:w-24 sm:h-24 rounded-full border border-gray-300 text-xs sm:text-sm font-light tracking-wide transition-all duration-300 flex items-center justify-center">
                      Events
                  </button>
                  <button onclick="setFilter('news', this)"
-                     class="filter-btn w-24 h-24 lg:w-28 lg:h-28 rounded-full border border-gray-300 text-sm font-light tracking-wide transition-all duration-300 flex items-center justify-center"
-                     style="position:relative; z-index:1;">
+                     class="filter-btn w-20 h-20 sm:w-24 sm:h-24 rounded-full border border-gray-300 text-xs sm:text-sm font-light tracking-wide transition-all duration-300 flex items-center justify-center">
                      News
                  </button>
              </div>
 
-             <!-- ── Right: News List ── -->
-             <div class="flex-1 pt-0 md:ml-10 lg:ml-28">
-                 <div style="border-top:1px solid #c8c0b4;"></div>
-                 <div id="newsList"></div>
+             <!-- Desktop: side-by-side layout -->
+             <div class="flex gap-8 lg:gap-16 items-start">
 
-                 <!-- No results -->
-                 <p id="noResults" class="text-center text-gray-400 py-16 hidden">
-                     No Data Found
-                 </p>
+                 <!-- ── Left: Filter Buttons (desktop only) ── -->
+                 <div class="hidden md:flex flex-col items-center gap-3 pt-8 flex-shrink-0" style="min-width:120px;">
+                     <button onclick="setFilter('all', this)"
+                         class="filter-btn active-filter w-24 h-24 lg:w-28 lg:h-28 rounded-full border border-gray-300 text-sm font-light tracking-wide transition-all duration-300 flex items-center justify-center"
+                         style="margin-bottom:-12px; position:relative; z-index:3;">
+                         All
+                     </button>
+                     <button onclick="setFilter('events', this)"
+                         class="filter-btn w-24 h-24 lg:w-28 lg:h-28 rounded-full border border-gray-300 text-sm font-light tracking-wide transition-all duration-300 flex items-center justify-center"
+                         style="margin-bottom:-12px; position:relative; z-index:2;">
+                         Events
+                     </button>
+                     <button onclick="setFilter('news', this)"
+                         class="filter-btn w-24 h-24 lg:w-28 lg:h-28 rounded-full border border-gray-300 text-sm font-light tracking-wide transition-all duration-300 flex items-center justify-center"
+                         style="position:relative; z-index:1;">
+                         News
+                     </button>
+                 </div>
+
+                 <!-- ── Right: News List ── -->
+                 <div class="flex-1 pt-0 md:ml-10 lg:ml-28">
+                     <div style="border-top:1px solid #c8c0b4;"></div>
+                     <div id="newsList"></div>
+
+                     <!-- No results -->
+                     <p id="noResults" class="text-center text-gray-400 py-16 hidden">
+                         No Data Found
+                     </p>
+                 </div>
+
              </div>
-
          </div>
-     </div>
- </section>
+     </section>
 
 
- <script>
-     (function() {
-         const ALL_ITEMS = @json($newsEvents);
-         let active = 'all';
+     <script>
+         (function() {
+             const ALL_ITEMS = @json($newsEvents);
+             let active = 'all';
 
-         function capitalize(str) {
-             return str.charAt(0).toUpperCase() + str.slice(1);
-         }
-
-         function render(filter) {
-             const list = document.getElementById('newsList');
-             const noRes = document.getElementById('noResults');
-             const items = filter === 'all' ?
-                 ALL_ITEMS :
-                 ALL_ITEMS.filter(i => i.type === filter);
-
-             if (!items.length) {
-                 list.innerHTML = '';
-                 noRes.classList.remove('hidden');
-                 return;
+             function capitalize(str) {
+                 return str.charAt(0).toUpperCase() + str.slice(1);
              }
 
-             noRes.classList.add('hidden');
-             list.innerHTML = items.map(item => `
-            <a href="${item.url}" aria-label="news item" class="news-item">
-                <div class="news-item-meta">
-                    <p class="news-item-type">${capitalize(item.type)}</p>
-                    ${item.date ? `<p class="news-item-date">${item.date}</p>` : ''}
-                </div>
-                <div class="flex-1">
-                    <h3 class="news-item-title">${item.title}</h3>
-                </div>
-            </a>
-        `).join('');
-         }
+             function render(filter) {
+                 const list = document.getElementById('newsList');
+                 const noRes = document.getElementById('noResults');
+                 const items = filter === 'all' ?
+                     ALL_ITEMS :
+                     ALL_ITEMS.filter(i => i.type === filter);
 
-         window.setFilter = function(filter, btn) {
-             active = filter;
+                 if (!items.length) {
+                     list.innerHTML = '';
+                     noRes.classList.remove('hidden');
+                     return;
+                 }
 
-             // Active button style
-             document.querySelectorAll('.filter-btn').forEach(b => {
-                 b.classList.remove('active-filter');
-             });
-             btn.classList.add('active-filter');
+                 noRes.classList.add('hidden');
+                list.innerHTML = items.map(item => {
 
-             render(filter);
-         };
+                    const mySlug = item.name;
 
-         // Initial render
-         render('all');
-     })();
- </script>
+                    const finalSlug = mySlug ? mySlug : item.id;
+
+                    const typePath = (item.type === 'events' || item.type === 'event') ? 'event' : 'news';
+                    const finalUrl = `/${typePath}/${finalSlug}`;
+
+                    return `
+                        <a href="${finalUrl}" class="news-item">
+                            <div class="news-item-meta">
+                                <p class="news-item-type">${item.type}</p>
+                                <p class="news-item-date">${item.date || ''}</p>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="news-item-title">${item.title}</h3>
+                            </div>
+                        </a>
+                    `;
+                }).join('');
+             }
+
+             window.setFilter = function(filter, btn) {
+                 active = filter;
+
+                 // Active button style
+                 document.querySelectorAll('.filter-btn').forEach(b => {
+                     b.classList.remove('active-filter');
+                 });
+                 btn.classList.add('active-filter');
+
+                 render(filter);
+             };
+
+             // Initial render
+             render('all');
+         })();
+     </script>
 
 
 

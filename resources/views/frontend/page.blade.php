@@ -1,113 +1,12 @@
 @extends('layouts.front')
-@section('title', $page->title ?? 'Page')
 @section('meta')
-@php
-$pageTitle = ($page->title ?? 'Page') . ' – ' . ($setting->title ?? 'Bhaiya Housing Ltd.');
-
-// ডেসক্রিপশন সেট করা
-$pageDesc = isset($page->body) && !empty($page->body)
-    ? Str::limit(strip_tags($page->body), 160)
-    : 'Read more about Bhaiya Housing Ltd., shaping the future of real estate in Bangladesh.';
-
-$pageUrl = url()->current();
-// ডিফল্ট কোনো লোগো বা ব্যানার ইমেজ
-$pageImage = asset('assets/images/logo.png');
-
-// সোশ্যাল লিংক হ্যান্ডেল করা
-$socialLinks = isset($socials) ? $socials->map(fn($s) => $s->url)->filter()->values()->toArray() : [];
-
-$schema = [
-    "page" => [
-        "description" => $pageDesc,
-        "keywords" => implode(', ', array_filter([
-            $page->title ?? 'Page',
-            'Bhaiya Housing',
-            'Bhaiya Housing Ltd',
-            'real estate Bangladesh',
-            'property developer Dhaka'
-        ])),
-        "robots" => "index, follow, max-image-preview:large",
-        "canonical" => $pageUrl,
-    ],
-    "openGraph" => [
-        "type" => "website",
-        "title" => $pageTitle,
-        "description" => $pageDesc,
-        "url" => $pageUrl,
-        "site_name" => $setting->title ?? 'Bhaiya Housing Ltd.',
-        "image" => $pageImage,
-        "locale" => "en_US",
-    ],
-    "twitter" => [
-        "card" => "summary_large_image",
-        "title" => $pageTitle,
-        "description" => $pageDesc,
-        "image" => $pageImage,
-    ],
-    "organization" => [
-        "@context" => "https://schema.org",
-        "@type" => ["RealEstateBuilder", "Organization"],
-        "@id" => url('/') . '#organization',
-        "name" => $setting->title ?? 'Bhaiya Housing Ltd.',
-        "url" => url('/'),
-        "logo" => [
-            "@type" => "ImageObject",
-            "url" => asset('assets/images/logo.png'),
-            "width" => 200,
-            "height" => 60,
-        ],
-        "sameAs" => $socialLinks,
-    ],
-    "webPage" => [
-        "@context" => "https://schema.org",
-        "@type" => "WebPage",
-        "@id" => $pageUrl . '#webpage',
-        "name" => $pageTitle,
-        "description" => $pageDesc,
-        "url" => $pageUrl,
-        "inLanguage" => "en-US",
-        "isPartOf" => ["@id" => url('/') . '#website'],
-        "about" => ["@id" => url('/') . '#organization'],
-        "breadcrumb" => [
-            "@type" => "BreadcrumbList",
-            "itemListElement" => [
-                ["@type" => "ListItem", "position" => 1, "name" => "Home", "item" => url('/')],
-                ["@type" => "ListItem", "position" => 2, "name" => $page->title ?? 'Page', "item" => $pageUrl],
-            ],
-        ],
-    ],
-];
-@endphp
-
-{{-- META --}}
-<meta name="description" content="{{ $schema['page']['description'] }}">
-<meta name="keywords" content="{{ $schema['page']['keywords'] }}">
-<meta name="robots" content="{{ $schema['page']['robots'] }}">
-<link rel="canonical" href="{{ $schema['page']['canonical'] }}">
-
-{{-- OPEN GRAPH --}}
-<meta property="og:type" content="{{ $schema['openGraph']['type'] }}">
-<meta property="og:title" content="{{ $schema['openGraph']['title'] }}">
-<meta property="og:description" content="{{ $schema['openGraph']['description'] }}">
-<meta property="og:url" content="{{ $schema['openGraph']['url'] }}">
-<meta property="og:site_name" content="{{ $schema['openGraph']['site_name'] }}">
-<meta property="og:image" content="{{ $schema['openGraph']['image'] }}">
-<meta property="og:locale" content="{{ $schema['openGraph']['locale'] }}">
-
-{{-- TWITTER --}}
-<meta name="twitter:card" content="{{ $schema['twitter']['card'] }}">
-<meta name="twitter:title" content="{{ $schema['twitter']['title'] }}">
-<meta name="twitter:description" content="{{ $schema['twitter']['description'] }}">
-<meta name="twitter:image" content="{{ $schema['twitter']['image'] }}">
-
-{{-- SCHEMAS --}}
-<script type="application/ld+json">
-    {!! json_encode($schema['organization'], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) !!}
-</script>
-
-<script type="application/ld+json">
-    {!! json_encode($schema['webPage'], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) !!}
-</script>
+    @include('partials.meta', [
+        'pageKey'     => 'pages',
+        'title'       => $page->meta_title ?? $project->title,
+        'description' => $page->meta_description ?? $project->short,
+        'keywords'    => $page->meta_keywords,
+        'image'       => asset($page->img_path)
+    ])
 @endsection
 
 @section('content')

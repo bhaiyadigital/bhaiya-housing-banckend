@@ -55,13 +55,13 @@ class AppServiceProvider extends ServiceProvider
             ],
             'project' => [
                 'title'            => ['label' => 'Project Name', 'required' => true],
+                'name'            => ['label' => 'slug', 'required' => false],
                 'short'            => ['label' => 'Project Type (Residential/Commercial)', 'required' => true],
                 'body_3'           => ['label' => 'Short Description', 'required' => false],
                 'location'         => ['label' => 'Location/Address', 'required' => true],
                 'body'             => ['label' => 'Description', 'required' => false],
-
                 'body_2'           => ['label' => 'Description Box 2', 'required' => false],
-
+                'body_4'           => ['label' => 'Description Box 3', 'required' => false],
                 'img_path'         => ['label' => 'Thumbnail Image',  'required' => true],
                 'img_paths'         => ['label' => 'Multiple Image(1 main image,2-3 Gallary,3+ Slider', 'required' => false],
                 'video_path'        => ['label' => 'Video', 'required' => false],
@@ -108,8 +108,10 @@ class AppServiceProvider extends ServiceProvider
             ],
             'news' => [
                 'title'            => ['label' => 'News Title', 'required' => true],
+                'name'            => ['label' => 'Slug', 'required' => true],
                 'img_path'         => ['label' => 'News Image', 'required' => false],
                 'body'             => ['label' => 'News Content', 'required' => false],
+                'body_2'             => ['label' => 'News Content 2', 'required' => false],
                 'short'            => ['label' => 'Read Time (e.g. 5)', 'required' => false],
                 'start_date'       => ['label' => 'Publish Date', 'required' => false],
                 'meta_title'       => ['label' => 'Meta Title', 'required' => false],
@@ -130,6 +132,7 @@ class AppServiceProvider extends ServiceProvider
                 'img_paths'        => ['label' => 'Events Photos', 'required' => false],
                 'body'             => ['label' => 'Details', 'required' => false],
                 'body_2'           => ['label' => 'Details box 2', 'required' => false],
+                'body_3'           => ['label' => 'Details box 3', 'required' => false],
                 'meta_title'       => ['label' => 'Meta Title', 'required' => false],
                 'meta_description' => ['label' => 'Meta Description', 'required' => false],
                 'meta_keywords'    => ['label' => 'Meta Keywords', 'required' => false],
@@ -325,6 +328,9 @@ class AppServiceProvider extends ServiceProvider
                 'title'  => ['label' => 'Title', 'required' => true],
                 'name'   => ['label' => 'Slug', 'required' => true],
                 'body'   => ['label' => 'Description', 'required' => true],
+                'meta_title'       => ['label' => 'Meta Title', 'required' => false],
+                'meta_description' => ['label' => 'Meta Description', 'required' => false],
+                'meta_keywords'    => ['label' => 'Meta Keywords', 'required' => false],
                 'status' => ['label' => 'Status', 'required' => true],
             ],
 
@@ -362,8 +368,19 @@ class AppServiceProvider extends ServiceProvider
                 'img_path' => ['label' => 'Hover Image', 'required' => true],
                 'status'   => ['label' => 'Status', 'required' => true],
             ],
+            'meta_info' => [
+                'title'            => ['label' => 'Page Name (e.g. Home Page)', 'required' => true],
+                'name'             => ['label' => 'Page Slug', 'required' => true],
+                'meta_title'       => ['label' => 'Meta Title', 'required' => false],
+                'meta_description' => ['label' => 'Meta Description', 'required' => false],
+                'meta_keywords'    => ['label' => 'Meta Keywords', 'required' => false],
+                'status'           => ['label' => 'Status', 'required' => true],
+            ],
 
         ];
+        $allMeta = Content::where('type', 'meta_info')->where('status', 1)->get()->keyBy('name');
+        View::share('allMeta', $allMeta);
+
         $menuImages = Content::where('type', 'menu-image')->where('status', 1)->orderBy('id')->get()->keyBy('name');
         View::share('menuImages', $menuImages);
         $setting = Content::where('type', 'settings')->where('status', 1)->latest()->first();
