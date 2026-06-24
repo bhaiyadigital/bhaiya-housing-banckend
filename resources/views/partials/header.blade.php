@@ -92,7 +92,7 @@
                 @endphp
 
                 @foreach ($staticLinks as $link)
-                    <a href="{{ $link['href'] }}" aria-label="static link"
+                    <a href="{{ $link['href'] }}"  aria-label="Visit our {{ $link['label'] }} page"
                         class="header-menu-list group transition-opacity duration-300 hover:opacity-100 flex items-center gap-3 md:gap-4 md:ml-32"
                         data-img="{{ isset($menuImages[$link['key']]) ? asset($menuImages[$link['key']]->img_path) : asset('assets/images/m1.jpg') }}"
                         onmouseover="hoverLink(this)" onmouseout="unhoverLink(this)">

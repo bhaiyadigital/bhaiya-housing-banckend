@@ -429,7 +429,7 @@
 
                 <!-- Bottom image optimized -->
                 <div class="fade-in delay-3 scroll-move" data-axis="Y" data-max-move="180">
-                    <img src="{{ asset($extraImages[0] ?? '') }}" width="380" height="320" loading="lazy"
+                    <img src="{{ asset($extraImages[0] ?? '') }}" width="380" height="320" loading="lazy" alt="bottom image"
                         decoding="async" class="img-shadow rounded-sm object-cover w-full h-[260px] sm:h-[320px]">
                 </div>
 
@@ -439,10 +439,9 @@
                         {{ $dreams->short ?? 'Since 2012, Bhaiya Housing, a distinguished part of Bhaiya Group, has redefined modern infrastructure. Merging architectural brilliance with purposeful design, we craft exquisite homes and commercial spaces that embody aspirations, inspire ambition, and effortlessly adapt to the evolving rhythms of modern life.' }}
                     </p>
                     <div class="fade-in delay-4">
-                        <a href="{{ route('front.about') }}"
-                            aria-label="Learn more about Bhaiya Housing history and decades of excellence"
+                        <a href="{{ route('front.about') }}" aria-label="Learn more about Bhaiya Housing history and decades of excellence"
                             class="circle-btn">
-                            Learn More
+                            Learn More <span class="sr-only">about Bhaiya Housing history and excellence</span>
                         </a>
                     </div>
                 </div>
@@ -483,7 +482,7 @@
                         </p>
                         <div class="fade-in delay-4">
                             <a href="{{ route('front.about') }}" aria-label="Read more about our mission and vision"
-                                class="circle-btn hover-lg z-20">Learn More</a>
+                                class="circle-btn hover-lg z-20">Learn More<span class="sr-only">about our mission and vision</span></a>
                         </div>
                     </div>
                 </div>
@@ -557,7 +556,7 @@
 
                     <div class="fade-in delay-4">
                         <a href="{{ route('front.about') }}" aria-label="Detailed history of our decade-long excellence"
-                            class="circle-btn hover-lg z-20">Learn More</a>
+                            class="circle-btn hover-lg z-20">Learn More<span class="sr-only">about our decade-long history</span></a>
                     </div>
                 </div>
 
@@ -629,8 +628,7 @@
                 </p>
 
                 {{-- Learn More — mobile only --}}
-                <a id="heroLearnMoreMobile" href="/project/{{ $first->id }}"
-                    aria-label="Detailed information about the featured project {{ $first->title }}"
+                <a id="heroLearnMoreMobile" href="/project/{{ $first->id }}" aria-label="Detailed information about the featured project {{ $first->title }}"
                     class="md:hidden inline-flex items-center justify-center mt-4 text-xs tracking-[2px] uppercase border border-white/60 text-white px-6 py-4 min-h-[48px] min-w-[140px] hover:bg-white hover:text-black transition-all duration-300"
                     style="font-weight: 400">
                     Learn More
@@ -1048,7 +1046,7 @@ font-size: clamp(150px, 14vw, 320px);                    font-weight:bolder;
                            text-decoration: none; transition: background 0.3s, color 0.3s;"
                         onmouseover="this.style.background='#152018'; this.style.color='#f2ede6';"
                         onmouseout="this.style.background='transparent'; this.style.color='#1a1a1a';">
-                        View All
+                        View All<span class="sr-only">News and Events</span>
                     </a>
                 </div>
 
@@ -1093,7 +1091,7 @@ font-size: clamp(150px, 14vw, 320px);                    font-weight:bolder;
                            transition: background 0.3s, color 0.3s;"
                         onmouseover="this.style.background='#152018'; this.style.color='#f2ede6';"
                         onmouseout="this.style.background='transparent'; this.style.color='#1a1a1a';">
-                        View All
+                        View All<span class="sr-only">News and Events</span>
                     </a>
 
                 </div>
