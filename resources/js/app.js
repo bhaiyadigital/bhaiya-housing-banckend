@@ -3,9 +3,10 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Swiper from 'swiper/bundle';
-import 'swiper/css/bundle';
-window.Swiper = Swiper; 
+import Swiper from "swiper/bundle";
+import "swiper/css/bundle";
+import Lenis from "lenis";
+window.Swiper = Swiper;
 
 // ১. গ্লোবাল এক্সেস (সবার আগে)
 window.AOS = AOS;
@@ -14,8 +15,8 @@ window.ScrollTrigger = ScrollTrigger;
 gsap.registerPlugin(ScrollTrigger);
 window.isMobile = window.innerWidth < 1024;
 
+
 const initApp = () => {
-    // ২. AOS ও Parallax (মোবাইলে অফ রাখা হয়েছে স্পিড ১০০ করার জন্য)
     AOS.init({
         duration: 800,
         once: true,
@@ -23,20 +24,28 @@ const initApp = () => {
     });
 
     if (!window.isMobile) {
-         gsap.utils.toArray('.scroll-move').forEach(el => {
-        const speed = parseFloat(el.dataset.speed || 0.15);
-        const axis = (el.dataset.axis || 'Y').toLowerCase(); // x বা y ছোট হাতের হতে হবে
+        gsap.utils.toArray(".scroll-move").forEach((el) => {
+            const speed = parseFloat(el.dataset.speed || 0.15);
+            let rawAxis = el.dataset.axis || "Y";
 
-        gsap.to(el, {
-            [axis]: (axis === 'y' ? -100 : 100) * speed,
-            scrollTrigger: {
-                trigger: el,
-                start: "top bottom",
-                end: "bottom top",
-                scrub: true,
-            }
+            let isNegative = rawAxis.startsWith("-");
+            let axis = isNegative
+                ? rawAxis.substring(1).toLowerCase()
+                : rawAxis.toLowerCase();
+            let moveAmount = (axis === "y" ? -100 : 100) * speed;
+
+            if (isNegative) moveAmount = moveAmount * -1;
+
+            gsap.to(el, {
+                [axis]: moveAmount,
+                scrollTrigger: {
+                    trigger: el,
+                    start: "top bottom",
+                    end: "bottom top",
+                    scrub: true,
+                },
+            });
         });
-    });
         // Quality Image Hover Zoom
         document.querySelectorAll(".quality-col").forEach((col) => {
             const wrap = col.querySelector(".quality-img-wrap");
@@ -67,7 +76,6 @@ const initApp = () => {
         });
     }
 };
-
 
 // ৫. ভিডিও মোডাল ফাংশন
 window.openVideoModal = () => {

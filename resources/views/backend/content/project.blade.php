@@ -102,8 +102,11 @@
                                     </div>
                                     <div class="col-md-6 mb-3">
                                         <label class="form-label small">Google Map Embed URL</label>
-                                        <input type="text" name="extra_map" id="extraMap"
-                                            class="form-control form-control-sm">
+                                        {{-- নিশ্চিত হোন এখানে 'required' লেখা নেই --}}
+<input type="text" name="extra_map" id="extraMap"
+       class="form-control form-control-sm"
+       placeholder="Optional: Paste embed URL here"
+       value="{{ old('extra_map', $extra['map_url'] ?? '') }}">
                                     </div>
                                     <div class="col-md-3 mb-3">
                                         <label class="form-label small">Featured?</label>
@@ -142,7 +145,7 @@
                             <textarea class="editor form-control" name="body" rows="4"></textarea>
                         </div>
                         <div class="col-md-12 mb-3">
-                            <label class="form-label fw-semibold">Description Box 2</label>
+                            <label class="form-label fw-semibold">Description Box 3</label>
                             <textarea class="editor form-control" name="body_4" rows="4"></textarea>
                         </div>
                     </div>

@@ -116,6 +116,10 @@ class WebController extends Controller
 
     public function about()
     {
+
+        $content = Content::where('type', 'meta_info')
+        ->where('name', 'about')
+        ->first();
         $this->facebook->sendEvent(
             'PageView',
             [
@@ -159,10 +163,15 @@ class WebController extends Controller
             'visionaries',
             'aboutBhaiya',
             'aboutBhaiyaGroup',
+            'content',
         ));
     }
     public function career()
     {
+
+        $content = Content::where('type', 'meta_info')
+        ->where('name', 'career')
+        ->first();
         $this->facebook->sendEvent(
             'PageView',
             [
@@ -185,6 +194,7 @@ class WebController extends Controller
             'careerOverview',
             'jobPositions',
             'jobList',
+            'content',
         ));
     }
     public function jobDetail($slug)
@@ -321,6 +331,9 @@ class WebController extends Controller
 
     public function projects()
     {
+        $content = Content::where('type', 'meta_info')
+        ->where('name', 'event')
+        ->first();
         $projectHero = Content::where('type', 'hero')
             ->where('name', 'projects')
             ->where('status', 1)
@@ -359,7 +372,7 @@ class WebController extends Controller
                 'client_user_agent' => request()->userAgent(),
             ]
         );
-        return view('frontend.projects', compact('projectHero', 'allProjects', 'projectLocations'));
+        return view('frontend.projects', compact('projectHero', 'allProjects', 'projectLocations','content'));
     }
 
     public function showProject($name)
@@ -395,6 +408,10 @@ class WebController extends Controller
 
     public function events()
     {
+        $content = Content::where('type', 'meta_info')
+        ->where('name', 'event')
+        ->first();
+
         $eventHero = Content::where('type', 'hero')
             ->where('name', 'events')
             ->where('status', 1)
@@ -421,7 +438,7 @@ class WebController extends Controller
                 'client_user_agent' => request()->userAgent(),
             ]
         );
-        return view('frontend.event', compact('eventHero', 'newsEvents'));
+        return view('frontend.event', compact('eventHero', 'newsEvents','content'));
     }
     public function page($slug)
     {
@@ -635,6 +652,10 @@ class WebController extends Controller
 
     public function concerns()
     {
+
+        $content = Content::where('type', 'meta_info')
+        ->where('name', 'concerns')
+        ->first();
         $concern = $this->fetchContent('other-concern', 1);
         $logos = $this->fetchContent('other-logo');
 
@@ -663,6 +684,6 @@ class WebController extends Controller
                 'client_user_agent' => request()->userAgent(),
             ]
         );
-        return view('frontend.concerns', compact('concern', 'rows', 'concernHero'));
+        return view('frontend.concerns', compact('concern', 'rows', 'concernHero','content'));
     }
 }

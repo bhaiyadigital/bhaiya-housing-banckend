@@ -49,8 +49,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
 
 
-    <link rel="preload" as="image" href="{{ $hero->img_path ?? '' }}" fetchpriority="high">
-
+  
 @if(isset($setting->img_path))
     <link rel="preload" as="image" href="{{ asset($setting->img_path) }}" fetchpriority="high">
 @endif

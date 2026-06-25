@@ -47,7 +47,7 @@ Route::get('/career', [WebController::class, 'career'])->name('career');
 Route::get('/career/{slug}', [WebController::class, 'jobDetail'])->name('job.details');
 Route::post('/career/apply', [WebController::class, 'applyJob'])->name('job.apply');
 Route::get('/projects', [WebController::class, 'projects'])->name('projects');
-Route::get('/project/{name}', [WebController::class, 'showProject'])->name('projects.show');
+Route::get('/projects/{name}', [WebController::class, 'showProject'])->name('projects.show');
 Route::get('/event', [WebController::class, 'events'])->name('events');
 Route::get('/page/{slug}', [WebController::class, 'page'])->name('page.show');
 

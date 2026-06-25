@@ -1,125 +1,14 @@
  @extends('layouts.front')
-@section('meta')
-    @include('partials.meta', ['pageKey' => 'projects'])
-@endsection
- @push('styles')
-     <style>
-         .blog-content-area hr {
-             display: none !important;
-         }
-
-         /* মেইন ব্লগ কন্টেন্ট এরিয়া */
-         .blog-content-area {
-             line-height: 1.8;
-             font-size: 17px;
-             color: #333;
-             font-family: 'Ubuntu', sans-serif;
-         }
-
-         /* হেডিং স্টাইল */
-         .blog-content-area h1,
-         .blog-content-area h2,
-         .blog-content-area h3,
-         .blog-content-area h4 {
-             color: #111;
-             font-weight: 700;
-             margin-top: 2rem;
-             margin-bottom: 1rem;
-             line-height: 1.3;
-         }
-
-         .blog-content-area h1 {
-             font-size: 2.2rem;
-         }
-
-         .blog-content-area h2 {
-             font-size: 1.8rem;
-             border-left: 5px solid #ce9131;
-             padding-left: 15px;
-         }
-
-         .blog-content-area h3 {
-             font-size: 1.5rem;
-         }
-
-         /* প্যারাগ্রাফ */
-         .blog-content-area p {
-             margin-bottom: 1.5rem;
-             text-align: justify;
-         }
-
-         /* লিস্ট (Tailwind এ ডিফল্টভাবে ডট দেখায় না, এটি সেটি ঠিক করবে) */
-         .blog-content-area ul {
-             list-style-type: disc !important;
-             margin-left: 2rem;
-             margin-bottom: 1.5rem;
-         }
-
-         .blog-content-area ol {
-             list-style-type: decimal !important;
-             margin-left: 2rem;
-             margin-bottom: 1.5rem;
-         }
-
-         .blog-content-area li {
-             margin-bottom: 0.5rem;
-         }
-
-         /* ইমেজ স্টাইল */
-         .blog-content-area img {
-             max-width: 100%;
-             height: auto;
-             border-radius: 12px;
-             margin: 2rem auto;
-             display: block;
-             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-         }
-
-         /* টেবিল স্টাইল */
-         .blog-content-area table {
-             width: 100%;
-             border-collapse: collapse;
-             margin: 2rem 0;
-         }
-
-         .blog-content-area table th,
-         .blog-content-area table td {
-             border: 1px solid #e2e8f0;
-             padding: 12px 15px;
-             text-align: left;
-         }
-
-         .blog-content-area table th {
-             background-color: #f8fafc;
-             font-weight: 700;
-         }
-
-         /* ব্লককোট (Quotes) */
-         .blog-content-area blockquote {
-             border-left: 4px solid #ce9131;
-             background: #fff9f0;
-             padding: 20px;
-             font-style: italic;
-             margin-bottom: 1.5rem;
-             font-size: 1.1rem;
-         }
-
-         /* লিংক স্টাইল */
-         .blog-content-area a {
-             color: #ce9131;
-             text-decoration: underline;
-             font-weight: 500;
-         }
-     </style>
- @endpush
+ @section('meta')
+     @include('partials.meta', ['pageKey' => 'projects'])
+ @endsection
+ 
  @section('content')
-
      {{-- Hero --}}
      <section class="hero-fixed fixed top-0 left-0 w-full overflow-hidden h-[600px] md:h-[700px] lg:h-[900px]"
          style="z-index:1; transform-origin:top center; will-change:transform;">
 
-         <img src="{{ $projectHero->img_path ?? '' }}" alt="hero image"
-             class="absolute inset-0 w-full h-full object-cover" />
+         <img src="{{ $projectHero->img_path ?? '' }}" alt="hero image" class="absolute inset-0 w-full h-full object-cover" />
 
          <div class="absolute inset-0 bg-black/50"></div>
 
@@ -276,15 +165,10 @@
                      Load More
                  </button>
              </div>
-             <!-- Blog Content Wrapper -->
-             @if (!empty($setting->body_3))
-                 <div class="bg-white rounded-xl shadow-sm p-6 md:p-10 md:py-10 md:mt-10 mb-8 blog-content-area">
-                     {!! $setting->body_3 !!}
-                 </div>
-             @endif
+
          </div>
      </section>
-
+     <x-extra-content :data="$content" />
 
      <script>
          const ALL_PROJECTS = @json($allProjects);

@@ -1,9 +1,120 @@
 @extends('layouts.front')
-
+@if(isset($hero->img_path) && !empty($hero->img_path))
+    <link rel="preload" as="image" href="{{ asset($hero->img_path) }}" fetchpriority="high">
+@endif
 @section('meta')
     @include('partials.meta', ['pageKey' => 'home'])
 @endsection
+@push('styles')
+    <style>
+        .blog-content-area hr {
+            display: none !important;
+        }
 
+        /* মেইন ব্লগ কন্টেন্ট এরিয়া */
+        .blog-content-area {
+            line-height: 1.8;
+            font-size: 17px;
+            color: #333;
+            font-family: 'Ubuntu', sans-serif;
+        }
+
+        /* হেডিং স্টাইল */
+        .blog-content-area h1,
+        .blog-content-area h2,
+        .blog-content-area h3,
+        .blog-content-area h4 {
+            color: #111;
+            font-weight: 700;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+
+        .blog-content-area h1 {
+            font-size: 2.2rem;
+        }
+
+        .blog-content-area h2 {
+            font-size: 1.8rem;
+            border-left: 5px solid #ce9131;
+            padding-left: 15px;
+        }
+
+        .blog-content-area h3 {
+            font-size: 1.5rem;
+        }
+
+        /* প্যারাগ্রাফ */
+        .blog-content-area p {
+            margin-bottom: 1.5rem;
+            text-align: justify;
+        }
+
+        /* লিস্ট (Tailwind এ ডিফল্টভাবে ডট দেখায় না, এটি সেটি ঠিক করবে) */
+        .blog-content-area ul {
+            list-style-type: disc !important;
+            margin-left: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .blog-content-area ol {
+            list-style-type: decimal !important;
+            margin-left: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .blog-content-area li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* ইমেজ স্টাইল */
+        .blog-content-area img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            margin: 2rem auto;
+            display: block;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        /* টেবিল স্টাইল */
+        .blog-content-area table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+        }
+
+        .blog-content-area table th,
+        .blog-content-area table td {
+            border: 1px solid #e2e8f0;
+            padding: 12px 15px;
+            text-align: left;
+        }
+
+        .blog-content-area table th {
+            background-color: #f8fafc;
+            font-weight: 700;
+        }
+
+        /* ব্লককোট (Quotes) */
+        .blog-content-area blockquote {
+            border-left: 4px solid #ce9131;
+            background: #fff9f0;
+            padding: 20px;
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        /* লিংক স্টাইল */
+        .blog-content-area a {
+            color: #ce9131;
+            text-decoration: underline;
+            font-weight: 500;
+        }
+    </style>
+@endpush
 @section('content')
 
     <!-- ===== HERO ===== -->
@@ -116,8 +227,8 @@
             @endphp
 
             <!-- ══════════════════════════════════
-                                                                                                         MOBILE LAYOUT (flex-col, < md)
-                                                                                                    ══════════════════════════════════ -->
+                                                                                                             MOBILE LAYOUT (flex-col, < md)
+                                                                                                        ══════════════════════════════════ -->
             <div class="flex flex-col gap-8 md:hidden">
 
                 <!-- Heading -->
@@ -170,8 +281,8 @@
             </div>
 
             <!-- ══════════════════════════════════
-                                                                                                         TABLET LAYOUT (≥ md, < lg)
-                                                                                                    ══════════════════════════════════ -->
+                                                                                                             TABLET LAYOUT (≥ md, < lg)
+                                                                                                        ══════════════════════════════════ -->
             <div class="hidden md:flex lg:hidden flex-col gap-10">
 
                 <!-- Heading -->
@@ -224,8 +335,8 @@
             </div>
 
             <!-- ══════════════════════════════════
-                                                                                                         DESKTOP LAYOUT (≥ lg), original
-                                                                                                    ══════════════════════════════════ -->
+                                                                                                             DESKTOP LAYOUT (≥ lg), original
+                                                                                                        ══════════════════════════════════ -->
 
             <!-- Row 1 -->
             <div class="hidden lg:flex relative flex-wrap items-start mt-8">
@@ -390,19 +501,6 @@
         </section>
     @endif
 
-    @push('styles')
-        <style>
-            /* Hide scrollbar on thumbnail strip */
-            .scrollbar-hide::-webkit-scrollbar {
-                display: none;
-            }
-
-            .scrollbar-hide {
-                -ms-overflow-style: none;
-                scrollbar-width: none;
-            }
-        </style>
-    @endpush
 
     <!-- ===== QUALITY / EXCELLENCE ===== -->
     @php
@@ -1139,7 +1237,15 @@ font-size: clamp(150px, 14vw, 320px);                    font-weight:bolder;
             resetAutoPlay();
         </script>
     @endif
-
+    @if ($setting && !empty($setting->body_3))
+        <section class="w-full relative z-20 py-12 md:py-24 bg-white border-t border-gray-100">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-14">
+                <div class="blog-content-area">
+                    {!! $setting->body_3 !!}
+                </div>
+            </div>
+        </section>
+    @endif
 @endsection
 
 @push('scripts')

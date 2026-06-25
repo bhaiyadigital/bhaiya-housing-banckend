@@ -161,7 +161,7 @@
     </section>
 
     <!-- Apply For A Role Section -->
-<!-- Apply For A Role Section (id="apply-job-section" যোগ করা হয়েছে) -->
+
 <section id="apply-job-section" class="relative w-full overflow-hidden py-20" style="background:#1B281F;">
 
     <div class="absolute inset-0 pointer-events-none z-0">
@@ -295,7 +295,7 @@
         <img src="{{ asset('images/overview-stone.webp') }}" alt="overview stone" style="height:220px; width: 220px;" />
     </div>
 </section>
-
+   <x-extra-content :data="$content" />
 
 </main>
 

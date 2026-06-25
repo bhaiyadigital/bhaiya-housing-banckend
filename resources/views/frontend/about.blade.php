@@ -509,18 +509,16 @@
         </div>
 
     </section>
-
+   <x-extra-content :data="$content" />
 
 
 @endsection
 @push('scripts')
 <script>
-    // ১. টাইমলাইন ডেটা
     const timelineData = {!! json_encode($timelineData) !!};
     const total = timelineData.length;
     let currentIndex = 0;
 
-    // ২. এরর-ফ্রি ফাংশন
     function safeInitAbout() {
         // window.isMobile এবং window.gsap চেক করা
         if (typeof window.gsap !== 'undefined' && typeof window.isMobile !== 'undefined') {

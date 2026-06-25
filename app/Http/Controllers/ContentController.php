@@ -10,6 +10,16 @@ class ContentController extends Controller
 {
     public function store(Request $request)
     {
+
+if ($request->filled('extra_map')) { // filled() মানে হলো যদি খালি না থাকে
+    $mapUrl = $request->input('extra_map');
+
+    if (!str_contains($mapUrl, 'google.com/maps/embed')) {
+        return redirect()->back()
+            ->withInput()
+            ->with('error', 'Invalid Google Map URL! Please provide the correct "src" link from Google Maps Embed code, or leave it empty.');
+    }
+}
         // ── Thumbnail ──────────────────────────────────────────────
         if ($request->hasFile('img_path')) {
             $path = $this->uploadImage($request->file('img_path'));
@@ -78,6 +88,17 @@ class ContentController extends Controller
     }
  public function update(Request $request)
 {
+
+if ($request->filled('extra_map')) { // filled() মানে হলো যদি খালি না থাকে
+    $mapUrl = $request->input('extra_map');
+
+
+    if (!str_contains($mapUrl, 'google.com/maps/embed')) {
+        return redirect()->back()
+            ->withInput()
+            ->with('error', 'Invalid Google Map URL! Please provide the correct "src" link from Google Maps Embed code, or leave it empty.');
+    }
+}
     $content = Content::find($request->input('id'));
 
     // ── Thumbnail ──────────────────────────────────────────────

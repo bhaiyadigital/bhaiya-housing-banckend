@@ -18,6 +18,116 @@
          'image' => $pImg,
      ])
  @endsection
+ @push('styles')
+     <style>
+         .blog-content-area hr {
+             display: none !important;
+         }
+
+         /* মেইন ব্লগ কন্টেন্ট এরিয়া */
+         .blog-content-area {
+             line-height: 1.8;
+             font-size: 17px;
+             color: #333;
+             font-family: 'Ubuntu', sans-serif;
+         }
+
+         /* হেডিং স্টাইল */
+         .blog-content-area h1,
+         .blog-content-area h2,
+         .blog-content-area h3,
+         .blog-content-area h4 {
+             color: #111;
+             font-weight: 700;
+             margin-top: 2rem;
+             margin-bottom: 1rem;
+             line-height: 1.3;
+         }
+
+         .blog-content-area h1 {
+             font-size: 2.2rem;
+         }
+
+         .blog-content-area h2 {
+             font-size: 1.8rem;
+             border-left: 5px solid #ce9131;
+             padding-left: 15px;
+         }
+
+         .blog-content-area h3 {
+             font-size: 1.5rem;
+         }
+
+         /* প্যারাগ্রাফ */
+         .blog-content-area p {
+             margin-bottom: 1.5rem;
+             text-align: justify;
+         }
+
+         /* লিস্ট (Tailwind এ ডিফল্টভাবে ডট দেখায় না, এটি সেটি ঠিক করবে) */
+         .blog-content-area ul {
+             list-style-type: disc !important;
+             margin-left: 2rem;
+             margin-bottom: 1.5rem;
+         }
+
+         .blog-content-area ol {
+             list-style-type: decimal !important;
+             margin-left: 2rem;
+             margin-bottom: 1.5rem;
+         }
+
+         .blog-content-area li {
+             margin-bottom: 0.5rem;
+         }
+
+         /* ইমেজ স্টাইল */
+         .blog-content-area img {
+             max-width: 100%;
+             height: auto;
+             border-radius: 12px;
+             margin: 2rem auto;
+             display: block;
+             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+         }
+
+         /* টেবিল স্টাইল */
+         .blog-content-area table {
+             width: 100%;
+             border-collapse: collapse;
+             margin: 2rem 0;
+         }
+
+         .blog-content-area table th,
+         .blog-content-area table td {
+             border: 1px solid #e2e8f0;
+             padding: 12px 15px;
+             text-align: left;
+         }
+
+         .blog-content-area table th {
+             background-color: #f8fafc;
+             font-weight: 700;
+         }
+
+         /* ব্লককোট (Quotes) */
+         .blog-content-area blockquote {
+             border-left: 4px solid #ce9131;
+             background: #fff9f0;
+             padding: 20px;
+             font-style: italic;
+             margin-bottom: 1.5rem;
+             font-size: 1.1rem;
+         }
+
+         /* লিংক স্টাইল */
+         .blog-content-area a {
+             color: #ce9131;
+             text-decoration: underline;
+             font-weight: 500;
+         }
+     </style>
+ @endpush
  @section('content')
      <section
          class="hero-fixed fixed top-0 left-0 w-full overflow-hidden
@@ -383,21 +493,16 @@
                              </div>
                          @endif
 
-                         @if (!empty($project->body_4))
-                             <div class="text-gray-800 prose max-w-none scroll-move" md:block data-axis="Y">
-                                 {!! $project->body_4 !!}
-                             </div>
-                         @endif
                      </div>
 
                  </div>
              </div>
          </section>
      @endif
+
      {{-- ===== GALLERY SLIDER ===== --}}
      @if ($sliderTotal > 0)
          <section class="relative z-10 w-full overflow-hidden py-10 lg:py-20" style="background:#fff; min-height: 500px;">
-
              <!-- Background "Gallery" Text -->
              <div class="absolute top-0 right-0 pointer-events-none select-none overflow-hidden" style="z-index:0;">
                  <span
@@ -561,8 +666,82 @@
              <div class="absolute bottom-5 left-1/2 -translate-x-1/2 text-white/50 text-sm tracking-widest"
                  id="lightboxCounter" style="font-family:'Cormorant Garamond',serif;"></div>
          </div>
+     @endif
+     @if ($project && !empty($project->body_4))
+         <section class="w-full relative z-20 py-12 md:py-24 bg-white border-t border-gray-100">
+             <div class="container mx-auto">
+                 <div class="blog-content-area">
+                     {!! $project->body_4 !!}
+                 </div>
+             </div>
+         </section>
+     @endif
+     {{-- ===== LOCATION ===== --}}
+     @if (!empty($project->map_url))
+         <section class="relative w-full flex flex-col md:flex-row"
+             style="height:clamp(400px,55vw,600px); font-family:'Jost',sans-serif;">
 
-         <script>
+             <div class="flex flex-col justify-between px-10 py-16 md:w-5/12 flex-shrink-0"
+                 style="background:#152018; padding-left:100px;">
+                 <h2 class="text-white font-light" style="font-size:clamp(32px,5vw,72px); font-weight:300;">
+                     Location
+                 </h2>
+                 <p class="text-white text-xl font-light opacity-70" style="line-height:1.8; max-width:380px;">
+                     {{ $project->location }}
+                 </p>
+             </div>
+
+             <div class="flex-1 relative">
+                 @if (!empty($extra['map_url']))
+                     <div id="map-loading" class="absolute inset-0 flex items-center justify-center bg-gray-200 z-10">
+                         <p class="text-gray-500 text-sm">Fetching map...</p>
+                     </div>
+
+                     <div id="map-error"
+                         class="absolute inset-0 flex items-center justify-center bg-gray-200 z-10 hidden">
+                         <p class="text-gray-500 text-sm">Map unavailable</p>
+                     </div>
+
+                     <iframe id="project-map" src="{{ $extra['map_url'] }}" title="Project Location Map"
+                         class="w-full h-full border-0" allowfullscreen loading="lazy"
+                         referrerpolicy="no-referrer-when-downgrade">
+                     </iframe>
+
+
+                     </script>
+                 @else
+                     <div class="w-full h-full flex items-center justify-center bg-gray-200">
+                         <p class="text-gray-500 text-sm">Map unavailable</p>
+                     </div>
+                 @endif
+             </div>
+
+         </section>
+     @endif
+
+ @endsection
+ @push('scripts')
+     <script>
+         document.addEventListener('DOMContentLoaded', function() {
+             const iframe = document.getElementById('project-map');
+             const loading = document.getElementById('map-loading');
+             const error = document.getElementById('map-error');
+
+             let loaded = false;
+
+             iframe.onload = function() {
+                 loaded = true;
+                 loading.classList.add('hidden');
+             };
+
+             setTimeout(() => {
+                 if (!loaded) {
+                     loading.classList.add('hidden');
+                     error.classList.remove('hidden');
+                 }
+             }, 10000); // 10 seconds timeout
+         }); <
+         script >
              (function() {
                  const images = @json($sliderImages);
                  const total = images.length;
@@ -697,68 +876,5 @@
                      startAuto();
                  }
              })();
-         </script>
-     @endif
-
-     {{-- ===== LOCATION ===== --}}
-     @if ($project->location)
-         <section class="relative w-full flex flex-col md:flex-row"
-             style="height:clamp(400px,55vw,600px); font-family:'Jost',sans-serif;">
-
-             <div class="flex flex-col justify-between px-10 py-16 md:w-5/12 flex-shrink-0"
-                 style="background:#152018; padding-left:100px;">
-                 <h2 class="text-white font-light" style="font-size:clamp(32px,5vw,72px); font-weight:300;">
-                     Location
-                 </h2>
-                 <p class="text-white text-xl font-light opacity-70" style="line-height:1.8; max-width:380px;">
-                     {{ $project->location }}
-                 </p>
-             </div>
-
-             <div class="flex-1 relative">
-                 @if (!empty($extra['map_url']))
-                     <div id="map-loading" class="absolute inset-0 flex items-center justify-center bg-gray-200 z-10">
-                         <p class="text-gray-500 text-sm">Fetching map...</p>
-                     </div>
-
-                     <div id="map-error"
-                         class="absolute inset-0 flex items-center justify-center bg-gray-200 z-10 hidden">
-                         <p class="text-gray-500 text-sm">Map unavailable</p>
-                     </div>
-
-                     <iframe id="project-map" src="{{ $extra['map_url'] }}" title="Project Location Map"
-                         class="w-full h-full border-0" allowfullscreen loading="lazy"
-                         referrerpolicy="no-referrer-when-downgrade">
-                     </iframe>
-
-                     <script>
-                         document.addEventListener('DOMContentLoaded', function() {
-                             const iframe = document.getElementById('project-map');
-                             const loading = document.getElementById('map-loading');
-                             const error = document.getElementById('map-error');
-
-                             let loaded = false;
-
-                             iframe.onload = function() {
-                                 loaded = true;
-                                 loading.classList.add('hidden');
-                             };
-
-                             setTimeout(() => {
-                                 if (!loaded) {
-                                     loading.classList.add('hidden');
-                                     error.classList.remove('hidden');
-                                 }
-                             }, 10000); // 10 seconds timeout
-                         });
-                     </script>
-                 @else
-                     <div class="w-full h-full flex items-center justify-center bg-gray-200">
-                         <p class="text-gray-500 text-sm">Map unavailable</p>
-                     </div>
-                 @endif
-             </div>
-
-         </section>
-     @endif
- @endsection
+     </script>
+ @endpush

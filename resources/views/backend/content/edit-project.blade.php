@@ -14,7 +14,12 @@
                     <div class="card-title">Edit Project — {{ $content->title }}</div>
                 </div>
                 <div class="card-body">
-
+@if(session('error'))
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <i class="bi bi-exclamation-triangle me-2"></i> {{ session('error') }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    @endif
                     {{-- Row 1: Basic Info --}}
                     <div class="row">
                         <div class="col-md-6 mb-3">
@@ -130,8 +135,10 @@
                                     </div>
                                     <div class="col-md-6 mb-3">
                                         <label class="form-label small">Google Map Embed URL</label>
-                                        <input type="text" name="extra_map" id="extraMap"
-                                            class="form-control form-control-sm" value="{{ $extra['map_url'] ?? '' }}">
+                                        <input type="text" name="extra_map" id="extraMap" class="form-control form-control-sm"
+                                            placeholder="Optional: Paste embed URL here"
+                                            value="{{ old('extra_map', $extra['map_url'] ?? '') }}">
+                                        <small class="text-muted">Copy only the <b>src</b> URL from Google Maps Embed code.</small>
                                     </div>
                                     <div class="col-md-3 mb-3">
                                         <label class="form-label small">Featured?</label>
@@ -166,8 +173,8 @@
                             <textarea class="editor form-control" name="body_2" rows="4">{!! $content->body_2 !!}</textarea>
                         </div>
                         <div class="col-md-12 mb-3">
-                            <label class="form-label fw-semibold">Description Box 2</label>
-                            <textarea class="editor form-control" name="body_4" rows="4">{!! $content->body_2 !!}</textarea>
+                            <label class="form-label fw-semibold">Description Box 3</label>
+                            <textarea class="editor form-control" name="body_4" rows="4">{!! $content->body_4 !!}</textarea>
                         </div>
                     </div>
 
