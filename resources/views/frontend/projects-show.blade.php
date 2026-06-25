@@ -25,27 +25,39 @@
          <img src="{{ $imgPaths[0] ?? '' }}" alt="{{ $project->title }}" class="absolute inset-0 w-full h-full object-cover" />
          <div class="absolute inset-0 bg-black/50"></div>
          <div class="absolute inset-0 flex items-center px-6 sm:px-10 md:px-20">
-             <h2 class="text-white font-light pl-4 sm:pl-8 md:pl-12 pt-16 sm:pt-24 md:pt-32"
+             <h1 class="text-white font-light pl-4 sm:pl-8 md:pl-12 pt-16 sm:pt-24 md:pt-32"
                  style="font-size: clamp(32px, 3.85vw, 90px); line-height: 1.2;">
                  {{ $project->title }}
-             </h2>
+             </h1>
          </div>
      </section>
      <div class="h-[600px] md:h-[700px] lg:h-[900px] w-full pointer-events-none" style="position: relative; z-index: 2;">
      </div>
 
      {{-- ===== AT A GLANCE ===== --}}
-     <section class="relative z-10 w-full" style="background:#ffffff; font-family:'Jost',sans-serif;">
+     <section class="relative z-10 w-full" style="background:#ffffff;">
 
 
-         <div class="absolute inset-0 pointer-events-none overflow-hidden" style="z-index:0;">
+         <div class="absolute inset-0 pointer-events-none overflow-hidden" style="z-index:10;">
              <div class="absolute right-0 top-0 w-1/3 h-full opacity-50"
-                 style="background-image: url('/assets/images/bg-news.png'); background-repeat: repeat-y; background-size: 100% auto;">
+                 style="background-image: url('{{ asset('images/bg-news.png') }}'); background-repeat: repeat-y; background-size: 100% auto;">
              </div>
+
+             @auth
+                 @if (isset($project))
+                     <div class="absolute top-5 right-5 p-4  pointer-events-auto z-50">
+                         <a href="{{ route('content.edit', ['project', $project->id]) }}" target="_blank"
+                             class="w-full bg-[#2C4798] hover:bg-[#1a368a] text-white py-3 px-5 rounded-md font-bold text-base flex items-center justify-center gap-2 transition-all shadow-md active:scale-95"
+                             style="text-decoration: none;">
+                             <i class="fa-solid fa-pen-to-square"></i>
+                             Edit This Project
+                         </a>
+                     </div>
+                 @endif
+             @endauth
          </div>
          <div class="container mx-auto px-6 lg:px-14 py-20">
              <div class="flex flex-col md:flex-row gap-16 items-start">
-
                  <!-- Left: Content -->
                  <div class="w-full md:w-1/2">
                      <p class="text-sm font-light text-gray-500 mb-6 tracking-wide">
@@ -55,8 +67,7 @@
                              {{ $project->title }}
                          @endif
                      </p>
-                     <h2 class="font-light text-gray-700 mb-12"
-                         style="font-size:clamp(36px,5vw,72px); font-family:'Jost',sans-serif; font-weight:300;">
+                     <h2 class="font-light text-gray-700 mb-12" style="font-size:clamp(36px,5vw,72px);">
                          At a glance
                      </h2>
 
@@ -141,7 +152,7 @@
 
                          <!-- Left stone -->
                          <img src="{{ asset('images/middle-stone.webp') }}" alt="left stone"
-                             class="absolute pointer-events-none float-down scroll-move" data-axis="Y"
+                             class="absolute pointer-events-none float-down scroll-move" md:block data-axis="Y"
                              style="width: clamp(60px, 8vw, 150px);
                            height: clamp(60px, 8vw, 150px);
                            bottom: clamp(-30px, -3vw, -20px);
@@ -158,7 +169,7 @@
 
                          <!-- Right stone -->
                          <img src="{{ asset('images/mission-stone.webp') }}" alt="mission stone"
-                             class="absolute pointer-events-none float-up scroll-move" data-axis="Y"
+                             class="absolute pointer-events-none float-up scroll-move" md:block data-axis="Y"
                              style="width: clamp(60px, 8vw, 150px);
                            height: clamp(60px, 8vw, 150px);
                            top: clamp(-16px, -2vw, -24px);
@@ -359,7 +370,7 @@
 
                      <!-- Left Column: Primary Body -->
                      @if (!empty($project->body))
-                         <div class="w-full md:w-1/2 text-gray-800 prose max-w-none scroll-move" data-axis="-Y">
+                         <div class="w-full md:w-1/2 text-gray-800 prose max-w-none md:block scroll-move" data-axis="-Y">
                              {!! $project->body !!}
                          </div>
                      @endif
@@ -367,13 +378,13 @@
                      <!-- Right Column: Body 2 & Body 4 Stacked -->
                      <div class="w-full md:w-1/2 flex flex-col gap-12">
                          @if (!empty($project->body_2))
-                             <div class="text-gray-800 prose max-w-none scroll-move" data-axis="Y">
+                             <div class="text-gray-800 prose max-w-none scroll-move" md:block data-axis="Y">
                                  {!! $project->body_2 !!}
                              </div>
                          @endif
 
                          @if (!empty($project->body_4))
-                             <div class="text-gray-800 prose max-w-none scroll-move" data-axis="Y">
+                             <div class="text-gray-800 prose max-w-none scroll-move" md:block data-axis="Y">
                                  {!! $project->body_4 !!}
                              </div>
                          @endif

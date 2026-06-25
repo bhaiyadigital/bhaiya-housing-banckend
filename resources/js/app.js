@@ -3,6 +3,9 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Swiper from 'swiper/bundle';
+import 'swiper/css/bundle';
+window.Swiper = Swiper; 
 
 // ১. গ্লোবাল এক্সেস (সবার আগে)
 window.AOS = AOS;
@@ -20,15 +23,20 @@ const initApp = () => {
     });
 
     if (!window.isMobile) {
-        // ডেক্সটপ Parallax
-        gsap.utils.toArray("[data-speed]").forEach((el) => {
-            gsap.to(el, {
-                y: (i, target) =>
-                    (1 - parseFloat(target.dataset.speed || 1)) * 100,
-                scrollTrigger: { trigger: el, scrub: true },
-            });
-        });
+         gsap.utils.toArray('.scroll-move').forEach(el => {
+        const speed = parseFloat(el.dataset.speed || 0.15);
+        const axis = (el.dataset.axis || 'Y').toLowerCase(); // x বা y ছোট হাতের হতে হবে
 
+        gsap.to(el, {
+            [axis]: (axis === 'y' ? -100 : 100) * speed,
+            scrollTrigger: {
+                trigger: el,
+                start: "top bottom",
+                end: "bottom top",
+                scrub: true,
+            }
+        });
+    });
         // Quality Image Hover Zoom
         document.querySelectorAll(".quality-col").forEach((col) => {
             const wrap = col.querySelector(".quality-img-wrap");

@@ -11,11 +11,10 @@
     <div class="absolute inset-0 bg-black/50"></div>
 
     <div class="absolute inset-0 flex items-center px-6 sm:px-10 md:px-20">
-        <!-- pl-12 কে md:pl-12 pl-0 এবং pt-32 কে md:pt-32 pt-20 করা হয়েছে। ফন্ট সাইজে clamp ব্যবহার করা হয়েছে -->
-        <h2 class="text-white font-light md:pl-12 pt-20 md:pt-32 tracking-normal md:tracking-[-3px]"
+        <h1 class="text-white font-light md:pl-12 pt-20 md:pt-32 tracking-normal md:tracking-[-3px]"
             style="font-size: clamp(32px, 3.85vw, 74px); line-height: 1.2;">
              Expanding Excellence<br><span class="font-migra-italic">Our Other Ventures</span>
-        </h2>
+        </h1>
     </div>
 
 </section>

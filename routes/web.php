@@ -24,15 +24,15 @@ Route::get('/cc', function () {
     return "✅ All caches cleared!";
 });
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/contents/{type}', [App\Http\Controllers\ContentController::class, 'index'])->name('content.index');
-    Route::get('/contents/{type}/create', [App\Http\Controllers\ContentController::class, 'create'])->name('content.create');
-    Route::get('/contents/{type}/edit/{id}', [App\Http\Controllers\ContentController::class, 'edit'])->name('content.edit');
-    Route::post('/contents/store', [App\Http\Controllers\ContentController::class, 'store'])->name('content.store');
-    Route::post('/contents/update', [App\Http\Controllers\ContentController::class, 'update'])->name('content.update');
-    Route::delete('/contents/destroy/{type}/{id}', [App\Http\Controllers\ContentController::class, 'destroy'])->name('content.destroy');
+    Route::get('/contents/{type}', [ContentController::class, 'index'])->name('content.index');
+    Route::get('/contents/{type}/create', [ContentController::class, 'create'])->name('content.create');
+    Route::get('/contents/{type}/edit/{id}', [ContentController::class, 'edit'])->name('content.edit');
+    Route::post('/contents/store', [ContentController::class, 'store'])->name('content.store');
+    Route::post('/contents/update', [ContentController::class, 'update'])->name('content.update');
+    Route::delete('/contents/destroy/{type}/{id}', [ContentController::class, 'destroy'])->name('content.destroy');
     Route::get('contacts',              [ContactController::class, 'index'])->name('contacts.index');
     Route::post('/contacts/{id}/mark-read', [ContactController::class, 'markAsRead'])->name('contacts.mark-read');
     Route::delete('contacts/{contact}', [ContactController::class, 'destroy'])->name('contacts.destroy');

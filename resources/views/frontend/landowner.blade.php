@@ -12,10 +12,10 @@
     <div class="absolute inset-0 bg-black/50"></div>
 
     <div class="absolute inset-0 flex items-center px-6 sm:px-10 md:px-20">
-        <h2 class="text-white font-light md:pl-12 pt-20 md:pt-32 tracking-normal md:tracking-[-3px]"
+        <h1 class="text-white font-light md:pl-12 pt-20 md:pt-32 tracking-normal md:tracking-[-3px]"
             style="font-size: clamp(32px, 3.85vw, 74px); line-height: 1.2; font-weight: 500;">
             We're here to assist you <br> with <span class="font-migra-italic">any inquiries</span>
-        </h2>
+        </h1>
     </div>
 
 </section>

@@ -15,7 +15,7 @@
                 <div class="card-body">
 
                     @php
-                        $slugTypes = ['project', 'news', 'events', 'blogs','meta_info'];
+                        $slugTypes = ['project', 'news', 'events', 'blogs', 'meta_info'];
                     @endphp
                     @foreach ($contents[$type] as $field => $data)
                         <div class="mb-3">
@@ -145,8 +145,33 @@
                     @endforeach
 
                 </div>
+                @php
+                    // স্লাগ হিসেবে 'name' নেওয়া হচ্ছে, না থাকলে ব্যাকআপ 'id'
+                    $slug = $content->name ?? $content->id;
+                    $type = strtolower($content->type ?? '');
+
+                    // টাইপ অনুযায়ী রাউট ম্যাচিং (সবার জন্য)
+                    switch ($type) {
+                        case 'news':
+                            $viewUrl = route('news.show', $slug);
+                            break;
+
+                        case 'event':
+                        case 'events':
+                            $viewUrl = route('events.show', $slug);
+                            break;
+
+                        case 'blog':
+                            $viewUrl = route('blog.details', $slug);
+                            break;
+                    }
+                @endphp
                 <div class="card-footer">
+
                     <button type="submit" class="btn btn-success">Update</button>
+                    <a href="{{ $viewUrl }}" target="_blank" class="btn btn-dark text-white">
+                        <i class="fa-solid fa-eye mr-1"></i> View Content
+                    </a>
                 </div>
             </div>
         </form>

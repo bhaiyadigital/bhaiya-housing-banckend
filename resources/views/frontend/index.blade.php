@@ -116,8 +116,8 @@
             @endphp
 
             <!-- ══════════════════════════════════
-                                                                                                     MOBILE LAYOUT (flex-col, < md)
-                                                                                                ══════════════════════════════════ -->
+                                                                                                         MOBILE LAYOUT (flex-col, < md)
+                                                                                                    ══════════════════════════════════ -->
             <div class="flex flex-col gap-8 md:hidden">
 
                 <!-- Heading -->
@@ -128,16 +128,16 @@
 
                 <!-- Big center image -->
                 <div class="img-shadow rounded-sm overflow-hidden w-full fade-in delay-2">
-                    <img src="{{ $dreams->img_path ?? '' }}" alt="{{ $dreams->title ?? '' }}" width="380"
-                        height="437" loading="lazy" decoding="async"
-                        class="w-full h-[400px] sm:h-[520px] object-cover">
+                    <img src="{{ $dreams->img_path ?? '' }}" alt="{{ $dreams->title ?? '' }}" width="380" height="437"
+                        loading="lazy" decoding="async" class="w-full h-[400px] sm:h-[520px] object-cover">
                 </div>
 
                 <!-- Side images row -->
                 <div class="grid grid-cols-2 gap-4 fade-in delay-2">
                     <!-- Image 1 -->
-                    <img src="{{ asset($extraImages[1] ?? '') }}" width="182" height="201" loading="lazy" alt="bhaiya housing appartment"
-                        decoding="async" class="img-shadow rounded-sm object-cover w-full h-[180px] sm:h-[220px]">
+                    <img src="{{ asset($extraImages[1] ?? '') }}" width="182" height="201" loading="lazy"
+                        alt="bhaiya housing appartment" decoding="async"
+                        class="img-shadow rounded-sm object-cover w-full h-[180px] sm:h-[220px]">
 
                     <!-- Image 2 -->
                     <img src="{{ asset($extraImages[2] ?? '') }}" width="300" height="180" loading="lazy"
@@ -148,8 +148,9 @@
 
                 <!-- Bottom image optimized -->
                 <div class="fade-in delay-3 scroll-move" data-axis="Y" data-max-move="180">
-                    <img src="{{ asset($extraImages[0] ?? '') }}" width="380" height="320" loading="lazy" alt="bottom image"
-                        decoding="async" class="img-shadow rounded-sm object-cover w-full h-[260px] sm:h-[320px]">
+                    <img src="{{ asset($extraImages[0] ?? '') }}" width="380" height="320" loading="lazy"
+                        alt="bottom image" decoding="async"
+                        class="img-shadow rounded-sm object-cover w-full h-[260px] sm:h-[320px]">
                 </div>
 
                 <!-- Description + CTA -->
@@ -158,7 +159,8 @@
                         {{ $dreams->short ?? 'Since 2012, Bhaiya Housing, a distinguished part of Bhaiya Group, has redefined modern infrastructure. Merging architectural brilliance with purposeful design, we craft exquisite homes and commercial spaces that embody aspirations, inspire ambition, and effortlessly adapt to the evolving rhythms of modern life.' }}
                     </p>
                     <div class="fade-in delay-4">
-                        <a href="{{ route('front.about') }}" aria-label="Learn more about Bhaiya Housing history and decades of excellence"
+                        <a href="{{ route('front.about') }}"
+                            aria-label="Learn more about Bhaiya Housing history and decades of excellence"
                             class="circle-btn">
                             Learn More <span class="sr-only">about Bhaiya Housing history and excellence</span>
                         </a>
@@ -168,8 +170,8 @@
             </div>
 
             <!-- ══════════════════════════════════
-                                                                                                     TABLET LAYOUT (≥ md, < lg)
-                                                                                                ══════════════════════════════════ -->
+                                                                                                         TABLET LAYOUT (≥ md, < lg)
+                                                                                                    ══════════════════════════════════ -->
             <div class="hidden md:flex lg:hidden flex-col gap-10">
 
                 <!-- Heading -->
@@ -201,7 +203,8 @@
                         </p>
                         <div class="fade-in delay-4">
                             <a href="{{ route('front.about') }}" aria-label="Read more about our mission and vision"
-                                class="circle-btn hover-lg z-20">Learn More<span class="sr-only">about our mission and vision</span></a>
+                                class="circle-btn hover-lg z-20">Learn More<span class="sr-only">about our mission and
+                                    vision</span></a>
                         </div>
                     </div>
                 </div>
@@ -221,8 +224,8 @@
             </div>
 
             <!-- ══════════════════════════════════
-                                                                                                     DESKTOP LAYOUT (≥ lg), original
-                                                                                                ══════════════════════════════════ -->
+                                                                                                         DESKTOP LAYOUT (≥ lg), original
+                                                                                                    ══════════════════════════════════ -->
 
             <!-- Row 1 -->
             <div class="hidden lg:flex relative flex-wrap items-start mt-8">
@@ -275,7 +278,8 @@
 
                     <div class="fade-in delay-4">
                         <a href="{{ route('front.about') }}" aria-label="Detailed history of our decade-long excellence"
-                            class="circle-btn hover-lg z-20">Learn More<span class="sr-only">about our decade-long history</span></a>
+                            class="circle-btn hover-lg z-20">Learn More<span class="sr-only">about our decade-long
+                                history</span></a>
                     </div>
                 </div>
 
@@ -347,7 +351,8 @@
                 </p>
 
                 {{-- Learn More — mobile only --}}
-                <a id="heroLearnMoreMobile" href="/project/{{ $first->id }}" aria-label="Detailed information about the featured project {{ $first->title }}"
+                <a id="heroLearnMoreMobile" href="/project/{{ $first->id }}"
+                    aria-label="Detailed information about the featured project {{ $first->title }}"
                     class="md:hidden inline-flex items-center justify-center mt-4 text-xs tracking-[2px] uppercase border border-white/60 text-white px-6 py-4 min-h-[48px] min-w-[140px] hover:bg-white hover:text-black transition-all duration-300"
                     style="font-weight: 400">
                     Learn More
@@ -757,7 +762,8 @@ font-size: clamp(150px, 14vw, 320px);                    font-weight:bolder;
 
                         Events
                     </h2>
-                    <a href="{{route('events')}}" class="flex items-center justify-center rounded-full flex-shrink-0 text-center"
+                    <a href="{{ route('events') }}"
+                        class="flex items-center justify-center rounded-full flex-shrink-0 text-center"
                         aria-label="event page view all"
                         style="width: clamp(70px, 18vw, 90px); height: clamp(70px, 18vw, 90px);
                            border: 1.5px solid #1a1a1a; font-size: 11px;
@@ -800,7 +806,8 @@ font-size: clamp(150px, 14vw, 320px);                    font-weight:bolder;
                     </div>
 
                     {{-- View All circle --}}
-                    <a href="{{route('events')}}" class="flex items-center justify-center rounded-full text-center flex-shrink-0"
+                    <a href="{{ route('events') }}"
+                        class="flex items-center justify-center rounded-full text-center flex-shrink-0"
                         aria-label="view all circle for event"
                         style="width: clamp(90px, 9vw, 130px); height: clamp(90px, 9vw, 130px);
                            border: 1.5px solid #1a1a1a;
@@ -824,7 +831,8 @@ font-size: clamp(150px, 14vw, 320px);                    font-weight:bolder;
                         $isLast = $index === count($newsEvents) - 1;
                         $type = ucfirst($item['type']);
                         $date = $item['start_date'];
-                        $url = '/' . strtolower($item['type']) . '/' . $item['id'];
+                        $slug = $item['name'] ?? $item['id'];
+                        $url = '/' . strtolower($item['type']) . '/' . $slug;
                         $imgPath = asset($item['img_path'] ?? '');
                     @endphp
 
