@@ -1,5 +1,5 @@
 @extends('layouts.front')
-@if(isset($hero->img_path) && !empty($hero->img_path))
+@if (isset($hero->img_path) && !empty($hero->img_path))
     <link rel="preload" as="image" href="{{ asset($hero->img_path) }}" fetchpriority="high">
 @endif
 @section('meta')
@@ -122,7 +122,7 @@
 
         {{-- Background --}}
         <div class="absolute inset-0">
-            <img src="{{ $hero->img_path ?? '' }}" alt="Bhaiya Housing Hero" rel="preload"
+            <img src="{{ $hero->img_path ?? '' }}" alt="Bhaiya Housing Hero"
                 class="w-full h-full object-cover scale-[1.06] animate-[zoomOut_8s_ease_forwards]" fetchpriority="high"
                 loading="eager" width="1920" height="1080" />
             <div class="absolute inset-0" style="background: rgba(14, 14, 14, 0.7)"></div>
@@ -172,9 +172,9 @@
             onclick="openVideoModal()">
 
             <div class="w-[140px] sm:w-[180px] md:w-[250px] flex-shrink-0 relative overflow-hidden bg-neutral-900">
-                <video loading="lazy" preload="none"
+                <video id="lazyHeroVideo" loading="lazy" preload="none"
                     class="w-full h-full object-cover scale-105 group-hover:scale-100 transition-transform duration-700"
-                    autoplay="" muted="" loop="" playsinline="">
+                    autoplay muted loop playsinline>
                     <source src="{{ asset('videos/177373892096622.mp4') }}" type="video/mp4">
                 </video>
                 <div class="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors duration-500"></div>
@@ -227,8 +227,8 @@
             @endphp
 
             <!-- ══════════════════════════════════
-                                                                                                             MOBILE LAYOUT (flex-col, < md)
-                                                                                                        ══════════════════════════════════ -->
+                                                                                                                 MOBILE LAYOUT (flex-col, < md)
+                                                                                                            ══════════════════════════════════ -->
             <div class="flex flex-col gap-8 md:hidden">
 
                 <!-- Heading -->
@@ -281,8 +281,8 @@
             </div>
 
             <!-- ══════════════════════════════════
-                                                                                                             TABLET LAYOUT (≥ md, < lg)
-                                                                                                        ══════════════════════════════════ -->
+                                                                                                                 TABLET LAYOUT (≥ md, < lg)
+                                                                                                            ══════════════════════════════════ -->
             <div class="hidden md:flex lg:hidden flex-col gap-10">
 
                 <!-- Heading -->
@@ -335,8 +335,8 @@
             </div>
 
             <!-- ══════════════════════════════════
-                                                                                                             DESKTOP LAYOUT (≥ lg), original
-                                                                                                        ══════════════════════════════════ -->
+                                                                                                                 DESKTOP LAYOUT (≥ lg), original
+                                                                                                            ══════════════════════════════════ -->
 
             <!-- Row 1 -->
             <div class="hidden lg:flex relative flex-wrap items-start mt-8">
@@ -484,7 +484,9 @@
                             onclick="switchVideo(this)">
 
                             <div class="w-full h-full overflow-hidden bg-neutral-800">
-                                <img src="{{ $project->img_path ? asset(ltrim($project->img_path, '/')) : '' }}"
+                                <img src="{{ !empty($project->img_path) && file_exists(public_path(ltrim($project->img_path, '/')))
+                                    ? asset(ltrim($project->img_path, '/'))
+                                    : asset('images/event.webp') }}"
                                     width="220" height="140" loading="lazy"
                                     class="object-cover w-full h-full opacity-80 hover:opacity-100 transition-opacity"
                                     alt="{{ $project->title }}">
@@ -1377,6 +1379,20 @@ font-size: clamp(150px, 14vw, 320px);                    font-weight:bolder;
                 wrap.style.height = '550px';
                 img.style.transform = 'scale(1)'; // ← default
             });
+        });
+    </script>
+    <script>
+        // পেজ লোড হওয়ার ২ সেকেন্ড পর ভিডিও সোর্স লোড হবে
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                const v = document.getElementById('lazyHeroVideo');
+                if (v) {
+                    const s = v.querySelector('source');
+                    s.src = s.dataset.src;
+                    v.load();
+                    v.play();
+                }
+            }, 2000);
         });
     </script>
 @endpush

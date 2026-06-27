@@ -14,7 +14,11 @@ window.gsap = gsap;
 window.ScrollTrigger = ScrollTrigger;
 gsap.registerPlugin(ScrollTrigger);
 window.isMobile = window.innerWidth < 1024;
-
+const lenis = new Lenis();
+lenis.on("scroll", ScrollTrigger.update);
+gsap.ticker.add((time) => lenis.raf(time * 1000));
+gsap.ticker.lagSmoothing(0);
+window.lenis = lenis;
 
 const initApp = () => {
     AOS.init({
@@ -25,24 +29,25 @@ const initApp = () => {
 
     if (!window.isMobile) {
         gsap.utils.toArray(".scroll-move").forEach((el) => {
-            const speed = parseFloat(el.dataset.speed || 0.15);
+            const speed = parseFloat(el.dataset.speed || 0.2);
             let rawAxis = el.dataset.axis || "Y";
-
             let isNegative = rawAxis.startsWith("-");
             let axis = isNegative
                 ? rawAxis.substring(1).toLowerCase()
                 : rawAxis.toLowerCase();
-            let moveAmount = (axis === "y" ? -100 : 100) * speed;
 
-            if (isNegative) moveAmount = moveAmount * -1;
+            // মুভমেন্ট ৫০০ পিক্সেল পর্যন্ত বাড়ানো হলো যাতে অনেক বেশি নড়াচড়া করে
+            let moveDistance = 500 * speed;
+            let finalMove = isNegative ? moveDistance : -moveDistance;
 
             gsap.to(el, {
-                [axis]: moveAmount,
+                [axis]: finalMove,
+                ease: "none",
                 scrollTrigger: {
                     trigger: el,
-                    start: "top bottom",
-                    end: "bottom top",
-                    scrub: true,
+                    start: "top bottom", // স্ক্রিনে ঢোকার সময় শুরু
+                    end: "bottom top", // স্ক্রিন থেকে বের হওয়ার সময় শেষ
+                    scrub: 1.5, // 👈 এটি আপনার আগের 'lerp' এর মতো স্মুথ ইফেক্ট দিবে
                 },
             });
         });
@@ -102,21 +107,15 @@ const initHeader = () => {
     if (!header) return;
     let lastScroll = 0;
 
-    window.addEventListener(
-        "scroll",
-        () => {
-            const s = window.scrollY;
-            // নিচে স্ক্রল করলে হাইড, উপরে করলে শো
-            if (s > 100 && s > lastScroll) {
-                header.style.transform = "translateY(-100%)";
-            } else {
-                header.style.transform = "translateY(0)";
-                header.style.background = s > 80 ? "#152018" : "transparent";
-            }
-            lastScroll = s;
-        },
-        { passive: true },
-    );
+    lenis.on("scroll", ({ scroll }) => {
+        if (scroll > 100 && scroll > lastScroll) {
+            header.style.transform = "translateY(-100%)";
+        } else {
+            header.style.transform = "translateY(0)";
+            header.style.background = scroll > 80 ? "#152018" : "transparent";
+        }
+        lastScroll = scroll;
+    });
 };
 window.openMenu = () => {
     const overlay = document.getElementById("menuOverlay");
@@ -143,8 +142,12 @@ window.hoverLink = (el) => {
     }
 };
 // সব লজিক উইন্ডো লোড হওয়ার পর রান করুন
+// app.js এর শেষে এই পরিবর্তনটি করুন
 window.addEventListener("load", () => {
-    initApp();
-    initHeader();
-    if (window.AOS) window.AOS.refresh();
+    // পেজ লোড হওয়ার ১ সেকেন্ড পর ভারী কাজগুলো শুরু হবে
+    setTimeout(() => {
+        initApp();
+        initHeader();
+        if (window.AOS) window.AOS.refresh();
+    }, 1000);
 });
