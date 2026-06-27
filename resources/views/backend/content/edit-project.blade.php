@@ -351,7 +351,7 @@
                 </div>{{-- /card-body --}}
                 <div class="card-footer">
                     <button type="submit" class="btn btn-success px-5">Update Project</button>
-                    <a href="{{ url('/project/' . ($content->name ?? $content->id)) }}" target="_blank"
+                    <a href="{{ route('projects.show', $content->name ?? $content->id) }}" target="_blank"
                         class="btn btn-dark  text-white">
                         <i class="fa-solid fa-eye mr-1"></i> View Content
                     </a>

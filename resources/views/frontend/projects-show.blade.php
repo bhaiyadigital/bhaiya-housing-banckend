@@ -740,8 +740,7 @@
                      error.classList.remove('hidden');
                  }
              }, 10000); // 10 seconds timeout
-         }); <
-         script >
+         }); 
              (function() {
                  const images = @json($sliderImages);
                  const total = images.length;
