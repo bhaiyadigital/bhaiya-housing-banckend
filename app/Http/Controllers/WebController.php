@@ -332,7 +332,7 @@ class WebController extends Controller
     public function projects()
     {
         $content = Content::where('type', 'meta_info')
-        ->where('name', 'event')
+        ->where('name', 'projects')
         ->first();
         $projectHero = Content::where('type', 'hero')
             ->where('name', 'projects')

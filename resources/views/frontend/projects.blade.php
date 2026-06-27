@@ -2,7 +2,7 @@
  @section('meta')
      @include('partials.meta', ['pageKey' => 'projects'])
  @endsection
- 
+
  @section('content')
      {{-- Hero --}}
      <section class="hero-fixed fixed top-0 left-0 w-full overflow-hidden h-[600px] md:h-[700px] lg:h-[900px]"
