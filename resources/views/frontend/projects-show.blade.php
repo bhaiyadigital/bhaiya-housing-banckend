@@ -471,10 +471,9 @@
          // কন্টেন্ট আছে কি না তা চেক করার জন্য একটি শক্তিশালী লজিক
          $check_body = trim(preg_replace('/\s|&nbsp;/u', '', strip_tags($project->body)));
          $check_body2 = trim(preg_replace('/\s|&nbsp;/u', '', strip_tags($project->body_2)));
-         $check_body4 = trim(preg_replace('/\s|&nbsp;/u', '', strip_tags($project->body_4)));
      @endphp
 
-     @if ($check_body !== '' || $check_body2 !== '' || $check_body4 !== '')
+     @if ($check_body !== '' || $check_body2 !== '')
          <section class="relative z-10 w-full overflow-hidden py-32 bg-[#F6F6F6]">
 
              <!-- Background Decoration Image -->
