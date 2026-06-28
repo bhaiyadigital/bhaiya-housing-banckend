@@ -467,7 +467,10 @@
 
      </section>
      {{-- ===== DESCRIPTION SECTION (Body, Body 2, Body 4) ===== --}}
-     @if (!empty(strip_tags($project->body)) || !empty(strip_tags($project->body_2)) || !empty(strip_tags($project->body_4)))
+     @if (
+         !empty(trim(strip_tags(html_entity_decode($project->body)))) ||
+             !empty(trim(strip_tags(html_entity_decode($project->body_2)))) ||
+             !empty(trim(strip_tags(html_entity_decode($project->body_4)))))
          <section class="relative z-10 w-full overflow-hidden py-32 bg-[#F6F6F6]">
 
              <!-- Background Decoration Image -->
@@ -670,7 +673,7 @@
      @if ($project && !empty($project->body_4))
          <section class="w-full relative z-20 py-12 md:py-24 bg-white border-t border-gray-100">
              <div class="container mx-auto">
-                 <div class="blog-content-area">
+                 <div class="blog-content-area prose prose-sm max-w-none custom-content text-gray-700">
                      {!! $project->body_4 !!}
                  </div>
              </div>
@@ -740,140 +743,140 @@
                      error.classList.remove('hidden');
                  }
              }, 10000); // 10 seconds timeout
-         }); 
-             (function() {
-                 const images = @json($sliderImages);
-                 const total = images.length;
-                 let autoTimer = null;
+         });
+         (function() {
+             const images = @json($sliderImages);
+             const total = images.length;
+             let autoTimer = null;
 
-                 window.galleryState = {
-                     active: 0,
-                     total,
-                     zoom: 1
-                 };
+             window.galleryState = {
+                 active: 0,
+                 total,
+                 zoom: 1
+             };
 
-                 function idx(n) {
-                     return ((n % total) + total) % total;
+             function idx(n) {
+                 return ((n % total) + total) % total;
+             }
+
+             function updateGallery(immediate) {
+                 const a = galleryState.active;
+                 const centerImg = document.getElementById('centerImg');
+
+                 if (!immediate) {
+                     centerImg.style.opacity = '0';
+                     centerImg.style.transform = 'scale(1.04)';
                  }
 
-                 function updateGallery(immediate) {
-                     const a = galleryState.active;
-                     const centerImg = document.getElementById('centerImg');
+                 setTimeout(() => {
+                     document.getElementById('leftImg1').src = images[idx(a - 2)];
+                     document.getElementById('leftImg2').src = images[idx(a - 1)];
+                     centerImg.src = images[idx(a)];
+                     document.getElementById('rightImg1').src = images[idx(a + 1)];
+                     document.getElementById('rightImg2').src = images[idx(a + 2)];
 
-                     if (!immediate) {
-                         centerImg.style.opacity = '0';
-                         centerImg.style.transform = 'scale(1.04)';
-                     }
+                     centerImg.style.opacity = '1';
+                     centerImg.style.transform = 'scale(1)';
 
-                     setTimeout(() => {
-                         document.getElementById('leftImg1').src = images[idx(a - 2)];
-                         document.getElementById('leftImg2').src = images[idx(a - 1)];
-                         centerImg.src = images[idx(a)];
-                         document.getElementById('rightImg1').src = images[idx(a + 1)];
-                         document.getElementById('rightImg2').src = images[idx(a + 2)];
+                     document.getElementById('galleryProgress').style.width =
+                         ((a + 1) / total * 100) + '%';
 
-                         centerImg.style.opacity = '1';
-                         centerImg.style.transform = 'scale(1)';
-
-                         document.getElementById('galleryProgress').style.width =
-                             ((a + 1) / total * 100) + '%';
-
-                         document.getElementById('galleryCounter').textContent =
-                             String(a + 1).padStart(2, '0') + ' / ' + String(total).padStart(2, '0');
-
-                     }, immediate ? 0 : 350);
-                 }
-
-                 window.galleryMove = function(step) {
-                     galleryState.active = idx(galleryState.active + step);
-                     updateGallery(false);
-                     resetAuto();
-                 };
-
-                 window.galleryGoTo = function(i) {
-                     galleryState.active = idx(i);
-                     updateGallery(false);
-                     resetAuto();
-                 };
-
-                 // Lightbox
-                 window.galleryOpenLightbox = function() {
-                     galleryState.zoom = 1;
-                     const lb = document.getElementById('galleryLightbox');
-                     lb.style.display = 'flex';
-                     document.body.style.overflow = 'hidden';
-                     document.getElementById('lightboxImg').style.transform = 'scale(1)';
-                     updateLightbox();
-                 };
-
-                 window.galleryCloseLightbox = function() {
-                     document.getElementById('galleryLightbox').style.display = 'none';
-                     document.body.style.overflow = '';
-                     galleryState.zoom = 1;
-                 };
-
-                 window.galleryLightboxMove = function(step) {
-                     galleryState.active = idx(galleryState.active + step);
-                     galleryState.zoom = 1;
-                     document.getElementById('lightboxImg').style.transform = 'scale(1)';
-                     updateGallery(false);
-                     updateLightbox();
-                 };
-
-                 window.galleryZoom = function(factor) {
-                     galleryState.zoom = Math.min(Math.max(galleryState.zoom * factor, 0.5), 5);
-                     document.getElementById('lightboxImg').style.transform = `scale(${galleryState.zoom})`;
-                 };
-
-                 window.galleryFullscreen = function() {
-                     const el = document.getElementById('galleryLightbox');
-                     if (!document.fullscreenElement) el.requestFullscreen?.();
-                     else document.exitFullscreen?.();
-                 };
-
-                 function updateLightbox() {
-                     const a = galleryState.active;
-                     document.getElementById('lightboxImg').src = images[idx(a)];
-                     document.getElementById('lightboxCounter').textContent =
+                     document.getElementById('galleryCounter').textContent =
                          String(a + 1).padStart(2, '0') + ' / ' + String(total).padStart(2, '0');
-                 }
 
-                 // Auto slideshow — 4 seconds
-                 function startAuto() {
-                     autoTimer = setInterval(() => {
-                         galleryState.active = idx(galleryState.active + 1);
-                         updateGallery(false);
-                     }, 4000);
-                 }
+                 }, immediate ? 0 : 350);
+             }
 
-                 function resetAuto() {
-                     clearInterval(autoTimer);
-                     startAuto();
-                 }
+             window.galleryMove = function(step) {
+                 galleryState.active = idx(galleryState.active + step);
+                 updateGallery(false);
+                 resetAuto();
+             };
 
-                 // Keyboard
-                 document.addEventListener('keydown', e => {
-                     const lb = document.getElementById('galleryLightbox');
-                     if (lb.style.display === 'none') return;
-                     if (e.key === 'ArrowRight') galleryLightboxMove(1);
-                     if (e.key === 'ArrowLeft') galleryLightboxMove(-1);
-                     if (e.key === 'Escape') galleryCloseLightbox();
-                     if (e.key === '+') galleryZoom(1.25);
-                     if (e.key === '-') galleryZoom(0.8);
-                 });
+             window.galleryGoTo = function(i) {
+                 galleryState.active = idx(i);
+                 updateGallery(false);
+                 resetAuto();
+             };
 
-                 document.getElementById('galleryLightbox').addEventListener('click', function(e) {
-                     if (e.target === this) galleryCloseLightbox();
-                 });
+             // Lightbox
+             window.galleryOpenLightbox = function() {
+                 galleryState.zoom = 1;
+                 const lb = document.getElementById('galleryLightbox');
+                 lb.style.display = 'flex';
+                 document.body.style.overflow = 'hidden';
+                 document.getElementById('lightboxImg').style.transform = 'scale(1)';
+                 updateLightbox();
+             };
 
-                 document.addEventListener('DOMContentLoaded', () => {
-                     updateGallery(true);
-                     startAuto();
-                 });
-                 if (document.readyState !== 'loading') {
-                     updateGallery(true);
-                     startAuto();
-                 }
-             })();
+             window.galleryCloseLightbox = function() {
+                 document.getElementById('galleryLightbox').style.display = 'none';
+                 document.body.style.overflow = '';
+                 galleryState.zoom = 1;
+             };
+
+             window.galleryLightboxMove = function(step) {
+                 galleryState.active = idx(galleryState.active + step);
+                 galleryState.zoom = 1;
+                 document.getElementById('lightboxImg').style.transform = 'scale(1)';
+                 updateGallery(false);
+                 updateLightbox();
+             };
+
+             window.galleryZoom = function(factor) {
+                 galleryState.zoom = Math.min(Math.max(galleryState.zoom * factor, 0.5), 5);
+                 document.getElementById('lightboxImg').style.transform = `scale(${galleryState.zoom})`;
+             };
+
+             window.galleryFullscreen = function() {
+                 const el = document.getElementById('galleryLightbox');
+                 if (!document.fullscreenElement) el.requestFullscreen?.();
+                 else document.exitFullscreen?.();
+             };
+
+             function updateLightbox() {
+                 const a = galleryState.active;
+                 document.getElementById('lightboxImg').src = images[idx(a)];
+                 document.getElementById('lightboxCounter').textContent =
+                     String(a + 1).padStart(2, '0') + ' / ' + String(total).padStart(2, '0');
+             }
+
+             // Auto slideshow — 4 seconds
+             function startAuto() {
+                 autoTimer = setInterval(() => {
+                     galleryState.active = idx(galleryState.active + 1);
+                     updateGallery(false);
+                 }, 4000);
+             }
+
+             function resetAuto() {
+                 clearInterval(autoTimer);
+                 startAuto();
+             }
+
+             // Keyboard
+             document.addEventListener('keydown', e => {
+                 const lb = document.getElementById('galleryLightbox');
+                 if (lb.style.display === 'none') return;
+                 if (e.key === 'ArrowRight') galleryLightboxMove(1);
+                 if (e.key === 'ArrowLeft') galleryLightboxMove(-1);
+                 if (e.key === 'Escape') galleryCloseLightbox();
+                 if (e.key === '+') galleryZoom(1.25);
+                 if (e.key === '-') galleryZoom(0.8);
+             });
+
+             document.getElementById('galleryLightbox').addEventListener('click', function(e) {
+                 if (e.target === this) galleryCloseLightbox();
+             });
+
+             document.addEventListener('DOMContentLoaded', () => {
+                 updateGallery(true);
+                 startAuto();
+             });
+             if (document.readyState !== 'loading') {
+                 updateGallery(true);
+                 startAuto();
+             }
+         })();
      </script>
  @endpush

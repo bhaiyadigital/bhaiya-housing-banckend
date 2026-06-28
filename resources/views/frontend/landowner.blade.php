@@ -196,6 +196,7 @@
          </div>
      </div>
  </section>
+    <div class="cursor-dot" id="cursor-dot"></div>
 
  @if($errors->any() || session('success'))
  <script>

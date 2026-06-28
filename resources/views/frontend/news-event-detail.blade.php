@@ -1,13 +1,14 @@
  @extends('layouts.front')
-@section('meta')
-    @include('partials.meta', [
-        'pageKey'     => 'events',
-        'title'       => $item->meta_title ?? $item->title,
-        'description' => $item->meta_description ?? $item->body,
-        'keywords'    => $item->meta_keywords,
-        'image'       => asset($item->img_path)
-    ])
-@endsection
+ @section('meta')
+     @include('partials.meta', [
+         'pageKey' => 'events',
+         'title' => $item->meta_title ?? $item->title,
+         'description' => $item->meta_description ?? $item->body,
+         'keywords' => $item->meta_keywords,
+         'image' => asset($item->img_path),
+     ])
+ @endsection
+
  @section('content')
 
      <!-- ===== HERO ===== -->
@@ -136,9 +137,9 @@
 
                      {{-- Thumbnail --}}
                      @if ($item->img_path)
-                         <div class="w-full overflow-hidden mb-8 md:mb-10" style="height: clamp(220px, 40vw, 500px);">
+                         <div class="w-full overflow-hidden mb-8 md:mb-10 " style="height: clamp(220px, 40vw, 500px);">
                              <img src="{{ asset($item->img_path) }}" alt="{{ $item->title }}"
-                                 class="w-full h-full object-cover"
+                                 class="h-full object-contain object-left"
                                  onerror="this.parentElement.style.background='#d6cfc5'; this.style.display='none';" />
                          </div>
                      @endif
@@ -153,15 +154,13 @@
 
                      {{-- Body 2  --}}
                      @if ($type === 'events' && $item->body_2)
-                         <div class="prose prose-sm max-w-none text-gray-700 leading-loose mb-8"
-                             style="font-size: clamp(14px, 1.2vw, 16px); font-weight: 300; line-height: 2;">
+                         <div class="prose prose-sm max-w-none text-gray-700 mb-8">
                              {!! $item->body_2 !!}
                          </div>
                      @endif
                      {{-- Body 3 (events only) --}}
                      @if ($type === 'events' && $item->body_3)
-                         <div class="prose prose-sm max-w-none text-gray-700 leading-loose mb-8"
-                             style="font-size: clamp(14px, 1.2vw, 16px); font-weight: 300; line-height: 2;">
+                         <div class="prose prose-sm max-w-none text-gray-700 mb-8">
                              {!! $item->body_3 !!}
                          </div>
                      @endif
@@ -172,20 +171,23 @@
                              <p class="text-sm font-light text-gray-700 mb-4 tracking-widest uppercase">Photos</p>
                              <div class="grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-3">
                                  @foreach ($imgPaths as $img)
-                                     <div class="overflow-hidden" style="height: clamp(140px, 18vw, 200px);">
+                                     {{-- এখানে href এবং glightbox ক্লাস যোগ করা হয়েছে --}}
+                                     <a href="{{ asset($img) }}"
+                                         class="glightbox block overflow-hidden rounded-lg shadow-sm"
+                                         style="height: clamp(140px, 18vw, 200px);">
                                          <img src="{{ asset($img) }}" alt="Event photo"
-                                             class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                                             class="w-full h-full object-cover hover:scale-110 transition-transform duration-700 cursor-zoom-in"
                                              onerror="this.parentElement.style.background='#c8c0b8'; this.style.display='none';" />
-                                     </div>
+                                     </a>
                                  @endforeach
                              </div>
                          </div>
                      @endif
 
                      {{-- Map (events only) --}}
-                     @if ($type === 'events' && $item->extra)
+                     @if ($type === 'events' && $item->short)
                          <div class="mt-8 md:mt-10" style="height: clamp(220px, 35vw, 300px);">
-                             <iframe src="{{ $item->extra }}" class="w-full h-full border-0" allowfullscreen
+                             <iframe src="{{ $item->short }}" class="w-full h-full border-0" allowfullscreen
                                  loading="lazy">
                              </iframe>
                          </div>
@@ -199,10 +201,11 @@
                              </p>
                              <div class="flex flex-col gap-0">
                                  @foreach ($related as $rel)
-                                  @php
-                                    $relSlug = $rel->name ?? $rel->id;
-                                    $relPath = ($rel->type === 'events' || $rel->type === 'event') ? 'event' : 'news';
-                                  @endphp
+                                     @php
+                                         $relSlug = $rel->name ?? $rel->id;
+                                         $relPath =
+                                             $rel->type === 'events' || $rel->type === 'event' ? 'event' : 'news';
+                                     @endphp
                                      <a href="{{ url("/{$relPath}/{$relSlug}") }}" aria-label="related news"
                                          class="flex flex-col sm:flex-row gap-2 sm:gap-8 items-start py-4 md:py-5
                                    hover:bg-white/60 px-3 -mx-3 transition-colors duration-200"

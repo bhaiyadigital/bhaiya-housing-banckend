@@ -1,215 +1,216 @@
  @extends('layouts.front')
  @section('title', 'Home page')
 
-@section('meta')
-    @include('partials.meta', ['pageKey' => 'customer'])
-@endsection
+ @section('meta')
+     @include('partials.meta', ['pageKey' => 'customer'])
+ @endsection
  @section('content')
 
- {{-- ===== HERO ===== --}}
-<section class="hero-fixed fixed top-0 left-0 w-full overflow-hidden h-[85vh]">
-    <img src="{{ $contactHero?->img_path ?? asset('assets/images/contact-customer.jpg') }}"
-        alt="Contact" class="absolute inset-0 w-full h-full object-cover" />
-    <div class="absolute inset-0 bg-black/50"></div>
+     {{-- ===== HERO ===== --}}
+     <section class="hero-fixed fixed top-0 left-0 w-full overflow-hidden h-[85vh]">
+         <img src="{{ $contactHero?->img_path ?? asset('assets/images/contact-customer.jpg') }}" alt="Contact"
+             class="absolute inset-0 w-full h-full object-cover" />
+         <div class="absolute inset-0 bg-black/50"></div>
 
-    <div class="absolute inset-0 flex items-center px-6 sm:px-10 md:px-20">
-        <h1 class="text-white font-light md:pl-12 pt-20 md:pt-32 tracking-normal md:tracking-[-3px]"
-            style="font-size: clamp(32px, 3.85vw, 74px); line-height: 1.2; font-weight: 500;">
-            We're here to assist you <br> with <span class="font-migra-italic">any inquiries</span>
-        </h1>
-    </div>
-
-</section>
- <div class="h-[85vh] w-full pointer-events-none"
-     style="position: relative; z-index: 2;"></div>
-
- {{-- ── Top Bar ── --}}
- <div class="w-full relative z-10 flex flex-col md:flex-row md:items-center gap-4 md:gap-6 py-8 md:py-0 md:h-40 px-6 sm:px-10 md:px-16 lg:px-[100px]"
-     style="background:#152018;">
-
-     <p class="text-white font-medium text-xl md:text-2xl md:mr-auto">Let's talk!</p>
-
-     <div class="flex flex-col sm:flex-row flex-wrap gap-4 md:gap-6">
-
-         @if($setting?->body)
-         <div class="flex items-center gap-2 text-white text-base md:text-xl font-light opacity-80">
-             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                 <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z" />
-                 <circle cx="12" cy="10" r="3" />
-             </svg>
-             <span>{!! $setting->body !!}</span>
+         <div class="absolute inset-0 flex items-center px-6 sm:px-10 md:px-20">
+             <h1 class="text-white font-light md:pl-12 pt-20 md:pt-32 tracking-normal md:tracking-[-3px]"
+                 style="font-size: clamp(32px, 3.85vw, 74px); line-height: 1.2; font-weight: 500;">
+                 We're here to assist you <br> with <span class="font-migra-italic">any inquiries</span>
+             </h1>
          </div>
-         @endif
 
-         @if($setting?->extra)
-         <div class="flex items-center gap-2 text-white text-base md:text-xl font-light opacity-80">
-             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                 <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.19 1.22 2 2 0 012.18 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.09a16 16 0 006 6l.56-.56a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" />
-             </svg>
-             <span>{{ $setting->extra }}</span>
-         </div>
-         @endif
+     </section>
+     <div class="h-[85vh] w-full pointer-events-none" style="position: relative; z-index: 2;"></div>
 
-         @if($setting?->short)
-         <div class="flex items-center gap-2 text-white text-base md:text-xl font-light opacity-80">
-             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                 <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-                 <polyline points="22,6 12,13 2,6" />
-             </svg>
-             <span>{{ $setting->short }}</span>
-         </div>
-         @endif
+     {{-- ── Top Bar ── --}}
+     <div class="w-full relative z-10 flex flex-col md:flex-row md:items-center gap-4 md:gap-6 py-8 md:py-0 md:h-40 px-6 sm:px-10 md:px-16 lg:px-[100px]"
+         style="background:#152018;">
 
-     </div>
- </div>
+         <p class="text-white font-medium text-xl md:text-2xl md:mr-auto">Let's talk!</p>
 
- {{-- ── Main Section ── --}}
- <section class="relative w-full overflow-hidden py-20" style="background:#F6F6F6;">
-     <div class="absolute inset-0 pointer-events-none" style="z-index:0;">
-         <img src="/assets/images/bg-news.png" alt=""
-             class="w-1/3 h-full object-cover opacity-50"
-             onerror="this.style.display='none';" />
-     </div>
+         <div class="flex flex-col sm:flex-row flex-wrap gap-4 md:gap-6">
 
-     <div class="relative z-10 container mx-auto px-6 lg:px-14">
-         <div class="flex flex-col md:flex-row gap-16 items-start">
-
-             <!-- ── Left: Images ── -->
-             <div class="w-full md:w-5/12 relative h-[280px] sm:h-[320px] md:h-[360px] flex-shrink-0">
-
-                 <!-- Image 1: back-left (উইডথ, হাইট ও পজিশন রেসপন্সিভ ক্লাস দেওয়া হয়েছে) -->
-                 <div class="absolute overflow-hidden shadow-xl w-[170px] sm:w-[200px] md:w-[260px] h-[210px] sm:h-[250px] md:h-[310px] left-0 top-[20px] md:top-[30px] z-10">
-                     <img src="{{ $contactImages[1]->img_path ?? asset('assets/images/contact-bottom.jpg') }}"
-                         alt="{{ $contactImages[1]->title ?? 'Interior' }}"
-                         class="w-full h-full object-cover"
-                         onerror="this.parentElement.style.background='#b8b0a8'; this.style.display='none';" />
-                 </div>
-
-                 <div class="absolute overflow-hidden shadow-xl scroll-move z-20 w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 left-[35%] sm:left-[40%] md:left-[180px] top-[50px] md:top-[80px]" data-axis="Y">
-                     <img src="{{  asset('images/contact-stone-bg.webp') }}"
-                         alt="leaf"
-                         class="w-full h-full object-cover"
-                         onerror="this.parentElement.style.background='#b8b0a8'; this.style.display='none';" />
-                 </div>
-
-                 <div class="absolute overflow-hidden shadow-2xl w-[170px] sm:w-[200px] md:w-[260px] h-[210px] sm:h-[250px] md:h-[310px] right-0 md:right-auto md:left-[220px] lg:left-[250px] top-[60px] md:top-[80px] z-20">
-                     <img src="{{ $contactImages[0]->img_path ?? '' }}"
-                         alt="{{ $contactImages[0]->title ?? 'Dining' }}"
-                         class="w-full h-full object-cover"
-                         onerror="this.parentElement.style.background='#9a9290'; this.style.display='none';" />
-                 </div>
-
-             </div>
-
-
-             <!-- ── Right: Contact Form ── -->
-<div id="contact-section" class="w-full md:flex-1 pt-2">
-                 <div class="absolute -right-32 -top-32 inset-y-0 mt-32 font-migra-italic  opacity-80 scroll-move" data-axis="-X" style="z-index:0;">
-                     <span style=" font-size:clamp(80px,15vw,220px); font-weight:700; color:rgba(0,0,0,0.045);  letter-spacing: 4px; white-space:nowrap;">GetIn</span>
-
-                 </div>
-
-                 {{-- ── Success Message ── --}}
-                 @if(session('success'))
-                 <div id="successMsg"
-                     class="flex items-center gap-3 mt-6 px-5 py-4 text-sm font-light"
-                     style="background:#e6f0e7; border-left:3px solid #152018; color:#152018;">
-                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                         <polyline points="20 6 9 17 4 12" />
+             @if ($setting?->body)
+                 <div class="flex items-center gap-2 text-white text-base md:text-xl font-light opacity-80">
+                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                         stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                         <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z" />
+                         <circle cx="12" cy="10" r="3" />
                      </svg>
-                     {{ session('success') }}
+                     <span>{!! $setting->body !!}</span>
                  </div>
-                 @endif
-                 <form id="contactForm"
-                     action="{{ route('contact.store') }}"
-                     method="POST"
-                     novalidate>
-                     @csrf
+             @endif
 
-                     {{-- Name --}}
-                     <div class="mb-6" style="border-bottom:1px solid {{ $errors->has('name') ? '#c0392b' : '#b8b0a8' }};">
-                         <input type="text" name="name"
-                             value="{{ old('name') }}"
-                             placeholder="Name *"
-                             class="w-full bg-transparent text-sm font-light text-gray-700 py-3 outline-none placeholder-gray-400" />
-                         @error('name')
-                         <p class="text-xs mt-1" style="color:#c0392b;">{{ $message }}</p>
-                         @enderror
-                     </div>
+             @if ($setting?->extra)
+                 <div class="flex items-center gap-2 text-white text-base md:text-xl font-light opacity-80">
+                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                         stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                         <path
+                             d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.19 1.22 2 2 0 012.18 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.09a16 16 0 006 6l.56-.56a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" />
+                     </svg>
+                     <span>{{ $setting->extra }}</span>
+                 </div>
+             @endif
 
-                     {{-- Email + Phone --}}
-                     <div class="flex gap-6 mb-6">
-                         <div class="flex-1" style="border-bottom:1px solid {{ $errors->has('email') ? '#c0392b' : '#b8b0a8' }};">
-                             <input type="email" name="email"
-                                 value="{{ old('email') }}"
-                                 placeholder="Email *"
-                                 class="w-full bg-transparent text-sm font-light text-gray-700 py-3 outline-none placeholder-gray-400" />
-                             @error('email')
-                             <p class="text-xs mt-1" style="color:#c0392b;">{{ $message }}</p>
-                             @enderror
-                         </div>
-                         <div class="flex-1" style="border-bottom:1px solid {{ $errors->has('phone') ? '#c0392b' : '#b8b0a8' }};">
-                             <input type="tel" name="phone"
-                                 value="{{ old('phone') }}"
-                                 placeholder="Contact Number *"
-                                 class="w-full bg-transparent text-sm font-light text-gray-700 py-3 outline-none placeholder-gray-400" />
-                             @error('phone')
-                             <p class="text-xs mt-1" style="color:#c0392b;">{{ $message }}</p>
-                             @enderror
-                         </div>
-                     </div>
+             @if ($setting?->short)
+                 <div class="flex items-center gap-2 text-white text-base md:text-xl font-light opacity-80">
+                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                         stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                         <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                         <polyline points="22,6 12,13 2,6" />
+                     </svg>
+                     <span>{{ $setting->short }}</span>
+                 </div>
+             @endif
 
-                     {{-- Subject --}}
-                     <div class="mb-6" style="border-bottom:1px solid {{ $errors->has('subject') ? '#c0392b' : '#b8b0a8' }};">
-                         <input type="text" name="subject"
-                             value="{{ old('subject') }}"
-                             placeholder="Subject *"
-                             class="w-full bg-transparent text-sm font-light text-gray-700 py-3 outline-none placeholder-gray-400" />
-                         @error('subject')
-                         <p class="text-xs mt-1" style="color:#c0392b;">{{ $message }}</p>
-                         @enderror
-                     </div>
-
-                     {{-- Message --}}
-                     <div class="mb-8" style="border-bottom:1px solid {{ $errors->has('message') ? '#c0392b' : '#b8b0a8' }};">
-                         <textarea rows="3" name="message"
-                             placeholder="Message *"
-                             class="w-full bg-transparent text-sm font-light text-gray-700 py-3 outline-none placeholder-gray-400 resize-none">{{ old('message') }}</textarea>
-                         @error('message')
-                         <p class="text-xs mt-1" style="color:#c0392b;">{{ $message }}</p>
-                         @enderror
-                     </div>
-
-                     {{-- Submit --}}
-                     <button type="submit"
-                         class="px-10 py-3 text-sm font-light tracking-widest text-white transition-all duration-300 hover:opacity-80"
-                         style="background:#152018; letter-spacing:0.08em;">
-                         Submit
-                     </button>
-                     <div class="absolute right-32 -bottom-64 mt-64 inset-y-0  font-migra-italic opacity-80 scroll-move" data-axis="X" style="z-index:0;">
-
-                         <span style="font-size:clamp(80px,15vw,220px); font-weight:700; color:rgba(0,0,0,0.045); line-height:0.9; white-space:nowrap;">Touch</span>
-                     </div>
-                 </form>
-
-             </div>
          </div>
      </div>
- </section>
 
- @if($errors->any() || session('success'))
- <script>
-     document.addEventListener('DOMContentLoaded', function() {
-         const form = document.getElementById('contactForm');
-         if (form) {
-             form.scrollIntoView({
-                 behavior: 'smooth',
-                 block: 'start'
+     {{-- ── Main Section ── --}}
+     <section class="relative w-full overflow-hidden py-20" style="background:#F6F6F6;">
+         <div class="absolute inset-0 pointer-events-none" style="z-index:0;">
+             <img src="/assets/images/bg-news.png" alt="" class="w-1/3 h-full object-cover opacity-50"
+                 onerror="this.style.display='none';" />
+         </div>
+
+         <div class="relative z-10 container mx-auto px-6 lg:px-14">
+             <div class="flex flex-col md:flex-row gap-16 items-start">
+
+                 <!-- ── Left: Images ── -->
+                 <div class="w-full md:w-5/12 relative h-[280px] sm:h-[320px] md:h-[360px] flex-shrink-0">
+
+                     <!-- Image 1: back-left (উইডথ, হাইট ও পজিশন রেসপন্সিভ ক্লাস দেওয়া হয়েছে) -->
+                     <div
+                         class="absolute overflow-hidden shadow-xl w-[170px] sm:w-[200px] md:w-[260px] h-[210px] sm:h-[250px] md:h-[310px] left-0 top-[20px] md:top-[30px] z-10">
+                         <img src="{{ $contactImages[1]->img_path ?? asset('assets/images/contact-bottom.jpg') }}"
+                             alt="{{ $contactImages[1]->title ?? 'Interior' }}" class="w-full h-full object-cover"
+                             onerror="this.parentElement.style.background='#b8b0a8'; this.style.display='none';" />
+                     </div>
+
+                     <div class="absolute overflow-hidden shadow-xl scroll-move z-20 w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 left-[35%] sm:left-[40%] md:left-[180px] top-[50px] md:top-[80px]"
+                         data-axis="Y">
+                         <img src="{{ asset('images/contact-stone-bg.webp') }}" alt="leaf"
+                             class="w-full h-full object-cover"
+                             onerror="this.parentElement.style.background='#b8b0a8'; this.style.display='none';" />
+                     </div>
+
+                     <div
+                         class="absolute overflow-hidden shadow-2xl w-[170px] sm:w-[200px] md:w-[260px] h-[210px] sm:h-[250px] md:h-[310px] right-0 md:right-auto md:left-[220px] lg:left-[250px] top-[60px] md:top-[80px] z-20">
+                         <img src="{{ $contactImages[0]->img_path ?? '' }}" alt="{{ $contactImages[0]->title ?? 'Dining' }}"
+                             class="w-full h-full object-cover"
+                             onerror="this.parentElement.style.background='#9a9290'; this.style.display='none';" />
+                     </div>
+
+                 </div>
+
+
+                 <!-- ── Right: Contact Form ── -->
+                 <div id="contact-section" class="w-full md:flex-1 pt-2">
+                     <div class="absolute -right-32 -top-32 inset-y-0 mt-32 font-migra-italic  opacity-80 scroll-move"
+                         data-axis="-X" style="z-index:0;">
+                         <span
+                             style=" font-size:clamp(80px,15vw,220px); font-weight:700; color:rgba(0,0,0,0.045);  letter-spacing: 4px; white-space:nowrap;">GetIn</span>
+
+                     </div>
+
+                     {{-- ── Success Message ── --}}
+                     @if (session('success'))
+                         <div id="successMsg" class="flex items-center gap-3 mt-6 px-5 py-4 text-sm font-light"
+                             style="background:#e6f0e7; border-left:3px solid #152018; color:#152018;">
+                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                 <polyline points="20 6 9 17 4 12" />
+                             </svg>
+                             {{ session('success') }}
+                         </div>
+                     @endif
+                     <form id="contactForm" action="{{ route('contact.store') }}" method="POST" novalidate>
+                         @csrf
+
+                         {{-- Name --}}
+                         <div class="mb-6"
+                             style="border-bottom:1px solid {{ $errors->has('name') ? '#c0392b' : '#b8b0a8' }};">
+                             <input type="text" name="name" value="{{ old('name') }}" placeholder="Name *"
+                                 class="w-full bg-transparent text-sm font-light text-gray-700 py-3 outline-none placeholder-gray-400" />
+                             @error('name')
+                                 <p class="text-xs mt-1" style="color:#c0392b;">{{ $message }}</p>
+                             @enderror
+                         </div>
+
+                         {{-- Email + Phone --}}
+                         <div class="flex gap-6 mb-6">
+                             <div class="flex-1"
+                                 style="border-bottom:1px solid {{ $errors->has('email') ? '#c0392b' : '#b8b0a8' }};">
+                                 <input type="email" name="email" value="{{ old('email') }}" placeholder="Email *"
+                                     class="w-full bg-transparent text-sm font-light text-gray-700 py-3 outline-none placeholder-gray-400" />
+                                 @error('email')
+                                     <p class="text-xs mt-1" style="color:#c0392b;">{{ $message }}</p>
+                                 @enderror
+                             </div>
+                             <div class="flex-1"
+                                 style="border-bottom:1px solid {{ $errors->has('phone') ? '#c0392b' : '#b8b0a8' }};">
+                                 <input type="tel" name="phone" value="{{ old('phone') }}"
+                                     placeholder="Contact Number *"
+                                     class="w-full bg-transparent text-sm font-light text-gray-700 py-3 outline-none placeholder-gray-400" />
+                                 @error('phone')
+                                     <p class="text-xs mt-1" style="color:#c0392b;">{{ $message }}</p>
+                                 @enderror
+                             </div>
+                         </div>
+
+                         {{-- Subject --}}
+                         <div class="mb-6"
+                             style="border-bottom:1px solid {{ $errors->has('subject') ? '#c0392b' : '#b8b0a8' }};">
+                             <input type="text" name="subject" value="{{ old('subject') }}" placeholder="Subject *"
+                                 class="w-full bg-transparent text-sm font-light text-gray-700 py-3 outline-none placeholder-gray-400" />
+                             @error('subject')
+                                 <p class="text-xs mt-1" style="color:#c0392b;">{{ $message }}</p>
+                             @enderror
+                         </div>
+
+                         {{-- Message --}}
+                         <div class="mb-8"
+                             style="border-bottom:1px solid {{ $errors->has('message') ? '#c0392b' : '#b8b0a8' }};">
+                             <textarea rows="3" name="message" placeholder="Message *"
+                                 class="w-full bg-transparent text-sm font-light text-gray-700 py-3 outline-none placeholder-gray-400 resize-none">{{ old('message') }}</textarea>
+                             @error('message')
+                                 <p class="text-xs mt-1" style="color:#c0392b;">{{ $message }}</p>
+                             @enderror
+                         </div>
+
+                         {{-- Submit --}}
+                         <button type="submit"
+                             class="px-10 py-3 text-sm font-light tracking-widest text-white transition-all duration-300 hover:opacity-80"
+                             style="background:#152018; letter-spacing:0.08em;">
+                             Submit
+                         </button>
+                         <div class="absolute right-32 -bottom-64 mt-64 inset-y-0  font-migra-italic opacity-80 scroll-move"
+                             data-axis="X" style="z-index:0;">
+
+                             <span
+                                 style="font-size:clamp(80px,15vw,220px); font-weight:700; color:rgba(0,0,0,0.045); line-height:0.9; white-space:nowrap;">Touch</span>
+                         </div>
+                     </form>
+
+                 </div>
+             </div>
+         </div>
+     </section>
+    <div class="cursor-dot" id="cursor-dot"></div>
+
+     @if ($errors->any() || session('success'))
+         <script>
+             document.addEventListener('DOMContentLoaded', function() {
+                 const form = document.getElementById('contactForm');
+                 if (form) {
+                     form.scrollIntoView({
+                         behavior: 'smooth',
+                         block: 'start'
+                     });
+                 }
              });
-         }
-     });
- </script>
- @endif
+         </script>
+     @endif
 
 
 
@@ -219,22 +220,22 @@
  @endsection
 
  @push('scripts')
- <script>
-     document.addEventListener('DOMContentLoaded', function() {
+     <script>
+         document.addEventListener('DOMContentLoaded', function() {
 
-         if (typeof fbq !== 'undefined') {
-             fbq('track', 'ViewContent', {
-                 content_name: 'Contact Page',
-                 content_category: 'Customer Support'
-             });
-         }
+             if (typeof fbq !== 'undefined') {
+                 fbq('track', 'ViewContent', {
+                     content_name: 'Contact Page',
+                     content_category: 'Customer Support'
+                 });
+             }
 
-     });
- </script>
+         });
+     </script>
  @endpush
 
  @push('pixel_events')
- @if(session('success'))
- fbq('track', 'Contact');
- @endif
+     @if (session('success'))
+         fbq('track', 'Contact');
+     @endif
  @endpush

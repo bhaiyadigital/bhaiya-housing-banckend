@@ -200,6 +200,8 @@
 
      </section>
      <x-extra-content :data="$content" />
+         <div class="cursor-dot" id="cursor-dot"></div>
+
  @endsection
  @push('scripts')
      <script>

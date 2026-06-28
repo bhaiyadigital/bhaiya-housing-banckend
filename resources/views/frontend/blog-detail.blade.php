@@ -1,11 +1,11 @@
 @extends('layouts.front')
 @section('meta')
     @include('partials.meta', [
-        'pageKey'     => 'blogs',
-        'title'       => $blog->meta_title ?? $blog->title,
+        'pageKey' => 'blogs',
+        'title' => $blog->meta_title ?? $blog->title,
         'description' => $blog->meta_description ?? $blog->short,
-        'keywords'    => $blog->meta_keywords,
-        'image'       => asset($blog->img_path)
+        'keywords' => $blog->meta_keywords,
+        'image' => asset($blog->img_path),
     ])
 @endsection
 @push('styles')
@@ -137,7 +137,6 @@
     </style>
 @endpush
 @section('content')
-
     <!-- ১. Hero Section (Olive Background) -->
 
     <section class="  bg-white" style="border: 1px solid gainsboro; margin-top:150px">
@@ -185,9 +184,6 @@
                             </a>
                         @endforeach
 
-
-
-
                     </div>
                 </div>
 
@@ -217,17 +213,30 @@
                                 [&_li::before]:absolute [&_li::before]:left-0 [&_li::before]:text-black [&_li::before]:text-xl --}}
                                 [&_p]:mb-6 [&_img]:rounded-md [&_img]:shadow-sm">
 
-                        <div>{!! $blog->short !!}</div>
-                        @if (!empty(strip_tags($blog->body)))
-                            <div>{!! $blog->body !!}</div>
-                            <div class="hr"></div>
+                        {{-- Short Description --}}
+                        <div class="blog-content-area prose prose-slate max-w-none mb-8">
+                            {!! $blog->short !!}
+                        </div>
+
+                        {{-- Main Body --}}
+                        @if (!empty(trim(strip_tags($blog->body))))
+                            <div class="blog-content-area prose prose-slate max-w-none">
+                                {!! $blog->body !!}
+                            </div>
                         @endif
-                        @if (!empty(strip_tags($blog->body_2)))
-                            <div>{!! $blog->body_2 !!}</div>
-                            <div class="hr"></div>
+
+                        {{-- Body 2 --}}
+                        @if (!empty(trim(strip_tags($blog->body_2))))
+                            <div class="blog-content-area prose prose-slate max-w-none">
+                                {!! $blog->body_2 !!}
+                            </div>
                         @endif
-                        @if (!empty(strip_tags($blog->body_3)))
-                            <div>{!! $blog->body_3 !!}</div>
+
+                        {{-- Body 3 --}}
+                        @if (!empty(trim(strip_tags($blog->body_3))))
+                            <div class="blog-content-area prose prose-slate max-w-none">
+                                {!! $blog->body_3 !!}
+                            </div>
                         @endif
                     </div>
                 </div>

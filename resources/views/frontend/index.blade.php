@@ -227,8 +227,8 @@
             @endphp
 
             <!-- ══════════════════════════════════
-                                                                                                                 MOBILE LAYOUT (flex-col, < md)
-                                                                                                            ══════════════════════════════════ -->
+                                                                                                                     MOBILE LAYOUT (flex-col, < md)
+                                                                                                                ══════════════════════════════════ -->
             <div class="flex flex-col gap-8 md:hidden">
 
                 <!-- Heading -->
@@ -281,8 +281,8 @@
             </div>
 
             <!-- ══════════════════════════════════
-                                                                                                                 TABLET LAYOUT (≥ md, < lg)
-                                                                                                            ══════════════════════════════════ -->
+                                                                                                                     TABLET LAYOUT (≥ md, < lg)
+                                                                                                                ══════════════════════════════════ -->
             <div class="hidden md:flex lg:hidden flex-col gap-10">
 
                 <!-- Heading -->
@@ -335,8 +335,8 @@
             </div>
 
             <!-- ══════════════════════════════════
-                                                                                                                 DESKTOP LAYOUT (≥ lg), original
-                                                                                                            ══════════════════════════════════ -->
+                                                                                                                     DESKTOP LAYOUT (≥ lg), original
+                                                                                                                ══════════════════════════════════ -->
 
             <!-- Row 1 -->
             <div class="hidden lg:flex relative flex-wrap items-start mt-8">
@@ -932,7 +932,13 @@ font-size: clamp(150px, 14vw, 320px);                    font-weight:bolder;
                         $type = ucfirst($item['type']);
                         $date = $item['start_date'];
                         $slug = $item['name'] ?? $item['id'];
-                        $url = '/' . strtolower($item['type']) . '/' . $slug;
+
+                        $path =
+                            strtolower($item['type']) == 'events' || strtolower($item['type']) == 'event'
+                                ? 'event'
+                                : 'news';
+                        $url = url($path . '/' . $slug);
+
                         $imgPath = asset($item['img_path'] ?? '');
                     @endphp
 
@@ -1248,6 +1254,8 @@ font-size: clamp(150px, 14vw, 320px);                    font-weight:bolder;
             </div>
         </section>
     @endif
+    <div class="cursor-dot" id="cursor-dot"></div>
+
 @endsection
 
 @push('scripts')

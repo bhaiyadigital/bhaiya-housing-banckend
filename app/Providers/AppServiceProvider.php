@@ -125,7 +125,7 @@ class AppServiceProvider extends ServiceProvider
                 'title'            => ['label' => 'Title', 'required' => true],
                 'name'             => ['label' => 'Slug', 'required' => true],
                 'location'         => ['label' => 'Location', 'required' => false],
-                'extra'            => ['label' => 'Map Link', 'required' => false],
+                'short'            => ['label' => 'Map Link', 'required' => false],
                 'start_date'       => ['label' => 'Start Date', 'required' => false],
                 'end_date'         => ['label' => 'End Date', 'required' => false],
                 'img_path'         => ['label' => 'Thumbnail', 'required' => true],

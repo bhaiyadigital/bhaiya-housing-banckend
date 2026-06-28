@@ -169,7 +169,9 @@
          </div>
      </section>
      <x-extra-content :data="$content" />
-
+     <div class="cursor-dot" id="cursor-dot"></div>
+ @endsection
+ @push('scripts')
      <script>
          const ALL_PROJECTS = @json($allProjects);
          const PER_PAGE = 4;
@@ -327,4 +329,4 @@
          updateLocationDropdown();
          renderGrid();
      </script>
- @endsection
+ @endpush

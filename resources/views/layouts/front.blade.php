@@ -111,7 +111,6 @@
 <body>
 
     <!-- ======= Custom Cursor Element ======= -->
-    <div class="cursor-dot" id="cursor-dot"></div>
     <!-- ===================================== -->
 
     @include('partials.header')

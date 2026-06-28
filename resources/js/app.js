@@ -6,6 +6,8 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Swiper from "swiper/bundle";
 import "swiper/css/bundle";
 import Lenis from "lenis";
+import GLightbox from 'glightbox';
+import 'glightbox/dist/css/glightbox.min.css';
 window.Swiper = Swiper;
 
 // ১. গ্লোবাল এক্সেস (সবার আগে)
@@ -20,6 +22,12 @@ gsap.ticker.add((time) => lenis.raf(time * 1000));
 gsap.ticker.lagSmoothing(0);
 window.lenis = lenis;
 
+const lightbox = GLightbox({
+    selector: '.glightbox', 
+    touchNavigation: true,
+    loop: true,
+    zoomable: true
+});
 const initApp = () => {
     AOS.init({
         duration: 800,
