@@ -467,10 +467,9 @@
 
      </section>
      {{-- ===== DESCRIPTION SECTION (Body, Body 2, Body 4) ===== --}}
-     @if (
-         !empty(trim(strip_tags(html_entity_decode($project->body)))) ||
-             !empty(trim(strip_tags(html_entity_decode($project->body_2)))) ||
-             !empty(trim(strip_tags(html_entity_decode($project->body_4)))))
+     @if (trim(strip_tags(str_replace(['&nbsp;', ' ', "\xc2\xa0"], '', $project->body))) !== '' ||
+             trim(strip_tags(str_replace(['&nbsp;', ' ', "\xc2\xa0"], '', $project->body_2))) !== '' ||
+             trim(strip_tags(str_replace(['&nbsp;', ' ', "\xc2\xa0"], '', $project->body_4))) !== '')
          <section class="relative z-10 w-full overflow-hidden py-32 bg-[#F6F6F6]">
 
              <!-- Background Decoration Image -->
