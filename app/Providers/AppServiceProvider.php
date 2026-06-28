@@ -145,6 +145,7 @@ class AppServiceProvider extends ServiceProvider
                 'short'            => ['label' => 'Landowner Box Label (e.g. Contact as Landowner)', 'required' => true],
                 'location'         => ['label' => 'Customer Box Label (e.g. Contact as Customer)',   'required' => true],
                 'img_path'         => ['label' => 'Customer Box Background Image',                   'required' => false],
+                'img_paths'         => ['label' => 'Landowner Box Background Image',                   'required' => false],
                 'meta_title'       => ['label' => 'Meta Title', 'required' => false],
                 'meta_description' => ['label' => 'Meta Description', 'required' => false],
                 'meta_keywords'    => ['label' => 'Meta Keywords', 'required' => false],

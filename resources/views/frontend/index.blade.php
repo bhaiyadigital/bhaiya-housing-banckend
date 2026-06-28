@@ -227,8 +227,8 @@
             @endphp
 
             <!-- ══════════════════════════════════
-                                                                                                                     MOBILE LAYOUT (flex-col, < md)
-                                                                                                                ══════════════════════════════════ -->
+                                                                                                                         MOBILE LAYOUT (flex-col, < md)
+                                                                                                                    ══════════════════════════════════ -->
             <div class="flex flex-col gap-8 md:hidden">
 
                 <!-- Heading -->
@@ -281,8 +281,8 @@
             </div>
 
             <!-- ══════════════════════════════════
-                                                                                                                     TABLET LAYOUT (≥ md, < lg)
-                                                                                                                ══════════════════════════════════ -->
+                                                                                                                         TABLET LAYOUT (≥ md, < lg)
+                                                                                                                    ══════════════════════════════════ -->
             <div class="hidden md:flex lg:hidden flex-col gap-10">
 
                 <!-- Heading -->
@@ -335,8 +335,8 @@
             </div>
 
             <!-- ══════════════════════════════════
-                                                                                                                     DESKTOP LAYOUT (≥ lg), original
-                                                                                                                ══════════════════════════════════ -->
+                                                                                                                         DESKTOP LAYOUT (≥ lg), original
+                                                                                                                    ══════════════════════════════════ -->
 
             <!-- Row 1 -->
             <div class="hidden lg:flex relative flex-wrap items-start mt-8">
@@ -1026,36 +1026,52 @@ font-size: clamp(150px, 14vw, 320px);                    font-weight:bolder;
             <div class="relative flex flex-col md:flex-row gap-4 items-stretch md:ml-[0%] lg:ml-[20%] xl:ml-[28%]">
 
                 {{-- Card 1: Landowner --}}
-                <a href="{{ $partners->url ?? '/landowner-contact' }}" aria-label="url for lanowner contact"
+                <a href="{{ $partners->url ?? '/landowner-contact' }}" aria-label="url for landowner contact"
                     class="relative flex flex-col justify-between flex-1 cursor-pointer group
-                       border rounded-none p-5 md:p-6
-                         min-h-[300px] sm:min-h-[380px] md:min-h-[460px] lg:min-h-[520px]
-                       transition-all duration-300"
-                    style="border-color: #c8bfb0; background: rgba(242,237,230,0.6); text-decoration: none;"
-                    onmouseover="this.style.borderColor='#8a7a60';" onmouseout="this.style.borderColor='#c8bfb0';">
+       overflow-hidden p-5 md:p-6
+       min-h-[300px] sm:min-h-[380px] md:min-h-[460px] lg:min-h-[520px]
+       transition-all duration-300"
+                    style="text-decoration: none;">
+
+                    {{-- Background image logic --}}
+                    @php
+                        $imageArray = json_decode($partners->img_paths, true);
+                        $landownerImage =
+                            !empty($imageArray) && is_array($imageArray)
+                                ? asset($imageArray[0])
+                                : asset('frontend/images/news01.webp');
+                    @endphp
+
+                    <img src="{{ $landownerImage }}" alt="Contact as Landowner"
+                        class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 z-0"
+                        loading="lazy" />
+
+                    {{-- Dark overlay --}}
+                    <div class="absolute inset-0 z-[1]"
+                        style="background: linear-gradient(to top, rgba(0, 0, 0, 0.5) 40%, rgba(0,0,0,0.2) 100%);"></div>
 
                     {{-- Arrow top right --}}
-                    <div class="flex justify-end">
+                    <div class="relative z-10 flex justify-end">
                         <div
-                            class="w-9 h-9 rounded-full border border-gray-400
-                                flex items-center justify-center
-                                transition-all duration-300
-                                group-hover:bg-gray-900 group-hover:border-gray-900">
+                            class="w-9 h-9 rounded-full border border-white
+                flex items-center justify-center
+                transition-all duration-300
+                group-hover:bg-white">
                             <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                                 <path d="M3 11L11 3M11 3H5M11 3V9"
-                                    class="transition-all duration-300 group-hover:stroke-white" stroke="#555"
+                                    class="transition-all duration-300 group-hover:stroke-gray-900" stroke="white"
                                     stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                             </svg>
                         </div>
                     </div>
 
                     {{-- Bottom text --}}
-                    <div class="mt-auto pt-6 md:pt-8">
-                        <h3 class="text-gray-900 font-normal mb-2" style="font-size: 20px">
+                    <div class="relative z-10 mt-auto pt-6 md:pt-8">
+                        <h3 class="text-white font-normal mb-2" style="font-size: 30px">
                             {{ $partners->short ?? 'Contact as Landowner' }}
                         </h3>
 
-                        <div class="text-sm font-light leading-relaxed " style="font-size: 18px; color: #6A6A6A;">
+                        <div class="text-sm font-light leading-relaxed text-white/80" style="font-size: 18px;">
                             {!! $partners->body ?? 'Partner with us to transform your property into a landmark development.' !!}
                         </div>
                     </div>
