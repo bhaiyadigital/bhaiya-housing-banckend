@@ -146,34 +146,52 @@
 
                 </div>
                 @php
-                    // 1. Prepare data
                     $slug = $content->name ?? $content->id;
                     $type = strtolower($content->type ?? '');
+                    $viewUrl = null;
 
-                    // 2. Initialize as null so it doesn't throw an error
-            $viewUrl = null;
+                    switch ($type) {
+                        case 'news':
+                            $viewUrl = route('news.show', $slug);
+                            break;
 
-            // 3. Match types to their frontend routes
-            switch ($type) {
-                case 'news':
-                    $viewUrl = route('news.show', $slug);
-                    break;
+                        case 'event':
+                        case 'events':
+                            $viewUrl = route('events.show', $slug);
+                            break;
 
-                case 'event':
-                case 'events':
-                    $viewUrl = route('events.show', $slug);
-                    break;
+                        case 'blog':
+                        case 'blogs':
+                            $viewUrl = route('blog.details', $slug);
+                            break;
 
-                case 'blog':
-                case 'blogs':
-                    $viewUrl = route('blog.details', $slug);
-                    break;
+                        case 'project':
+                        case 'projects':
+                            $viewUrl = url('/project/' . $slug);
+                            break;
 
-                case 'project':
-                case 'projects':
-                    $viewUrl = url('/project/' . $slug);
-                    break;
-                }
+                        case 'meta_info':
+                            if ($slug === 'home') {
+                                $viewUrl = url('/');
+                            } elseif ($slug === 'about') {
+                                $viewUrl = route('front.about');
+                            } elseif ($slug === 'career') {
+                                $viewUrl = route('career');
+                            } elseif ($slug === 'event') {
+                                $viewUrl = route('events');
+                            } elseif ($slug === 'projects') {
+                                $viewUrl = route('projects');
+                            } elseif ($slug === 'concerns') {
+                                $viewUrl = route('concerns');
+                            } else {
+                                $viewUrl = route('page.show', $slug);
+                            }
+                            break;
+                    }
+                    if ($viewUrl) {
+                        $connector = strpos($viewUrl, '?') !== false ? '&' : '?';
+                        $viewUrl .= $connector . 'preview=true';
+                    }
                 @endphp
 
                 <div class="card-footer">

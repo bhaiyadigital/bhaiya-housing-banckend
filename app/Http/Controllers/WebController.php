@@ -114,13 +114,16 @@ class WebController extends Controller
             ->with('contact_success', 'Thank you! We will get back to you shortly.');
     }
 
-    public function about()
+    public function about(Request $request)
     {
+        $query = Content::where('type', 'meta_info')
+            ->where('name', 'about');
 
-        $content = Content::where('type', 'meta_info')
-        ->where('name', 'about')
-        ->where('status',1)
-        ->first();
+        if ($request->query('preview') !== 'true') {
+            $query->where('status', 1);
+        }
+
+        $content = $query->first();
         $this->facebook->sendEvent(
             'PageView',
             [
@@ -167,13 +170,17 @@ class WebController extends Controller
             'content',
         ));
     }
-    public function career()
+    public function career(Request $request)
     {
 
-        $content = Content::where('type', 'meta_info')
-        ->where('name', 'career')
-        ->where('status',1)
-        ->first();
+        $query = Content::where('type', 'meta_info')
+            ->where('name', 'career');
+
+        if ($request->query('preview') !== 'true') {
+            $query->where('status', 1);
+        }
+
+        $content = $query->first();
         $this->facebook->sendEvent(
             'PageView',
             [
@@ -199,7 +206,7 @@ class WebController extends Controller
             'content',
         ));
     }
-    public function jobDetail($slug)
+    public function jobDetail(Request $request, $slug)
     {
         $this->facebook->sendEvent(
             'PageView',
@@ -278,7 +285,7 @@ class WebController extends Controller
     }
 
 
-    public function pageShow($slug)
+    public function pageShow(Request $request, $slug)
     {
         $this->facebook->sendEvent(
             'PageView',
@@ -291,7 +298,7 @@ class WebController extends Controller
         $page = Content::where('type', 'pages')->where('name', $slug)->firstOrFail();
         return view('frontend.page', compact('page'));
     }
-    public function index()
+    public function index(Request $request)
     {
         $hero = Content::where('type', 'hero')
             ->where('name', 'home')
@@ -331,12 +338,16 @@ class WebController extends Controller
         return view('frontend.index', compact('hero', 'dreams', 'extraImages', 'featuredProjects', 'expertise', 'storiesSection', 'storiesItems', 'newsEvents', 'partners'));
     }
 
-    public function projects()
+    public function projects(Request $request)
     {
-        $content = Content::where('type', 'meta_info')
-        ->where('name', 'projects')
-        ->where('status',1)
-        ->first();
+        $query = Content::where('type', 'meta_info')
+            ->where('name', 'projects');
+
+        if ($request->query('preview') !== 'true') {
+            $query->where('status', 1);
+        }
+
+        $content = $query->first();
         $projectHero = Content::where('type', 'hero')
             ->where('name', 'projects')
             ->where('status', 1)
@@ -375,10 +386,10 @@ class WebController extends Controller
                 'client_user_agent' => request()->userAgent(),
             ]
         );
-        return view('frontend.projects', compact('projectHero', 'allProjects', 'projectLocations','content'));
+        return view('frontend.projects', compact('projectHero', 'allProjects', 'projectLocations', 'content'));
     }
 
-    public function showProject($name)
+    public function showProject(Request $request, $name)
     {
         $project = Content::where('type', 'project')
             ->where('name', $name)
@@ -409,12 +420,16 @@ class WebController extends Controller
         return view('frontend.projects-show', compact('project', 'extra', 'imgPaths', 'sliderImages', 'sliderTotal'));
     }
 
-    public function events()
+    public function events(Request $request)
     {
-        $content = Content::where('type', 'meta_info')
-        ->where('name', 'event')
-        ->where('status',1)
-        ->first();
+        $query = Content::where('type', 'meta_info')
+            ->where('name', 'event');
+
+        if ($request->query('preview') !== 'true') {
+            $query->where('status', 1);
+        }
+
+        $content = $query->first();
 
         $eventHero = Content::where('type', 'hero')
             ->where('name', 'events')
@@ -427,7 +442,7 @@ class WebController extends Controller
             ->get()
             ->map(fn($item) => [
                 'id'    => $item->id,
-                 'name'  => $item->name,
+                'name'  => $item->name,
                 'type'  => $item->type,
                 'title' => $item->title,
                 'date'  => $item->start_date
@@ -442,9 +457,9 @@ class WebController extends Controller
                 'client_user_agent' => request()->userAgent(),
             ]
         );
-        return view('frontend.event', compact('eventHero', 'newsEvents','content'));
+        return view('frontend.event', compact('eventHero', 'newsEvents', 'content'));
     }
-    public function page($slug)
+    public function page(Request $request, $slug)
     {
         $page = Content::where('type', 'pages')
             ->where('name', $slug)
@@ -461,8 +476,16 @@ class WebController extends Controller
 
         return view('frontend.page', compact('page'));
     }
-    public function blog()
+    public function blog(Request $request)
     {
+        $query = Content::where('type', 'meta_info')
+            ->where('name', 'blog');
+
+        if ($request->query('preview') !== 'true') {
+            $query->where('status', 1);
+        }
+
+        $content = $query->first();
         $blogs = Content::where('type', 'blogs')
 
             ->where('status', 1)
@@ -476,9 +499,9 @@ class WebController extends Controller
             ]
         );
 
-        return view('frontend.blogs', compact('blogs'));
+        return view('frontend.blogs', compact('blogs', 'content'));
     }
-    public function blogDetail($slug)
+    public function blogDetail(Request $request, $slug)
     {
         $blogs = Content::where('type', 'blogs')
 
@@ -499,7 +522,7 @@ class WebController extends Controller
 
         return view('frontend.blog-detail', compact('blog', 'blogs'));
     }
-    public function show($slug)
+    public function show(Request $request, $slug)
     {
         $item = Content::whereIn('type', ['news', 'events'])
             ->where('status', 1)
@@ -515,7 +538,7 @@ class WebController extends Controller
 
         return view('frontend.news-event-detail', compact('item', 'imgPaths', 'related'));
     }
-    public function customerContact()
+    public function customerContact(Request $request)
     {
         $contactHero = Content::where('type', 'hero')
             ->where('name', 'contact')
@@ -590,7 +613,7 @@ class WebController extends Controller
             ->with('success', 'Your message has been sent. We will contact you soon.');
     }
 
-    public function landowner()
+    public function landowner(Request $request)
     {
         $hero = Content::where('type', 'hero')
             ->where('name', 'contact')
@@ -654,13 +677,17 @@ class WebController extends Controller
             ->with('success', 'Your message has been sent. We will contact you soon.');
     }
 
-    public function concerns()
+    public function concerns(Request $request)
     {
 
-        $content = Content::where('type', 'meta_info')
-        ->where('name', 'concerns')
-        ->where('status',1)
-        ->first();
+        $query = Content::where('type', 'meta_info')
+            ->where('name', 'concerns');
+
+        if ($request->query('preview') !== 'true') {
+            $query->where('status', 1);
+        }
+
+        $content = $query->first();
         $concern = $this->fetchContent('other-concern', 1);
         $logos = $this->fetchContent('other-logo');
 
@@ -689,6 +716,6 @@ class WebController extends Controller
                 'client_user_agent' => request()->userAgent(),
             ]
         );
-        return view('frontend.concerns', compact('concern', 'rows', 'concernHero','content'));
+        return view('frontend.concerns', compact('concern', 'rows', 'concernHero', 'content'));
     }
 }
