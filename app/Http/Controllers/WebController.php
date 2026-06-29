@@ -119,6 +119,7 @@ class WebController extends Controller
 
         $content = Content::where('type', 'meta_info')
         ->where('name', 'about')
+        ->where('status',1)
         ->first();
         $this->facebook->sendEvent(
             'PageView',
@@ -171,6 +172,7 @@ class WebController extends Controller
 
         $content = Content::where('type', 'meta_info')
         ->where('name', 'career')
+        ->where('status',1)
         ->first();
         $this->facebook->sendEvent(
             'PageView',
@@ -333,6 +335,7 @@ class WebController extends Controller
     {
         $content = Content::where('type', 'meta_info')
         ->where('name', 'projects')
+        ->where('status',1)
         ->first();
         $projectHero = Content::where('type', 'hero')
             ->where('name', 'projects')
@@ -410,6 +413,7 @@ class WebController extends Controller
     {
         $content = Content::where('type', 'meta_info')
         ->where('name', 'event')
+        ->where('status',1)
         ->first();
 
         $eventHero = Content::where('type', 'hero')
@@ -655,6 +659,7 @@ class WebController extends Controller
 
         $content = Content::where('type', 'meta_info')
         ->where('name', 'concerns')
+        ->where('status',1)
         ->first();
         $concern = $this->fetchContent('other-concern', 1);
         $logos = $this->fetchContent('other-logo');
