@@ -109,11 +109,6 @@
             margin: 0;
         }
 
-        .blog-content * {
-            font-family: "Trebuchet MS", "sans-serif" !important;
-            color: black;
-        }
-
         .blog-content h2,
         .blog-content h3 {
             font-weight: 400;
