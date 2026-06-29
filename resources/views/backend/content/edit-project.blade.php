@@ -166,15 +166,15 @@
                     <div class="row">
                         <div class="col-md-12 mb-3">
                             <label class="form-label fw-semibold">Description</label>
-                            <textarea class="editor form-control" name="body" rows="4">{!! $content->body !!}</textarea>
+                            <textarea class="ckeditor form-control" name="body" rows="4">{!! $content->body !!}</textarea>
                         </div>
                         <div class="col-md-12 mb-3">
                             <label class="form-label fw-semibold">Description Box 2</label>
-                            <textarea class="editor form-control" name="body_2" rows="4">{!! $content->body_2 !!}</textarea>
+                            <textarea class="ckeditor form-control" name="body_2" rows="4">{!! $content->body_2 !!}</textarea>
                         </div>
                         <div class="col-md-12 mb-3">
                             <label class="form-label fw-semibold">Description Box 3</label>
-                            <textarea class="editor form-control" name="body_4" rows="4">{!! $content->body_4 !!}</textarea>
+                            <textarea class="ckeditor form-control" name="body_4" rows="4">{!! $content->body_4 !!}</textarea>
                         </div>
                     </div>
 
@@ -367,6 +367,7 @@
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="{{ asset('backend/summernote/summernote.js') }}"></script>
     <link rel="stylesheet" href="{{ asset('backend/summernote/summernote.css') }}">
+     <script src="{{ asset('backend/tinymce/js/tinymce/tinymce.min.js') }}"></script>
 
     <style>
         .img-shaded {
@@ -402,24 +403,61 @@
         // Summernote editors
         // ════════════════════════════════════════════════════════
         $(document).ready(function() {
-            $('.editor').summernote({
-                height: 300,
-                resizeable: true,
-                callbacks: {
-                    onKeyup: function(e) {
-                        updateTagInfo(e);
-                    },
-                    onMouseup: function(e) {
-                        updateTagInfo(e);
-                    },
+            tinymce.init({
+                selector: '.ckeditor',
+                license_key: 'gpl',
+                height: 380,
+                menubar: false,
+                plugins: ['advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview', 'anchor',
+                    'searchreplace', 'visualblocks', 'code', 'fullscreen', 'insertdatetime', 'media',
+                    'table', 'help', 'wordcount',
+                ],
+                // 👇 এখানে image কে backcolor এর ঠিক পরে নিয়ে আসা হয়েছে
+                toolbar: 'undo redo | blocks fontsize | bold italic forecolor backcolor image | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link media code removeformat',
+                color_map: [
+                    "000000", "Black",
+                    "66267b", "Purple (Brand)",
+                    "ce9131", "Gold",
+                    "FF0000", "Red",
+                    "008000", "Green",
+                    "0000FF", "Blue",
+                    "808080", "Gray",
+                    "ffffff", "White"
+                ],
+                content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:16px; color: #333; }',
+                paste_data_images: true,
+                automatic_uploads: false,
+                file_picker_types: 'image',
+                file_picker_callback: function(cb) {
+                    var inp = document.createElement('input');
+                    inp.setAttribute('type', 'file');
+                    inp.setAttribute('accept', 'image/*');
+                    inp.onchange = function() {
+                        var reader = new FileReader();
+                        reader.onload = function() {
+                            cb(reader.result, {
+                                title: inp.files[0].name
+                            });
+                        };
+                        reader.readAsDataURL(inp.files[0]);
+                    };
+                    inp.click();
                 }
             });
         });
 
-        // Floating tag tooltip inside Summernote
-        const $tooltip = $(
-            '<div id="tag-tooltip" style="position:fixed;background:#333;color:#fff;padding:3px 8px;border-radius:4px;font-size:11px;font-family:monospace;pointer-events:none;z-index:99999;display:none;"></div>'
-        );
+        const $tooltip = $('<div id="tag-tooltip" style="' +
+            'position:fixed;' +
+            'background:#333;' +
+            'color:#fff;' +
+            'padding:3px 8px;' +
+            'border-radius:4px;' +
+            'font-size:11px;' +
+            'font-family:monospace;' +
+            'pointer-events:none;' +
+            'z-index:99999;' +
+            'display:none;' +
+            '"></div>');
         $('body').append($tooltip);
 
         function updateTagInfo(e) {

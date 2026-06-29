@@ -5,7 +5,8 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 use App\Models\Content;
-use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Schema;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -26,10 +27,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-
-        if (app()->environment('production')) {
-        URL::forceScheme('https');
-    }
         $contents = [
 
             'hero' => [
@@ -387,6 +384,8 @@ class AppServiceProvider extends ServiceProvider
             ],
 
         ];
+
+        if (Schema::hasTable('contents')) {
         $allMeta = Content::where('type', 'meta_info')->where('status', 1)->get()->keyBy('name');
         View::share('allMeta', $allMeta);
 
@@ -399,6 +398,6 @@ class AppServiceProvider extends ServiceProvider
         View::share('contents', $contents);
         View::share('setting', $setting);
         View::share('socials', $socials);
-        View::share('pages', $pages);
+        View::share('pages', $pages);}
     }
 }

@@ -11,6 +11,8 @@ use App\Models\InvestorForm;
 use App\Models\JobApplication;
 use Illuminate\Support\Facades\Validator;
 use App\Services\FacebookConversionApi;
+use Spatie\Sitemap\Sitemap;
+use Spatie\Sitemap\Tags\Url;
 
 class WebController extends Controller
 {
@@ -717,5 +719,66 @@ class WebController extends Controller
             ]
         );
         return view('frontend.concerns', compact('concern', 'rows', 'concernHero', 'content'));
+    }
+
+    public function sitemap()
+    {
+        $sitemap = Sitemap::create();
+
+        // Static Pages
+        $staticPages = [
+            '/',
+            '/about',
+            '/career',
+            '/projects',
+            '/event',
+            '/blog',
+            '/customer-contact',
+            '/landowner-contact',
+            '/concerns',
+        ];
+
+        foreach ($staticPages as $page) {
+            $sitemap->add(
+                Url::create(url($page))
+                    ->setPriority(1.0)
+                    ->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY)
+            );
+        }
+
+        $items = Content::where('status', 1)->get();
+
+        foreach ($items as $item) {
+            $slug = $item->name;
+            if (empty($slug)) continue; 
+
+            switch ($item->type) {
+                case 'job-position':
+                    $sitemap->add(Url::create(route('job.details', $slug))->setLastModificationDate($item->updated_at)->setPriority(0.9));
+                    break;
+
+                case 'project':
+                    $sitemap->add(Url::create(route('projects.show', $slug))->setLastModificationDate($item->updated_at)->setPriority(0.9));
+                    break;
+
+                case 'blogs':
+                    $sitemap->add(Url::create(route('blog.details', $slug))->setLastModificationDate($item->updated_at)->setPriority(0.8));
+                    break;
+
+                case 'news':
+                    $sitemap->add(Url::create(route('news.show', $slug))->setLastModificationDate($item->updated_at)->setPriority(0.8));
+                    break;
+
+                case 'events':
+                    $sitemap->add(Url::create(route('events.show', $slug))->setLastModificationDate($item->updated_at)->setPriority(0.8));
+                    break;
+
+                case 'pages':
+                    $sitemap->add(Url::create(route('page.show', $slug))->setLastModificationDate($item->updated_at)->setPriority(0.7));
+                    break;
+            }
+        }
+
+        return response($sitemap->render(), 200, ['Content-Type' => 'application/xml']);
     }
 }

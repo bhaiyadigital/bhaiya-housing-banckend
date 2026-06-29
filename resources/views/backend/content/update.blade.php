@@ -258,10 +258,21 @@
                 menubar: false,
                 plugins: ['advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview', 'anchor',
                     'searchreplace', 'visualblocks', 'code', 'fullscreen', 'insertdatetime', 'media',
-                    'table', 'help', 'wordcount'
+                    'table', 'help', 'wordcount',
                 ],
                 // 👇 এখানে image কে backcolor এর ঠিক পরে নিয়ে আসা হয়েছে
-                toolbar: 'undo redo | blocks fontsize | bold italic backcolor image | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link media code removeformat',
+                toolbar: 'undo redo | blocks fontsize | bold italic forecolor backcolor image | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link media code removeformat',
+                color_map: [
+                    "000000", "Black",
+                    "66267b", "Purple (Brand)",
+                    "ce9131", "Gold",
+                    "FF0000", "Red",
+                    "008000", "Green",
+                    "0000FF", "Blue",
+                    "808080", "Gray",
+                    "ffffff", "White"
+                ],
+                content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:16px; color: #333; }',
                 paste_data_images: true,
                 automatic_uploads: false,
                 file_picker_types: 'image',

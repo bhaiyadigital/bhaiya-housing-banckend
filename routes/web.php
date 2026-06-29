@@ -60,3 +60,7 @@ Route::get('/news/{slug}',   [WebController::class, 'show'])->name('news.show');
 Route::get('/event/{slug}', [WebController::class, 'show'])->name('events.show');
 Route::get('/blog', [WebController::class, 'blog'])->name('blog.index');
 Route::get('/blog/{slug}', [WebController::class, 'blogDetail'])->name('blog.details');
+
+Route::get('/sitemap.xml', [WebController::class, 'sitemap']);
+
+
