@@ -129,6 +129,20 @@
      </style>
  @endpush
  @section('content')
+     @php
+         $extra = is_array($extra) ? $extra : json_decode($project->extra, true) ?? [];
+         $isAdmin = auth()->check();
+
+         $hasBody = !empty(trim(strip_tags($project->body)));
+         $hasBody2 = !empty(trim(strip_tags($project->body_2)));
+         $hasBody3 = !empty(trim(strip_tags($project->body_3)));
+         $hasBody4 = !empty(trim(strip_tags($project->body_4)));
+
+         $canSeeBody = $hasBody && (($extra['status_body'] ?? '1') == '1' || $isAdmin);
+         $canSeeBody2 = $hasBody2 && (($extra['status_body_2'] ?? '1') == '1' || $isAdmin);
+         $canSeeBody3 = $hasBody3 && (($extra['status_body_3'] ?? '1') == '1' || $isAdmin);
+         $canSeeBody4 = $hasBody4 && (($extra['status_body_4'] ?? '1') == '1' || $isAdmin);
+     @endphp
      <section
          class="hero-fixed fixed top-0 left-0 w-full overflow-hidden
                 h-[600px] md:h-[700px] lg:h-[900px]">
@@ -171,7 +185,11 @@
                  <!-- Left: Content -->
                  <div class="w-full md:w-1/2">
                      <p class="text-sm font-light text-gray-500 mb-6 tracking-wide">
-                         @if ($project->body_3)
+                         @if ($canSeeBody3)
+                             @if ($isAdmin && ($extra['status_body_3'] ?? '1') == '0')
+                                 <span class="absolute -top-4 left-0 text-[9px] bg-red-500 text-white px-1 uppercase">Box 3
+                                     Inactive</span>
+                             @endif
                              {{ $project->body_3 }}
                          @else
                              {{ $project->title }}
@@ -466,14 +484,9 @@
          </div>
 
      </section>
-     {{-- ===== DESCRIPTION SECTION (Body, Body 2, Body 4) ===== --}}
-     @php
-         // কন্টেন্ট আছে কি না তা চেক করার জন্য একটি শক্তিশালী লজিক
-         $check_body = trim(preg_replace('/\s|&nbsp;/u', '', strip_tags($project->body)));
-         $check_body2 = trim(preg_replace('/\s|&nbsp;/u', '', strip_tags($project->body_2)));
-     @endphp
 
-     @if ($check_body !== '' || $check_body2 !== '')
+
+     @if ($canSeeBody || $canSeeBody2)
          <section class="relative z-10 w-full overflow-hidden py-32 bg-[#F6F6F6]">
 
              <!-- Background Decoration Image -->
@@ -485,19 +498,25 @@
                  <div class="flex flex-col md:flex-row items-start gap-10 pt-8">
 
                      <!-- Left Column: Primary Body -->
-                     @if (!empty($project->body))
-                         <div class="w-full md:w-1/2 text-gray-800 prose max-w-none md:block scroll-move" data-axis="-Y">
-                             {!! $project->body !!}
-                         </div>
-                     @endif
+                      @if ($canSeeBody)
+                    <div class="w-full md:w-1/2 text-gray-800 prose max-w-none md:block scroll-move {{ ($isAdmin && ($extra['status_body'] ?? '1') == '0') ? 'border-2 border-dashed border-red-300 p-2' : '' }}" data-axis="-Y">
+                        @if($isAdmin && ($extra['status_body'] ?? '1') == '0')
+                            <div class="text-xs] text-red-500 font-bold mb-1 uppercase"></div>
+                        @endif
+                        {!! $project->body !!}
+                    </div>
+                @endif
 
                      <!-- Right Column: Body 2 & Body 4 Stacked -->
                      <div class="w-full md:w-1/2 flex flex-col gap-12">
-                         @if (!empty($project->body_2))
-                             <div class="text-gray-800 prose max-w-none scroll-move" md:block data-axis="Y">
-                                 {!! $project->body_2 !!}
-                             </div>
-                         @endif
+                        @if ($canSeeBody2)
+                        <div class="text-gray-800 prose max-w-none scroll-move {{ ($isAdmin && ($extra['status_body_2'] ?? '1') == '0') ? 'border-2 border-dashed border-red-300 p-2' : '' }}" md:block data-axis="Y">
+                            @if($isAdmin && ($extra['status_body_2'] ?? '1') == '0')
+                                <div class="text-xs text-red-500 font-bold mb-1 uppercase"></div>
+                            @endif
+                            {!! $project->body_2 !!}
+                        </div>
+                    @endif
 
                      </div>
 
@@ -673,15 +692,20 @@
                  id="lightboxCounter" style="font-family:'Cormorant Garamond',serif;"></div>
          </div>
      @endif
-     @if ($project && !empty($project->body_4))
-         <section class="w-full relative z-20 py-12 md:py-24 bg-white border-t border-gray-100">
-             <div class="container mx-auto">
-                 <div class="blog-content-area prose prose-sm max-w-none custom-content text-gray-700">
-                     {!! $project->body_4 !!}
-                 </div>
-             </div>
-         </section>
-     @endif
+     {{-- Box 4 Status Check --}}
+@if ($canSeeBody4)
+    <section class="w-full relative z-20 py-12 md:py-24 bg-white border-t border-gray-100 {{ ($isAdmin && ($extra['status_body_4'] ?? '1') == '0') ? 'bg-red-50' : '' }}">
+        <div class="container mx-auto">
+            @if($isAdmin && ($extra['status_body_4'] ?? '1') == '0')
+                <div class="text-center text-red-500 font-bold mb-4 uppercase text-[10px] tracking-widest">
+                </div>
+            @endif
+            <div class="blog-content-area prose prose-sm max-w-none custom-content text-gray-700">
+                {!! $project->body_4 !!}
+            </div>
+        </div>
+    </section>
+@endif
      {{-- ===== LOCATION ===== --}}
      @if (!empty($project->map_url))
          <section class="relative w-full flex flex-col md:flex-row"

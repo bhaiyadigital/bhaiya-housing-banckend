@@ -14,7 +14,7 @@
                     <div class="card-title">Edit Project — {{ $content->title }}</div>
                 </div>
                 <div class="card-body">
-@if(session('error'))
+                    @if (session('error'))
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
                             <i class="bi bi-exclamation-triangle me-2"></i> {{ session('error') }}
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -135,10 +135,12 @@
                                     </div>
                                     <div class="col-md-6 mb-3">
                                         <label class="form-label small">Google Map Embed URL</label>
-                                        <input type="text" name="extra_map" id="extraMap" class="form-control form-control-sm"
+                                        <input type="text" name="extra_map" id="extraMap"
+                                            class="form-control form-control-sm"
                                             placeholder="Optional: Paste embed URL here"
                                             value="{{ old('extra_map', $extra['map_url'] ?? '') }}">
-                                        <small class="text-muted">Copy only the <b>src</b> URL from Google Maps Embed code.</small>
+                                        <small class="text-muted">Copy only the <b>src</b> URL from Google Maps Embed
+                                            code.</small>
                                     </div>
                                     <div class="col-md-3 mb-3">
                                         <label class="form-label small">Featured?</label>
@@ -155,26 +157,66 @@
                         </div>
                     </div>
 
-                    {{-- Descriptions --}}
-                    <div class="row">
-                        <div class="col-md-12 mb-3">
-                            <label class="form-label fw-semibold">Short Description</label>
-                            <textarea class=" form-control" name="body_3" rows="4">{{ $content->body_3 }}</textarea>
+                    {{-- Descriptions with Individual Status --}}
+                    <div class="row mt-4">
+                        {{-- Body 3: Short Description --}}
+                        <div class="col-md-10 mb-3">
+                            <label class="form-label fw-semibold">Short Description (Box 3)</label>
+                            <textarea class="form-control" name="body_3" rows="3">{{ $content->body_3 }}</textarea>
+                        </div>
+                        <div class="col-md-2 mb-3">
+                            <label class="form-label fw-semibold">Box 3 Status</label>
+                            <select name="extra_status_body_3" class="form-select">
+                                <option value="1" {{ ($extra['status_body_3'] ?? '1') == '1' ? 'selected' : '' }}>
+                                    Active</option>
+                                <option value="0" {{ ($extra['status_body_3'] ?? '1') == '0' ? 'selected' : '' }}>
+                                    Inactive</option>
+                            </select>
                         </div>
 
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12 mb-3">
-                            <label class="form-label fw-semibold">Description</label>
+                        {{-- Body 1: Main Description --}}
+                        <div class="col-md-10 mb-3">
+                            <label class="form-label fw-semibold">Description (Box 1)</label>
                             <textarea class="ckeditor form-control" name="body" rows="4">{!! $content->body !!}</textarea>
                         </div>
-                        <div class="col-md-12 mb-3">
+                        <div class="col-md-2 mb-3">
+                            <label class="form-label fw-semibold">Box 1 Status</label>
+                            <select name="extra_status_body" class="form-select">
+                                <option value="1" {{ ($extra['status_body'] ?? '1') == '1' ? 'selected' : '' }}>
+                                    Active</option>
+                                <option value="0" {{ ($extra['status_body'] ?? '1') == '0' ? 'selected' : '' }}>
+                                    Inactive</option>
+                            </select>
+                        </div>
+
+                        {{-- Body 2: Description Box 2 --}}
+                        <div class="col-md-10 mb-3">
                             <label class="form-label fw-semibold">Description Box 2</label>
                             <textarea class="ckeditor form-control" name="body_2" rows="4">{!! $content->body_2 !!}</textarea>
                         </div>
-                        <div class="col-md-12 mb-3">
-                            <label class="form-label fw-semibold">Description Box 3</label>
+                        <div class="col-md-2 mb-3">
+                            <label class="form-label fw-semibold">Box 2 Status</label>
+                            <select name="extra_status_body_2" class="form-select">
+                                <option value="1" {{ ($extra['status_body_2'] ?? '1') == '1' ? 'selected' : '' }}>
+                                    Active</option>
+                                <option value="0" {{ ($extra['status_body_2'] ?? '1') == '0' ? 'selected' : '' }}>
+                                    Inactive</option>
+                            </select>
+                        </div>
+
+                        {{-- Body 4: Description Box 4 --}}
+                        <div class="col-md-10 mb-3">
+                            <label class="form-label fw-semibold">Description Box 4</label>
                             <textarea class="ckeditor form-control" name="body_4" rows="4">{!! $content->body_4 !!}</textarea>
+                        </div>
+                        <div class="col-md-2 mb-3">
+                            <label class="form-label fw-semibold">Box 4 Status</label>
+                            <select name="extra_status_body_4" class="form-select">
+                                <option value="1" {{ ($extra['status_body_4'] ?? '1') == '1' ? 'selected' : '' }}>
+                                    Active</option>
+                                <option value="0" {{ ($extra['status_body_4'] ?? '1') == '0' ? 'selected' : '' }}>
+                                    Inactive</option>
+                            </select>
                         </div>
                     </div>
 
@@ -367,7 +409,7 @@
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="{{ asset('backend/summernote/summernote.js') }}"></script>
     <link rel="stylesheet" href="{{ asset('backend/summernote/summernote.css') }}">
-     <script src="{{ asset('backend/tinymce/js/tinymce/tinymce.min.js') }}"></script>
+    <script src="{{ asset('backend/tinymce/js/tinymce/tinymce.min.js') }}"></script>
 
     <style>
         .img-shaded {

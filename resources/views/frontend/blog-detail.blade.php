@@ -132,6 +132,15 @@
     </style>
 @endpush
 @section('content')
+@section('content')
+@php
+    $extra = json_decode($blog->extra, true) ?? [];
+    $isAdmin = auth()->check();
+
+    $canSeeBody  = (!empty(trim(strip_tags($blog->body))))   && (($extra['status_body']   ?? '1') == '1' || $isAdmin);
+    $canSeeBody2 = (!empty(trim(strip_tags($blog->body_2)))) && (($extra['status_body_2'] ?? '1') == '1' || $isAdmin);
+    $canSeeBody3 = (!empty(trim(strip_tags($blog->body_3)))) && (($extra['status_body_3'] ?? '1') == '1' || $isAdmin);
+@endphp
     <!-- ১. Hero Section (Olive Background) -->
 
     <section class="  bg-white" style="border: 1px solid gainsboro; margin-top:150px">
@@ -214,22 +223,34 @@
                         </div>
 
                         {{-- Main Body --}}
-                        @if (!empty(trim(strip_tags($blog->body))))
-                            <div class="blog-content-area prose prose-slate max-w-none">
+                        @if ($canSeeBody)
+                            <div
+                                class="blog-content-area prose prose-slate max-w-none {{ $isAdmin && ($extra['status_body'] ?? '1') == '0' ? 'border-2 border-dashed border-red-300 p-2' : '' }}">
+                                @if ($isAdmin && ($extra['status_body'] ?? '1') == '0')
+                                    <div class="text-[10px] text-red-500 font-bold">Inactive Box 1</div>
+                                @endif
                                 {!! $blog->body !!}
                             </div>
                         @endif
 
                         {{-- Body 2 --}}
-                        @if (!empty(trim(strip_tags($blog->body_2))))
-                            <div class="blog-content-area prose prose-slate max-w-none">
+                        @if ($canSeeBody2)
+                            <div
+                                class="blog-content-area prose prose-slate max-w-none {{ $isAdmin && ($extra['status_body_2'] ?? '1') == '0' ? 'border-2 border-dashed border-red-300 p-2' : '' }}">
+                                @if ($isAdmin && ($extra['status_body_2'] ?? '1') == '0')
+                                    <div class="text-[10px] text-red-500 font-bold">Inactive Box 2</div>
+                                @endif
                                 {!! $blog->body_2 !!}
                             </div>
                         @endif
 
                         {{-- Body 3 --}}
-                        @if (!empty(trim(strip_tags($blog->body_3))))
-                            <div class="blog-content-area prose prose-slate max-w-none">
+                        @if ($canSeeBody3)
+                            <div
+                                class="blog-content-area prose prose-slate max-w-none {{ $isAdmin && ($extra['status_body_3'] ?? '1') == '0' ? 'border-2 border-dashed border-red-300 p-2' : '' }}">
+                                @if ($isAdmin && ($extra['status_body_3'] ?? '1') == '0')
+                                    <div class="text-[10px] text-red-500 font-bold">Inactive Box 3</div>
+                                @endif
                                 {!! $blog->body_3 !!}
                             </div>
                         @endif

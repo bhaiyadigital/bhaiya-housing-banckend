@@ -10,7 +10,16 @@
  @endsection
 
  @section('content')
+     @php
+         $extra = is_array($item->extra) ? $item->extra : json_decode($item->extra, true) ?? [];
+         $isAdmin = auth()->check();
 
+         $canSeeBody = !empty(trim(strip_tags($item->body))) && (($extra['status_body'] ?? '1') == '1' || $isAdmin);
+         $canSeeBody2 =
+             !empty(trim(strip_tags($item->body_2))) && (($extra['status_body_2'] ?? '1') == '1' || $isAdmin);
+         $canSeeBody3 =
+             !empty(trim(strip_tags($item->body_3))) && (($extra['status_body_3'] ?? '1') == '1' || $isAdmin);
+     @endphp
      <!-- ===== HERO ===== -->
      <section
          class="hero-fixed fixed top-0 left-0 w-full overflow-hidden
@@ -145,22 +154,34 @@
                      @endif
 
                      {{-- Body --}}
-                     @if ($item->body)
-                         <div class="prose prose-sm max-w-none text-gray-700 leading-loose mb-8"
+                     @if ($canSeeBody)
+                         <div class="prose prose-sm max-w-none text-gray-700 leading-loose mb-8 {{ $isAdmin && ($extra['status_body'] ?? '1') == '0' ? 'border-2 border-dashed border-red-300 p-3' : '' }}"
                              style="font-size: clamp(14px, 1.2vw, 16px); font-weight: 300; line-height: 2;">
+                             @if ($isAdmin && ($extra['status_body'] ?? '1') == '0')
+                                 <div class="text-[10px] text-red-500 font-bold mb-1 uppercase">[Inactive Box 1]</div>
+                             @endif
                              {!! $item->body !!}
                          </div>
                      @endif
 
                      {{-- Body 2  --}}
-                     @if ($type === 'events' && $item->body_2)
-                         <div class="prose prose-sm max-w-none text-gray-700 mb-8">
+                     @if ($canSeeBody2)
+                         <div
+                             class="prose prose-sm max-w-none text-gray-700 mb-8 {{ $isAdmin && ($extra['status_body_2'] ?? '1') == '0' ? 'border-2 border-dashed border-red-300 p-3' : '' }}">
+                             @if ($isAdmin && ($extra['status_body_2'] ?? '1') == '0')
+                                 <div class="text-[10px] text-red-500 font-bold mb-1 uppercase">[Inactive Box 2]</div>
+                             @endif
                              {!! $item->body_2 !!}
                          </div>
                      @endif
+
                      {{-- Body 3 (events only) --}}
-                     @if ($type === 'events' && $item->body_3)
-                         <div class="prose prose-sm max-w-none text-gray-700 mb-8">
+                     @if ($canSeeBody3)
+                         <div
+                             class="prose prose-sm max-w-none text-gray-700 mb-8 {{ $isAdmin && ($extra['status_body_3'] ?? '1') == '0' ? 'border-2 border-dashed border-red-300 p-3' : '' }}">
+                             @if ($isAdmin && ($extra['status_body_3'] ?? '1') == '0')
+                                 <div class="text-[10px] text-red-500 font-bold mb-1 uppercase">[Inactive Box 3]</div>
+                             @endif
                              {!! $item->body_3 !!}
                          </div>
                      @endif

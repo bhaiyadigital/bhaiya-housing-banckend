@@ -17,6 +17,9 @@
                     @php
                         $slugTypes = ['project', 'news', 'events', 'blogs', 'meta_info'];
                     @endphp
+                    @php
+                        $extraData = json_decode($content->extra, true) ?? [];
+                    @endphp
                     @foreach ($contents[$type] as $field => $data)
                         <div class="mb-3">
                             <label for="{{ $field }}" class="form-label">{{ $data['label'] }}</label>
@@ -134,9 +137,32 @@
                             @elseif($field == 'url')
                                 <textarea class="form-control" id="{{ $field }}" name="{{ $field }}" rows="3"
                                     {{ $isRequired }}>{{ $content->$field }}</textarea>
-                            @elseif($field == 'body' || $field == 'body_2' || $field == 'body_3' || $field == 'body_4' || $field == 'meta_description')
-                                <textarea class="form-control ckeditor" name="{{ $field }}" id="{{ $field }}" rows="6"
-                                    {{ $isRequired }}>{!! $content->$field !!}</textarea>
+                            @elseif(in_array($field, ['body', 'body_2', 'body_3', 'body_4']))
+                                <div class="row bg-light p-2 border rounded mb-3">
+                                    <div class="col-md-10">
+                                        <label for="{{ $field }}"
+                                            class="form-label fw-bold">{{ $data['label'] }}</label>
+                                        <textarea class="form-control ckeditor" name="{{ $field }}" id="{{ $field }}" rows="6"
+                                            {{ $isRequired }}>{!! $content->$field !!}</textarea>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="form-label fw-bold text-primary">Visibility Status</label>
+                                        <select name="extra_status_{{ $field }}"
+                                            class="form-select border-primary">
+                                            <option value="1"
+                                                {{ ($extraData['status_' . $field] ?? '1') == '1' ? 'selected' : '' }}>Active</option>
+                                            <option value="0"
+                                                {{ ($extraData['status_' . $field] ?? '1') == '0' ? 'selected' : '' }}>Inactive</option>
+                                        </select>
+                                        <small class="text-muted d-block mt-2"></small>
+                                    </div>
+                                </div>
+
+                            @elseif($field == 'meta_description')
+                                <div class="mb-3">
+                                    <label for="{{ $field }}" class="form-label">{{ $data['label'] }}</label>
+                                    <textarea class="form-control" name="{{ $field }}" id="{{ $field }}" rows="3">{{ $content->$field }}</textarea>
+                                </div>
                             @else
                                 <input type="text" class="form-control" value="{{ $content->$field }}"
                                     id="{{ $field }}" name="{{ $field }}" {{ $isRequired }}>
