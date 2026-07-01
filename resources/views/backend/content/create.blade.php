@@ -14,7 +14,7 @@
                 <div class="card-body">
 
                     @php
-                        $slugTypes = ['project', 'news', 'events', 'blogs','meta_info'];
+                        $slugTypes = ['project', 'news', 'events', 'blogs', 'meta_info'];
                     @endphp
                     @foreach ($contents[$type] as $field => $data)
                         <div class="mb-3">
@@ -79,9 +79,65 @@
                             @elseif($field == 'url')
                                 <textarea class="form-control" id="{{ $field }}" name="{{ $field }}" rows="3"
                                     {{ $isRequired }}></textarea>
-                            @elseif($field == 'body' || $field == 'body_2' || $field == 'body_3' || $field == 'body_4' || $field == 'meta_description')
-                                <textarea class="form-control ckeditor" name="{{ $field }}" id="{{ $field }}" rows="6"
-                                    {{ $isRequired }}></textarea>
+                            @elseif(in_array($field, ['body', 'body_2', 'body_3', 'body_4']))
+                                @php
+                                    $collapsibleTypes = [
+                                        'project',
+                                        'news',
+                                        'events',
+                                        'blogs',
+                                        'job-position',
+                                        'meta_info',
+                                    ];
+                                    $isCollapsible = in_array($type, $collapsibleTypes);
+                                @endphp
+
+                                <div class="row bg-light p-3 border rounded mb-4 mx-0 shadow-sm">
+                                    @if ($isCollapsible)
+                                        <div class="col-md-8 mb-3">
+                                            <label class="form-label fw-bold text-primary">{{ $data['label'] }} Title
+                                                (Collapse Trigger)</label>
+                                            <input type="text" name="extra_title_{{ $field }}"
+                                                class="form-control" value="{{ $extraData['title_' . $field] ?? '' }}"
+                                                placeholder="Enter heading for this section">
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <label class="form-label fw-bold">Visibility Status</label>
+                                            <select name="extra_status_{{ $field }}" class="form-select">
+                                                <option value="1"
+                                                    {{ ($extraData['status_' . $field] ?? '1') == '1' ? 'selected' : '' }}>
+                                                    Active</option>
+                                                <option value="0"
+                                                    {{ ($extraData['status_' . $field] ?? '1') == '0' ? 'selected' : '' }}>
+                                                    Inactive</option>
+                                            </select>
+                                        </div>
+                                    @else
+                                        <div class="col-md-12 mb-2 d-flex justify-content-between align-items-center">
+                                            <label class="form-label fw-bold">{{ $data['label'] }}</label>
+                                            <div class="d-flex align-items-center gap-2">
+                                                <span class="small fw-bold text-muted">Status:</span>
+                                                <select name="extra_status_{{ $field }}"
+                                                    class="form-select form-select-sm" style="width: 120px;">
+                                                    <option value="1"
+                                                        {{ ($extraData['status_' . $field] ?? '1') == '1' ? 'selected' : '' }}>
+                                                        Active</option>
+                                                    <option value="0"
+                                                        {{ ($extraData['status_' . $field] ?? '1') == '0' ? 'selected' : '' }}>
+                                                        Inactive</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    @endif
+
+                                    <div class="col-md-12">
+                                        <textarea class="form-control ckeditor" name="{{ $field }}" id="{{ $field }}" rows="6"
+                                            {{ $isRequired }}>{!! $content->$field ?? '' !!}</textarea>
+                                    </div>
+                                </div>
+                            @elseif($field == 'meta_description')
+        <textarea class="form-control" name="{{ $field }}" id="{{ $field }}" rows="4"
+            placeholder="Enter SEO description here...">{{ $content->$field ?? '' }}</textarea>
                             @else
                                 <input type="text" class="form-control" id="{{ $field }}"
                                     name="{{ $field }}" {{ $isRequired }}>

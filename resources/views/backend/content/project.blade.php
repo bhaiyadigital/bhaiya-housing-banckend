@@ -102,11 +102,10 @@
                                     </div>
                                     <div class="col-md-6 mb-3">
                                         <label class="form-label small">Google Map Embed URL</label>
-                                        {{-- নিশ্চিত হোন এখানে 'required' লেখা নেই --}}
-<input type="text" name="extra_map" id="extraMap"
-       class="form-control form-control-sm"
-       placeholder="Optional: Paste embed URL here"
-       value="{{ old('extra_map', $extra['map_url'] ?? '') }}">
+                                        <input type="text" name="extra_map" id="extraMap"
+                                            class="form-control form-control-sm"
+                                            placeholder="Optional: Paste embed URL here"
+                                            value="{{ old('extra_map', $extra['map_url'] ?? '') }}">
                                     </div>
                                     <div class="col-md-3 mb-3">
                                         <label class="form-label small">Featured?</label>
@@ -129,24 +128,54 @@
                         </div>
 
                     </div>
-                    <div class="row">
-                        <div class="col-md-12 mb-3">
-                            <label class="form-label fw-semibold">Description</label>
+                    {{-- Descriptions with Individual Status & Titles --}}
+                    <div class="row mt-4">
+                       <div class="col-md-10 mb-3">
+                            <label class="form-label fw-semibold">Description (Box 1)</label>
                             <textarea class="ckeditor form-control" name="body" rows="4"></textarea>
                         </div>
-                        <div class="col-md-12 mb-3">
+                        <div class="col-md-2 mb-3">
+                            <label class="form-label fw-semibold">Box 1 Status</label>
+                            <select name="extra_status_body" class="form-select">
+                                <option value="1">Active</option>
+                                <option value="0">Inactive</option>
+                            </select>
+                        </div>
+
+                        {{-- Body 2: Description Box 2 --}}
+                        <div class="col-md-10 mb-3">
                             <label class="form-label fw-semibold">Description Box 2</label>
-                            <textarea class="ckeditor form-control" name="body_2" rows="4"></textarea>
+                            <textarea class="ckeditor form-control" name="body_2" id="body_2" rows="4"></textarea>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12 mb-3">
-                            <label class="form-label fw-semibold">Description</label>
-                            <textarea class="ckeditor form-control" name="body" rows="4"></textarea>
+                        <div class="col-md-2 mb-3">
+                            <label class="form-label fw-semibold">Box 2 Status</label>
+                            <select name="extra_status_body_2" class="form-select">
+                                <option value="1">Active</option>
+                                <option value="0">Inactive</option>
+                            </select>
                         </div>
-                        <div class="col-md-12 mb-3">
-                            <label class="form-label fw-semibold">Description Box 3</label>
-                            <textarea class="ckeditor form-control" name="body_4" rows="4"></textarea>
+
+                        {{-- Body 4: Special Collapsible Box (শুধুমাত্র এটিতে টাইটেল ইনপুট থাকবে) --}}
+                        <div class="col-12 mb-4">
+                            <div class="bg-light p-3 border rounded">
+                                <div class="row">
+                                    <div class="col-md-8 mb-3">
+                                        <label class="form-label fw-bold text-primary">Description Box 4 Title</label>
+                                        <input type="text" name="extra_title_body_4" class="form-control" placeholder="Project Details / Features">
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <label class="form-label fw-bold">Box 4 Status</label>
+                                        <select name="extra_status_body_4" class="form-select">
+                                            <option value="1">Active</option>
+                                            <option value="0">Inactive</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label class="form-label fw-semibold">Description Box 4</label>
+                                        <textarea class="ckeditor form-control" name="body_4" id="body_4"></textarea>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -238,7 +267,7 @@
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="{{ asset('backend/summernote/summernote.js') }}"></script>
     <link rel="stylesheet" href="{{ asset('backend/summernote/summernote.css') }}">
-     <script src="{{ asset('backend/tinymce/js/tinymce/tinymce.min.js') }}"></script>
+    <script src="{{ asset('backend/tinymce/js/tinymce/tinymce.min.js') }}"></script>
 
     <style>
         .preview-wrap {
@@ -267,7 +296,7 @@
         // ════════════════════════════════════════════════════════
         // Summernote
         // ════════════════════════════════════════════════════════
-                $(document).ready(function() {
+        $(document).ready(function() {
             tinymce.init({
                 selector: '.ckeditor',
                 license_key: 'gpl',

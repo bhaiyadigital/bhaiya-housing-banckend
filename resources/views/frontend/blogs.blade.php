@@ -23,7 +23,7 @@
     </section>
     <div class="h-[600px] md:h-[700px] lg:h-[900px] w-full pointer-events-none" style="position: relative; z-index: 2;">
     </div>
-    <section class="relative z-10 w-full py-12 md:py-20 bg-white overflow-hidden">
+    <section class="relative z-10 w-full py-10 bg-white overflow-hidden">
         <div class="min-h-screen p-8">
             <div class="container  mx-auto">
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -74,6 +74,6 @@
             </div>
         </div>
     </section>
-        <div class="cursor-dot" id="cursor-dot"></div>
-
+    <x-extra-content :data="$content" />
+    <div class="cursor-dot" id="cursor-dot"></div>
 @endsection

@@ -59,9 +59,13 @@ class ContentController extends Controller
             'map_url'         => $request->input('extra_map'),
 
             'status_body'     => $request->input('extra_status_body', '1'),
+            'title_body'    => $request->input('extra_title_body'),
             'status_body_2'   => $request->input('extra_status_body_2', '1'),
+            'title_body_2'  => $request->input('extra_title_body_2'),
             'status_body_3'   => $request->input('extra_status_body_3', '1'),
+            'title_body_3'  => $request->input('extra_title_body_3'),
             'status_body_4'   => $request->input('extra_status_body_4', '1'),
+            'title_body_4'  => $request->input('extra_title_body_4'),
         ]);
 
         // ── Save ───────────────────────────────────────────────────
@@ -206,10 +210,14 @@ class ContentController extends Controller
             'map_url'         => $request->input('extra_map'),
 
             'status_body'     => $request->input('extra_status_body'),
+            'title_body'    => $request->input('extra_title_body'),
             'status_body_2'   => $request->input('extra_status_body_2'),
+            'title_body_2'  => $request->input('extra_title_body_2'),
             'status_body_3'   => $request->input('extra_status_body_3'),
+            'title_body_3'  => $request->input('extra_title_body_3'),
             'status_body_4'   => $request->input('extra_status_body_4'),
-            
+            'title_body_4'  => $request->input('extra_title_body_4'),
+
         ]);
 
         // ── Save ───────────────────────────────────────────────────

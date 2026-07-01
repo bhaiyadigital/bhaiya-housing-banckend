@@ -158,7 +158,7 @@
                          <div class="prose prose-sm max-w-none text-gray-700 leading-loose mb-8 {{ $isAdmin && ($extra['status_body'] ?? '1') == '0' ? 'border-2 border-dashed border-red-300 p-3' : '' }}"
                              style="font-size: clamp(14px, 1.2vw, 16px); font-weight: 300; line-height: 2;">
                              @if ($isAdmin && ($extra['status_body'] ?? '1') == '0')
-                                 <div class="text-[10px] text-red-500 font-bold mb-1 uppercase">[Inactive Box 1]</div>
+                                 <div class="text-xs text-red-500 font-semibold mb-1 uppercase"></div>
                              @endif
                              {!! $item->body !!}
                          </div>
@@ -169,7 +169,7 @@
                          <div
                              class="prose prose-sm max-w-none text-gray-700 mb-8 {{ $isAdmin && ($extra['status_body_2'] ?? '1') == '0' ? 'border-2 border-dashed border-red-300 p-3' : '' }}">
                              @if ($isAdmin && ($extra['status_body_2'] ?? '1') == '0')
-                                 <div class="text-[10px] text-red-500 font-bold mb-1 uppercase">[Inactive Box 2]</div>
+                                 <div class="text-xs text-red-500 font-bold mb-1 uppercase"></div>
                              @endif
                              {!! $item->body_2 !!}
                          </div>
@@ -180,7 +180,7 @@
                          <div
                              class="prose prose-sm max-w-none text-gray-700 mb-8 {{ $isAdmin && ($extra['status_body_3'] ?? '1') == '0' ? 'border-2 border-dashed border-red-300 p-3' : '' }}">
                              @if ($isAdmin && ($extra['status_body_3'] ?? '1') == '0')
-                                 <div class="text-[10px] text-red-500 font-bold mb-1 uppercase">[Inactive Box 3]</div>
+                                 <div class="text-xs text-red-500 font-bold mb-1 uppercase"></div>
                              @endif
                              {!! $item->body_3 !!}
                          </div>

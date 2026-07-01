@@ -498,25 +498,27 @@
                  <div class="flex flex-col md:flex-row items-start gap-10 pt-8">
 
                      <!-- Left Column: Primary Body -->
-                      @if ($canSeeBody)
-                    <div class="w-full md:w-1/2 text-gray-800 prose max-w-none md:block scroll-move {{ ($isAdmin && ($extra['status_body'] ?? '1') == '0') ? 'border-2 border-dashed border-red-300 p-2' : '' }}" data-axis="-Y">
-                        @if($isAdmin && ($extra['status_body'] ?? '1') == '0')
-                            <div class="text-xs] text-red-500 font-bold mb-1 uppercase"></div>
-                        @endif
-                        {!! $project->body !!}
-                    </div>
-                @endif
+                     @if ($canSeeBody)
+                         <div class="w-full md:w-1/2 text-gray-800 prose max-w-none md:block scroll-move {{ $isAdmin && ($extra['status_body'] ?? '1') == '0' ? 'border-2 border-dashed border-red-300 p-2' : '' }}"
+                             data-axis="-Y">
+                             @if ($isAdmin && ($extra['status_body'] ?? '1') == '0')
+                                 <div class="text-xs] text-red-500 font-bold mb-1 uppercase"></div>
+                             @endif
+                             {!! $project->body !!}
+                         </div>
+                     @endif
 
                      <!-- Right Column: Body 2 & Body 4 Stacked -->
                      <div class="w-full md:w-1/2 flex flex-col gap-12">
-                        @if ($canSeeBody2)
-                        <div class="text-gray-800 prose max-w-none scroll-move {{ ($isAdmin && ($extra['status_body_2'] ?? '1') == '0') ? 'border-2 border-dashed border-red-300 p-2' : '' }}" md:block data-axis="Y">
-                            @if($isAdmin && ($extra['status_body_2'] ?? '1') == '0')
-                                <div class="text-xs text-red-500 font-bold mb-1 uppercase"></div>
-                            @endif
-                            {!! $project->body_2 !!}
-                        </div>
-                    @endif
+                         @if ($canSeeBody2)
+                             <div class="text-gray-800 prose max-w-none scroll-move {{ $isAdmin && ($extra['status_body_2'] ?? '1') == '0' ? 'border-2 border-dashed border-red-300 p-2' : '' }}"
+                                 md:block data-axis="Y">
+                                 @if ($isAdmin && ($extra['status_body_2'] ?? '1') == '0')
+                                     <div class="text-xs text-red-500 font-bold mb-1 uppercase"></div>
+                                 @endif
+                                 {!! $project->body_2 !!}
+                             </div>
+                         @endif
 
                      </div>
 
@@ -692,20 +694,40 @@
                  id="lightboxCounter" style="font-family:'Cormorant Garamond',serif;"></div>
          </div>
      @endif
-     {{-- Box 4 Status Check --}}
-@if ($canSeeBody4)
-    <section class="w-full relative z-20 py-12 md:py-24 bg-white border-t border-gray-100 {{ ($isAdmin && ($extra['status_body_4'] ?? '1') == '0') ? 'bg-red-50' : '' }}">
-        <div class="container mx-auto">
-            @if($isAdmin && ($extra['status_body_4'] ?? '1') == '0')
-                <div class="text-center text-red-500 font-bold mb-4 uppercase text-[10px] tracking-widest">
-                </div>
-            @endif
-            <div class="blog-content-area prose prose-sm max-w-none custom-content text-gray-700">
-                {!! $project->body_4 !!}
-            </div>
-        </div>
-    </section>
-@endif
+     @if ($canSeeBody4)
+         <section class="w-full relative z-20 py-12 md:py-24 bg-white border-t border-gray-100">
+             <div class="container mx-auto">
+
+                 <details class="group {{ ($isAdmin && ($extra['status_body_4'] ?? '1') == '0') ? 'border-2 border-dashed border-red-300 p-4' : '' }} rounded-lg">
+
+                     <summary class="flex items-center justify-between cursor-pointer list-none select-none border border-gray-300 rounded-lg px-6 py-4 transition-all duration-300 hover:bg-gray-50 group-open:bg-gray-50">
+                         <div class="flex flex-col items-start">
+                             @if($isAdmin && ($extra['status_body_4'] ?? '1') == '0')
+                                 <div class="text-[10px] font-bold mb-1 uppercase tracking-widest"></div>
+                             @endif
+
+                             <h2 class="text-gray-900 font-semibold text-2xl">
+                                 {{ $extra['title_body_4'] ?? 'Additional Details' }}
+                             </h2>
+                         </div>
+
+                         <span class="text-gray-400 transition-transform duration-500 group-open:rotate-180">
+                             <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                             </svg>
+                         </span>
+                     </summary>
+
+                     <div class="mt-8 border-t border-gray-100 pt-8">
+                         <div class="blog-content-area prose prose-sm max-w-none custom-content text-gray-700">
+                             {!! $project->body_4 !!}
+                         </div>
+                     </div>
+                 </details>
+
+             </div>
+         </section>
+     @endif
      {{-- ===== LOCATION ===== --}}
      @if (!empty($project->map_url))
          <section class="relative w-full flex flex-col md:flex-row"

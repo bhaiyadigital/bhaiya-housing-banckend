@@ -205,18 +205,34 @@
                         </div>
 
                         {{-- Body 4: Description Box 4 --}}
-                        <div class="col-md-10 mb-3">
-                            <label class="form-label fw-semibold">Description Box 4</label>
-                            <textarea class="ckeditor form-control" name="body_4" rows="4">{!! $content->body_4 !!}</textarea>
-                        </div>
-                        <div class="col-md-2 mb-3">
-                            <label class="form-label fw-semibold">Box 4 Status</label>
-                            <select name="extra_status_body_4" class="form-select">
-                                <option value="1" {{ ($extra['status_body_4'] ?? '1') == '1' ? 'selected' : '' }}>
-                                    Active</option>
-                                <option value="0" {{ ($extra['status_body_4'] ?? '1') == '0' ? 'selected' : '' }}>
-                                    Inactive</option>
-                            </select>
+                        <div class="col-12 mb-4">
+                            <div class="bg-light p-3 border rounded">
+                                <div class="row">
+                                    <div class="col-md-8 mb-3">
+                                        <label class="form-label fw-bold text-primary">Description Title 4</label>
+                                        <input type="text" name="extra_title_body_4" class="form-control"
+                                            value="{{ $extra['title_body_4'] ?? '' }}"
+                                            placeholder="Project Details / Features">
+                                    </div>
+
+                                    <div class="col-md-4 mb-3">
+                                        <label class="form-label fw-bold">Box 4 Status</label>
+                                        <select name="extra_status_body_4" class="form-select">
+                                            <option value="1"
+                                                {{ ($extra['status_body_4'] ?? '1') == '1' ? 'selected' : '' }}>Active
+                                            </option>
+                                            <option value="0"
+                                                {{ ($extra['status_body_4'] ?? '1') == '0' ? 'selected' : '' }}>Inactive
+                                            </option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <label class="form-label fw-semibold">Description Box 4</label>
+                                        <textarea class="ckeditor form-control" name="body_4" id="body_4">{!! $content->body_4 !!}</textarea>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 

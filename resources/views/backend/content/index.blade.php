@@ -19,7 +19,7 @@
                     <tr>
                         <th>#</th>
                         @foreach($contents[$type] as $field => $data)
-                        @if(!in_array($field, ['body', 'body_2', 'body_3', 'body_4', 'img_paths','extra']))
+                        @if(!in_array($field, ['body', 'body_2', 'body_3', 'body_4', 'img_paths','extra','video_path', 'extra_title_body_4', 'status_body_4']))
                         <th>{{ $data['label'] }}</th>
                         @endif
                         @endforeach
@@ -31,7 +31,7 @@
                     <tr>
                         <td>{{ ++$key }}</td>
                         @foreach($contents[$type] as $field => $data)
-                        @if(!in_array($field, ['body', 'body_2', 'body_3', 'body_4', 'img_paths','extra']))
+                        @if(!in_array($field, ['body', 'body_2', 'body_3', 'body_4', 'img_paths','extra','video_path', 'extra_title_body_4', 'status_body_4']))
 
                         @if($field == 'img_path')
                         <td><img width="100px" src="{{ asset('/') }}{{ $item->$field }}" alt=""></td>
